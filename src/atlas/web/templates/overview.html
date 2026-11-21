@@ -1,0 +1,61 @@
+{% extends "base.html" %}{% set active = 'overview' %}
+{% block title %}Overview{% endblock %}
+{% block body %}
+<h1>Overview</h1>
+<p class="lead">What has been collected so far, and how far each build phase has got. Numbers are live from the database.</p>
+
+<div class="cards">
+  <div class="card"><div class="k">Sources in registry</div><div class="v">{{ n_sources }}</div>
+    <div class="s">{{ by_status.get('yes', 0) }} collected · {{ by_status.get('later', 0) }} later · {{ by_status.get('phase2', 0) }} phase 2</div></div>
+  <div class="card"><div class="k">Signals collected</div><div class="v">{{ "{:,}".format(n_signals) }}</div>
+    <div class="s">articles and posts, with publish times</div></div>
+  <div class="card"><div class="k">Archived evidence</div><div class="v">{{ "{:,}".format(n_evidence) }}</div>
+    <div class="s">raw pages, SHA-256, write-once</div></div>
+  <div class="card"><div class="k">Teacher-labelled</div><div class="v">{{ n_labelled }}</div>
+    <div class="s">waiting for the Featherless key</div></div>
+  <div class="card"><div class="k">Model spend</div><div class="v">${{ "%.2f"|format(spent) }}</div>
+    <div class="s">cap ${{ "%.2f"|format(budget_cap) }} · Anthropic $0</div></div>
+</div>
+
+<h2>Build phases</h2>
+<div class="phases">
+{% for p in phases %}
+  <div class="phase {{ 'done' if p.status == 'done' else ('prog' if 'progress' in p.status or 'built' in p.status or 'ready' in p.status else '') }}">
+    <div class="num">{{ p.n }}</div>
+    <div><div class="nm">{{ p.name }}</div><div class="wh">{{ p.what }}</div></div>
+    <div><span class="pill {{ 'ok' if p.status == 'done' else ('warn' if p.status != 'not started' else 'idle') }}">{{ p.status }}</span></div>
+  </div>
+{% endfor %}
+</div>
+
+<h2>Signals per time window and language</h2>
+<div class="panel scroll">
+<table>
+  <tr><th>Window</th><th>Split</th><th>Dates</th>{% for l in langs %}<th class="n">{{ l }}</th>{% endfor %}<th class="n">Total</th></tr>
+  {% for r in table %}
+  <tr><td><a href="/signals?window={{ r.name }}">{{ r.name }}</a> <span class="muted">{{ r.kind }}</span></td>
+      <td><span class="pill {{ 'acc' if r.split == 'train' else ('warn' if r.split == 'val' else 'bad') }}">{{ r.split }}</span></td>
+      <td class="muted">{{ r.start }} → {{ r.end }}</td>
+      {% for c in r.cells %}<td class="n">{{ c }}</td>{% endfor %}<td class="n"><b>{{ r.total }}</b></td></tr>
+  {% endfor %}
+  <tr class="total"><td>All</td><td></td><td></td>{% for c in col_totals %}<td class="n">{{ c }}</td>{% endfor %}<td class="n">{{ col_totals|sum }}</td></tr>
+</table>
+<p class="muted">Split by event, never at random: the model trains on Banjska, the Dec 2025 election and quiet periods, is tuned on the canal blast, and is tested on Gazimestan 2026, which it never sees in training.</p>
+</div>
+
+<div class="grid2">
+<div>
+<h2>Signals by source tier</h2>
+<div class="panel"><table>
+  {% for t in [0,1,2,3] %}<tr><td><span class="pill t{{t}}">Tier {{t}}</span> {{ tier_names[t] }}</td><td class="n">{{ "{:,}".format(by_tier.get(t, 0)) }}</td></tr>{% endfor %}
+</table></div>
+</div>
+<div>
+<h2>Model stack</h2>
+<div class="panel"><table>
+  {% for role, m in models.items() %}<tr><td>{{ role }}</td><td class="mono">{{ m.id }}</td>
+  <td><span class="pill {{ 'ok' if m.provider == 'local' else 'acc' }}">{{ 'local, free' if m.provider == 'local' else 'Featherless' }}</span></td></tr>{% endfor %}
+</table></div>
+</div>
+</div>
+{% endblock %}

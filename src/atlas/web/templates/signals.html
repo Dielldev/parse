@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% set active = 'signals' %}
+{% block title %}Signals{% endblock %}
+{% block body %}
+<h1>Signals</h1>
+<p class="lead">Every article or post collected, with its archived evidence. Search works across Albanian, Serbian (both scripts) and English.</p>
+<form class="filters" method="get">
+  <input name="q" value="{{ q }}" placeholder="Search text, e.g. Banjska, Kurti, kanal" size="28">
+  <select name="window"><option value="">All windows</option>{% for w in windows %}<option {{ 'selected' if window == w }}>{{ w }}</option>{% endfor %}</select>
+  <select name="lang"><option value="">All languages</option>{% for l in langs %}<option {{ 'selected' if lang == l }}>{{ l }}</option>{% endfor %}</select>
+  <select name="source"><option value="">All sources</option>{% for sid, name in src_opts %}<option value="{{ sid }}" {{ 'selected' if source == sid }}>{{ name }}</option>{% endfor %}</select>
+  <select name="labelled"><option value="">Labelled or not</option><option value="yes" {{ 'selected' if labelled == 'yes' }}>Labelled only</option></select>
+  <button>Search</button>
+</form>
+<p class="muted">{{ "{:,}".format(total) }} signals · page {{ page }} of {{ pages }}</p>
+<div class="panel scroll"><table>
+  <tr><th>Published (UTC)</th><th>Title</th><th>Source</th><th>Lang</th><th>Window</th><th>Labels</th></tr>
+  {% for sig, src in rows %}
+  <tr>
+    <td class="mono">{{ sig.published_at.strftime('%Y-%m-%d %H:%M') if sig.published_at else '—' }}</td>
+    <td><a href="/signals/{{ sig.signal_id }}">{{ (sig.title or (sig.text_original or '')[:90]) or '(no title)' }}</a></td>
+    <td>{{ src.name }} <span class="pill t{{ src.tier }}">T{{ src.tier }}</span></td>
+    <td>{{ sig.lang or '?' }}</td><td class="muted">{{ sig.window or 'live' }}</td>
+    <td>{% for l in (sig.labels or []) %}<span class="pill bad">{{ l }}</span> {% endfor %}{% for n in (sig.narratives or []) %}<span class="pill warn">{{ n }}</span> {% endfor %}</td>
+  </tr>
+  {% else %}<tr><td colspan="6" class="muted">No signals match.</td></tr>{% endfor %}
+</table></div>
+{% set base = '?q=' ~ (q|urlencode) ~ '&window=' ~ window ~ '&lang=' ~ (lang|urlencode) ~ '&source=' ~ source ~ '&labelled=' ~ labelled %}
+<div class="pager">
+  {% if page > 1 %}<a href="{{ base }}&page={{ page - 1 }}">← Previous</a>{% endif %}
+  {% if page < pages %}<a href="{{ base }}&page={{ page + 1 }}">Next →</a>{% endif %}
+</div>
+{% endblock %}

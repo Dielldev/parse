@@ -1,0 +1,37 @@
+{% extends "base.html" %}{% set active = 'ask' %}
+{% block title %}Ask{% endblock %}
+{% block mainclass %}ask{% endblock %}
+{% block body %}
+<section class="hero">
+  <div class="orb" aria-hidden="true"></div>
+  <h1><span id="greet">Good afternoon</span><br>What should Atlas <span class="grad">look into?</span></h1>
+  <p class="sub">Ask about an incident, a place or a narrative. Atlas searches its archive and shows every step it takes.</p>
+</section>
+
+<section class="thread" id="thread" aria-live="polite"></section>
+
+<div class="composer-wrap">
+  <form class="composer" id="composer" autocomplete="off">
+    <label for="q" class="sr-only" style="position:absolute;left:-9999px">Question</label>
+    <textarea id="q" rows="1" placeholder="e.g. What happened at Banjska, and who reported it first?"></textarea>
+    <div class="row">
+      <span class="chip" id="chip-window"><svg class="ic sm" style="position:static"><use href="#i-clock"/></svg>
+        <select id="window" aria-label="Time window"><option value="">Any window</option>
+          {% for w in windows %}<option value="{{ w }}">{{ w }}</option>{% endfor %}</select>
+        <svg class="ic sm"><use href="#i-chev"/></svg></span>
+      <span class="chip" id="chip-lang"><svg class="ic sm" style="position:static"><use href="#i-lang"/></svg>
+        <select id="lang" aria-label="Language"><option value="">Any language</option>
+          {% for l in langs %}<option value="{{ l }}">{{ l }}</option>{% endfor %}</select>
+        <svg class="ic sm"><use href="#i-chev"/></svg></span>
+      <span class="spacer"></span>
+      <label class="toggle"><input type="checkbox" id="cite" checked> Citations</label>
+      <button type="submit" class="send" id="send" aria-label="Ask"><svg class="ic"><use href="#i-up"/></svg></button>
+    </div>
+  </form>
+  <div class="suggest" id="suggest">
+    {% for text, w in suggestions %}<button type="button" data-q="{{ text }}" data-window="{{ w }}"><svg class="ic"><use href="#i-sparkles"/></svg>{{ text }}</button>{% endfor %}
+  </div>
+  <p class="hint">Answers come from collected, archived sources only. No paid model is called.</p>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/ask.js"></script>{% endblock %}

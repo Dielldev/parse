@@ -1,0 +1,256 @@
+"""Ask Atlas: answer a question from the collected corpus and show every step it took.
+
+Each step is yielded as soon as it finishes, so the web page can draw the workflow live. Nothing here calls a
+paid model: search, ranking, hash checks and source spread are deterministic and run locally. Threat labels are
+read from the database if the pipeline already wrote them; this module never triggers a classifier run.
+"""
+from __future__ import annotations
+
+import re
+import time
+from collections import Counter
+from pathlib import Path
+from typing import Iterator
+
+from sqlalchemy import func, or_, select
+
+from atlas.db import session
+from atlas.evidence import verify
+from atlas.models import Evidence, Signal, Source
+from atlas.normalise.text import fold
+from atlas.settings import ROOT
+
+TIER_NAMES = {0: "Official / primary", 1: "Established outlet", 2: "Specialist OSINT", 3: "Partisan or unverified"}
+MAX_TERMS = 6
+CANDIDATES = 1500   # rows pulled for ranking; the match count itself is exact
+TOP_K = 8
+
+STOP = set("""
+a an and are as at be by can did do does for from had has have how i in is it its me of on or show tell that the
+their there these this those to was were what when where which who why will with about any around find give latest
+news recent report reports say said says me my our happened happen happening going latest update updates
+know anything everything thing things situation regarding been being into over please could would should
+dhe ne në te të per për nga me se si qe që cfare çfarë kush ku kur pse eshte është jane janë
+i u na za od da je su se sta šta ko gde kada zašto kako ili koji koja koje
+""".split())
+
+# Folded Latin letter -> regex class that also matches the diacritic forms used in sq / sr-Latn.
+_CLASS = {"c": "[cčć]", "s": "[sš]", "z": "[zž]", "e": "[eë]"}
+
+
+def terms_of(q: str) -> list[str]:
+    words = re.findall(r"[^\W_]{3,}", fold(q))
+    seen: list[str] = []
+    for w in words:
+        if w not in STOP and w not in seen:
+            seen.append(w)
+    return seen[:MAX_TERMS]
+
+
+def term_regex(term: str) -> str:
+    out, i = [], 0
+    while i < len(term):
+        if term.startswith("dj", i):
+            out.append("(dj|đ)")
+            i += 2
+            continue
+        ch = term[i]
+        out.append(_CLASS.get(ch, re.escape(ch)))
+        i += 1
+    return "".join(out)
+
+
+def _snippet(text: str, terms: list[str], width: int = 150) -> str:
+    """Excerpt around the first matching term, located on the folded text with a char index map."""
+    if not text:
+        return ""
+    folded, idx = [], []
+    for i, ch in enumerate(text):
+        f = fold(ch)
+        folded.append(f)
+        idx.extend([i] * len(f))
+    ftext = "".join(folded)
+    hits = [p for p in (ftext.find(t) for t in terms) if p >= 0]
+    if not hits:
+        return re.sub(r"\s+", " ", text[: width * 2]).strip()
+    at = idx[min(hits)]
+    lo, hi = max(0, at - width), min(len(text), at + width)
+    s = re.sub(r"\s+", " ", text[lo:hi]).strip()
+    return ("…" if lo else "") + s + ("…" if hi < len(text) else "")
+
+
+def _initials(name: str) -> str:
+    parts = [p for p in re.split(r"[\s\-_.]+", name) if p and p[0].isalnum()]
+    return ("".join(p[0] for p in parts[:2]) or name[:2]).upper()
+
+
+def run(q: str, window: str = "", lang: str = "") -> Iterator[dict]:
+    t_all = time.perf_counter()
+
+    def step(sid: str, t0: float, **kw) -> dict:
+        return {"type": "step", "id": sid, "ms": round((time.perf_counter() - t0) * 1000, 1), **kw}
+
+    # 1. trigger
+    t0 = time.perf_counter()
+    yield step("trigger", t0, title="Question", subtitle="Chat trigger", icon="bolt", status="ok",
+               summary=q, rows=[["question", q], ["window", window or "all"], ["language", lang or "all"]])
+
+    # 2. normalise
+    t0 = time.perf_counter()
+    terms = terms_of(q)
+    if not terms:
+        yield step("normalise", t0, title="Normalise", subtitle="Fold scripts", icon="type", status="error",
+                   summary="No searchable words (need 3+ letters, not a stop word).", rows=[])
+        yield {"type": "answer", "headline": "I need a name, place or topic to search for.",
+               "bullets": ["Try something like “Banjska attack”, “Ibar-Lepenac canal” or “Gazimestan”."],
+               "citations": [], "ms": round((time.perf_counter() - t_all) * 1000)}
+        return
+    yield step("normalise", t0, title="Normalise", subtitle="Fold scripts", icon="type", status="ok",
+               summary=f"{len(terms)} terms · Latin + Cyrillic + diacritics",
+               rows=[["terms", ", ".join(terms)],
+                     ["scripts", "Latin, and Serbian Cyrillic via the transliterated text"],
+                     ["diacritics", "c ↔ č ć, s ↔ š, z ↔ ž, e ↔ ë, dj ↔ đ"]])
+
+    with session() as s:
+        # 3. registry
+        t0 = time.perf_counter()
+        by_tier = dict(s.execute(select(Source.tier, func.count()).where(Source.mvp_collect == "yes")
+                                 .group_by(Source.tier)).all())
+        n_reg = sum(by_tier.values())
+        yield step("registry", t0, title="Source registry", subtitle="Allow-list", icon="book", status="ok",
+                   summary=f"{n_reg} collected sources",
+                   rows=[[f"Tier {t}", f"{by_tier.get(t, 0)} · {TIER_NAMES[t]}"] for t in range(4)])
+
+        # 4. search
+        t0 = time.perf_counter()
+        cols = (Signal.title, Signal.text_original, Signal.text_latin, Signal.text_en)
+        cond = or_(*[c.op("~*")(term_regex(t)) for t in terms for c in cols])
+        base = select(Signal.signal_id).where(cond)
+        if window:
+            base = base.where(Signal.window == window)
+        if lang:
+            base = base.where(Signal.lang == lang)
+        n_total = s.scalar(select(func.count()).select_from(Signal))
+        n_match = s.scalar(select(func.count()).select_from(base.subquery()))
+        rows = s.execute(
+            select(Signal.signal_id, Signal.title, func.substr(func.coalesce(Signal.text_latin, Signal.text_original), 1, 6000),
+                   Signal.source_id, Signal.published_at, Signal.lang, Signal.window, Signal.evidence_sha256,
+                   Signal.labels, Signal.narratives, Signal.url)
+            .where(Signal.signal_id.in_(base.order_by(Signal.published_at.desc().nulls_last()).limit(CANDIDATES)))
+        ).all()
+        yield step("search", t0, title="Search corpus", subtitle="Postgres", icon="database",
+                   status="ok" if n_match else "empty",
+                   summary=f"{n_match:,} of {n_total:,} signals match",
+                   rows=[["scanned", f"{n_total:,} signals"], ["matched", f"{n_match:,}"],
+                         ["ranked", f"{len(rows):,} most recent"]])
+        if not n_match:
+            yield {"type": "answer", "headline": f"Nothing in the corpus mentions {', '.join(terms)}.",
+                   "bullets": ["Atlas only searches sources in its registry and the backfill windows collected so far.",
+                               "Try another spelling, or clear the window and language filters."],
+                   "citations": [], "ms": round((time.perf_counter() - t_all) * 1000)}
+            return
+
+        # 5. sources (fan-out)
+        t0 = time.perf_counter()
+        per_src = Counter(r[3] for r in rows)
+        srcs = {x.source_id: {"name": x.name, "tier": x.tier, "platform": x.platform, "lang": x.lang}
+                for x in s.scalars(select(Source).where(Source.source_id.in_(list(per_src))))}
+        branches = [{"id": sid, "name": srcs[sid]["name"], "tier": srcs[sid]["tier"], "platform": srcs[sid]["platform"],
+                     "lang": srcs[sid]["lang"], "count": n, "initials": _initials(srcs[sid]["name"])}
+                    for sid, n in per_src.most_common(5)]
+        yield step("sources", t0, title="Fetch from sources", subtitle=f"{len(per_src)} sources", icon="globe",
+                   status="ok", summary=f"{len(per_src)} sources returned matches", branches=branches,
+                   table={"cols": ["Source", "Tier", "Platform", "Matches"],
+                          "rows": [[srcs[sid]["name"], "T" + str(srcs[sid]["tier"]), srcs[sid]["platform"], n]
+                                   for sid, n in per_src.most_common(15)]})
+
+    # 6. rank
+    t0 = time.perf_counter()
+    main_window = Counter(r[6] for r in rows if r[6]).most_common(1)
+    main_window = main_window[0][0] if main_window else None
+    scored = []
+    for r in rows:
+        title_f, body_f = fold(r[1] or ""), fold(r[2] or "")
+        sc = sum(3 * title_f.count(t) + min(body_f.count(t), 5) for t in terms) + (2 if r[6] == main_window else 0)
+        scored.append((sc, r[4].timestamp() if r[4] else 0, r))
+    scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    top, seen_src = [], Counter()
+    for _, _, r in scored:   # at most 2 per source so one outlet cannot fill the brief
+        if seen_src[r[3]] < 2:
+            top.append(r)
+            seen_src[r[3]] += 1
+        if len(top) == TOP_K:
+            break
+    yield step("rank", t0, title="Rank & dedupe", subtitle="Term hits", icon="sort", status="ok",
+               summary=f"Top {len(top)}, max 2 per source",
+               rows=[["scoring", "3 × hits in title + hits in body (capped at 5)"],
+                     ["burst bonus", f"+2 for the window with most coverage ({main_window or 'none'})"],
+                     ["diversity", "at most 2 items from any one source"], ["kept", str(len(top))]])
+
+    # 7. evidence
+    t0 = time.perf_counter()
+    with session() as s:
+        evs = {e.sha256: e for e in s.scalars(select(Evidence).where(
+            Evidence.sha256.in_([r[7] for r in top if r[7]])))}
+    ok = 0
+    for r in top:
+        e = evs.get(r[7])
+        if e is not None:
+            p: Path = ROOT / e.html_uri
+            ok += bool(p.exists() and verify(p, e.sha256))
+    yield step("evidence", t0, title="Evidence vault", subtitle="SHA-256", icon="lock",
+               status="ok" if ok == len(top) else "warn",
+               summary=f"{ok}/{len(top)} archived pages match their hash",
+               rows=[["checked", str(len(top))], ["intact", str(ok)], ["store", "write-once, served as plain text"]])
+
+    # 8. labels (read only)
+    t0 = time.perf_counter()
+    lab = Counter(l for r in top for l in (r[8] or []))
+    nar = Counter(n for r in top for n in (r[9] or []))
+    if lab or nar:
+        yield step("classify", t0, title="Threat labels", subtitle="Qwen classifier", icon="spark", status="ok",
+                   summary=", ".join(f"{k}×{v}" for k, v in (lab + nar).most_common(4)),
+                   rows=[[k, f"{v} of {len(top)}"] for k, v in (lab + nar).most_common(10)])
+    else:
+        yield step("classify", t0, title="Threat labels", subtitle="Qwen classifier", icon="spark", status="skip",
+                   summary="Not labelled yet · paid run, skipped",
+                   rows=[["status", "None of these signals has labels in the database yet."],
+                         ["why skipped", "Classifier calls are billed on Featherless and need approval (--approve)."]])
+
+    # 9. spread
+    t0 = time.perf_counter()
+    tiers = Counter(srcs[r[3]]["tier"] for r in rows)
+    best = min(tiers) if tiers else None
+    yield step("spread", t0, title="Source spread", subtitle="Independence", icon="branch", status="ok",
+               summary=f"{len(per_src)} outlets · best Tier {best}",
+               rows=[[f"Tier {t}", f"{tiers.get(t, 0)} signals"] for t in range(4)]
+               + [["note", "Outlets are counted, not verified claims. Verdicts come from the verifier stage."]])
+
+    # 10. answer
+    t0 = time.perf_counter()
+    dated = sorted((r for r in rows if r[4]), key=lambda r: r[4])
+    by_window = Counter(r[6] or "live" for r in rows)
+    by_day = Counter(r[4].date() for r in dated)
+    bullets = []
+    if dated:
+        first = dated[0]
+        bullets.append(f"Earliest mention: {first[4]:%d %b %Y} by {srcs[first[3]]["name"]} (Tier {srcs[first[3]]["tier"]}).")
+        day, n = by_day.most_common(1)[0]
+        bullets.append(f"Busiest day: {day:%d %b %Y} with {n} items.")
+    w, n = by_window.most_common(1)[0]
+    bullets.append(f"Most coverage sits in the {w} window ({n} of {len(rows)} ranked items).")
+    langs = Counter(r[5] or "?" for r in rows)
+    bullets.append("Languages: " + ", ".join(f"{k} {v}" for k, v in langs.most_common(4)) + ".")
+    if best is not None:
+        tier0 = [v["name"] for v in srcs.values() if v["tier"] == 0][:3]
+        bullets.append(f"Highest-tier source: Tier {best}" + (f" ({', '.join(tier0)})." if tier0 else "."))
+    cites = [{"n": i + 1, "id": r[0], "title": r[1] or "(no title)", "source": srcs[r[3]]["name"],
+              "tier": srcs[r[3]]["tier"], "date": f"{r[4]:%d %b %Y}" if r[4] else "undated", "lang": r[5] or "?",
+              "window": r[6] or "live", "url": r[10], "snippet": _snippet(r[2] or "", terms)}
+             for i, r in enumerate(top)]
+    yield step("brief", t0, title="Write brief", subtitle="Deterministic", icon="file", status="ok",
+               summary=f"{len(bullets)} findings · {len(cites)} citations",
+               rows=[["method", "Counts and dates from the matches; no language model wrote this answer."]])
+    yield {"type": "answer",
+           "headline": f"{n_match:,} signals from {len(per_src)} sources mention {', '.join(terms)}.",
+           "bullets": bullets, "citations": cites, "ms": round((time.perf_counter() - t_all) * 1000)}

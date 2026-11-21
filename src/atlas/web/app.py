@@ -5,12 +5,13 @@ Read-only over the database; the scoring and verdict demos call the same code th
 """
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from pathlib import Path
 
 import yaml
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, or_, select
@@ -22,6 +23,7 @@ from atlas.models import Evidence, LlmOutput, Signal, Source
 from atlas.scoring import tps as tps_mod
 from atlas.scoring.verdict import EvidenceItem, decide
 from atlas.settings import CONFIG_DIR, ROOT, thresholds
+from atlas.web import ask as ask_mod
 
 HERE = Path(__file__).parent
 app = FastAPI(title="Atlas")
@@ -58,8 +60,40 @@ def _windows() -> dict:
     return yaml.safe_load((CONFIG_DIR / "windows.yaml").read_text())["windows"]
 
 
+SUGGESTIONS = [
+    ("What happened at Banjska?", "banjska"),
+    ("Ibar-Lepenac canal explosion", "canal_2024_11"),
+    ("Gazimestan gathering", "gazimestan_2026"),
+    ("KFOR in the north", ""),
+]
+
+
+def _models() -> list[dict]:
+    return [{"role": r, "id": m["id"], "local": m["provider"] == "local"}
+            for r, m in budget.models_cfg()["models"].items()]
+
+
+templates.env.globals["model_list"] = _models
+
+
 # ---------------------------------------------------------------- pages
 @app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse(request, "ask.html", {
+        "windows": list(_windows()), "langs": LANGS, "suggestions": SUGGESTIONS, "models": _models()})
+
+
+@app.post("/api/ask")
+async def api_ask(request: Request):
+    body = await request.json()
+    q = str(body.get("q", "")).strip()[:300]
+    if not q:
+        raise HTTPException(400, "empty question")
+    gen = ask_mod.run(q, window=str(body.get("window") or ""), lang=str(body.get("lang") or ""))
+    return StreamingResponse((json.dumps(ev, default=str) + "\n" for ev in gen), media_type="application/x-ndjson")
+
+
+@app.get("/overview", response_class=HTMLResponse)
 def overview(request: Request):
     windows = _windows()
     with session() as s:
