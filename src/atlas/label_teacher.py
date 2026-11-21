@@ -11,7 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
-from collections import defaultdict
+from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from typing import Literal
 
@@ -28,6 +28,8 @@ PROMPT_VERSION = "label-v1"
 STAGE = "teacher-label"
 MAX_TEXT_CHARS = 3000
 EST_OUTPUT_TOKENS = 160   # compact JSON with thinking off; the pilot measures the real value
+TEMPLATED_TITLE_REPEATS = 3
+TARGET_LANGS = {"sq", "sr-Latn", "sr-Cyrl", "ru", "en"}
 CHARS_PER_TOKEN = 3.2     # rough for sq/sr text; replaced by measured usage after the pilot
 
 TCode = Literal["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
@@ -76,18 +78,31 @@ def select_signals(n: int, seed: int = 7) -> list[tuple[Signal, Source]]:
     done = already_labelled()
     with session() as s:
         rows = s.execute(select(Signal, Source).join(Source).where(Signal.window.is_not(None))).all()
-    strata = defaultdict(list)
+    # Templated daily posts ("weather today", "events today") repeat their title; they teach nothing.
+    title_count = Counter((sig.title or "").strip().lower() for sig, _ in rows)
+    strata = defaultdict(lambda: defaultdict(list))
     for sig, src in rows:
-        if sig.signal_id not in done and sig.text_original:
-            strata[(sig.window, sig.lang)].append((sig, src))
+        if sig.signal_id in done or not sig.text_original or len(sig.text_original) < 200:
+            continue
+        if sig.lang not in TARGET_LANGS:  # brief s1: sq, sr-Latn, sr-Cyrl, ru, en
+            continue
+        if title_count[(sig.title or "").strip().lower()] >= TEMPLATED_TITLE_REPEATS:
+            continue
+        strata[(sig.window, sig.lang)][sig.source_id].append((sig, src))
     rng = random.Random(seed)
-    for v in strata.values():
-        rng.shuffle(v)
-    out, keys = [], sorted(strata)
-    while len(out) < n and any(strata[k] for k in keys):
+    for by_src in strata.values():
+        for v in by_src.values():
+            rng.shuffle(v)
+    # Round-robin over strata, and over sources inside each stratum, so high-volume sites don't dominate.
+    out, keys, turn = [], sorted(strata), defaultdict(int)
+    while len(out) < n and any(any(v) for v in strata.values()):
         for k in keys:
-            if strata[k] and len(out) < n:
-                out.append(strata[k].pop())
+            srcs = sorted(sid for sid, v in strata[k].items() if v)
+            if not srcs or len(out) >= n:
+                continue
+            sid = srcs[turn[k] % len(srcs)]
+            turn[k] += 1
+            out.append(strata[k][sid].pop())
     return out
 
 

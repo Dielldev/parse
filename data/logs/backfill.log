@@ -66,3 +66,14 @@
         ! https://www.tanjug.rs/srbija/drustvo/299292/patrijarh-porfirije-na-svecanostima-povodom-80-rodendana-ruskog-patrijarha-kirila/vest: ConnectTimeout
 [done] src_web_danas                sitemap  total=  28 fetched=  478 {'banjska': 10, 'quiet_2024_04': 0, 'quiet_2025_04': 1, 'quiet_2025_08': 2, 'election_2025_12': 3, 'quiet_2026_01': 1, 'quiet_2024_10': 2, 'canal_2024_11': 2, 'gazimestan_2026': 5, 'quiet_2026_10': 2} errors=1
         ! sitemap walk stopped at 150 files; 723 not opened
+[done] src_web_armyrecognition      sitemap  total=   0 fetched=  736 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 0, 'quiet_2025_08': 0, 'election_2025_12': 0, 'quiet_2026_01': 0, 'quiet_2024_10': 0, 'canal_2024_11': 0, 'gazimestan_2026': 0, 'quiet_2026_10': 0} errors=1
+        ! quiet_2025_08: 260 candidates, capped at 250
+[done] src_web_periskopi            sitemap  total= 527 fetched=  900 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 0, 'quiet_2025_08': 0, 'election_2025_12': 220, 'quiet_2026_01': 208, 'quiet_2024_10': 0, 'canal_2024_11': 0, 'gazimestan_2026': 0, 'quiet_2026_10': 99} errors=4
+        ! sitemap walk stopped at 150 files; 1205 not opened
+        ! election_2025_12: 500 candidates, capped at 250
+        ! quiet_2026_01: 500 candidates, capped at 250
+        ! quiet_2026_10: 258 candidates, capped at 250
+[done] src_web_intellinews          sitemap  total=  38 fetched=  868 {'banjska': 10, 'quiet_2024_04': 3, 'quiet_2025_04': 6, 'quiet_2025_08': 3, 'election_2025_12': 6, 'quiet_2026_01': 3, 'quiet_2024_10': 0, 'canal_2024_11': 4, 'gazimestan_2026': 1, 'quiet_2026_10': 2} errors=0
+[done] src_web_sputnik              sitemap  total= 307 fetched= 1172 {'banjska': 78, 'quiet_2024_04': 2, 'quiet_2025_04': 1, 'quiet_2025_08': 2, 'election_2025_12': 69, 'quiet_2026_01': 40, 'quiet_2024_10': 2, 'canal_2024_11': 94, 'gazimestan_2026': 19, 'quiet_2026_10': 0} errors=2
+        ! election_2025_12: 278 candidates, capped at 250
+        ! canal_2024_11: 286 candidates, capped at 250

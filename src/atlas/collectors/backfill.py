@@ -148,11 +148,13 @@ def backfill_wp(f: Fetcher, src: Source, w: Window, t: Tally) -> int:
             title = _html_to_text(it.get("title", {}).get("rendered", ""))
             content_html = it.get("content", {}).get("rendered", "")
             text = _html_to_text(content_html)
-            if not is_kosovo_relevant(title, text):
+            published = parse_dt((it.get("date_gmt") or "") + "Z")
+            # The API filters on the site's local time; re-check in UTC so window edges are exact.
+            if published is None or not (w.start <= published < w.end) or not is_kosovo_relevant(title, text):
                 continue
             with session() as s:
                 sig = emit(s, s.merge(src), url=it["link"], raw=wp_raw(it), content_type="application/json",
-                           title=title, text=text, published_at=parse_dt((it.get("date_gmt") or "") + "Z"),
+                           title=title, text=text, published_at=published,
                            agent="A6", method="wp-rest", window=w.name, links_out=_links(content_html))
             kept += bool(sig)
             if kept >= MAX_KEEP_PER_WINDOW:

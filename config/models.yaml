@@ -1,7 +1,7 @@
 # Model stack (user decision, 2026-11-21): open models via Featherless AI, no Anthropic models.
 # `provider: local` runs on this machine for free; `provider: featherless` uses the API key in FEATHERLESS_API_KEY.
 # Prices are USD per 1M tokens from https://api.featherless.ai/v1/models (Developer plan, read 2026-11-21).
-# On a flat-rate Featherless subscription there is no per-token charge; the ledger then records 0.
+# The user is on the per-token Developer plan (2026-11-21): every call is billed and recorded in data/spend_ledger.csv.
 version: models-v1
 
 featherless:
