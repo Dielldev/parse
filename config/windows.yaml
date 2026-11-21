@@ -1,0 +1,14 @@
+# Backfill windows (inclusive dates, UTC) and the split each one belongs to.
+# Split is by event window, never random, so validation and test contain incidents the model never saw.
+# "Quiet" windows are my choice of periods without a major incident; confirm with the team.
+windows:
+  banjska:          {start: 2023-09-20, end: 2023-10-05, split: train, kind: incident}
+  quiet_2024_04:    {start: 2024-04-15, end: 2024-04-26, split: train, kind: quiet}
+  quiet_2025_04:    {start: 2025-04-07, end: 2025-04-18, split: train, kind: quiet}
+  quiet_2025_08:    {start: 2025-08-04, end: 2025-08-15, split: train, kind: quiet}
+  election_2025_12: {start: 2025-12-01, end: 2025-12-31, split: train, kind: incident}
+  quiet_2026_01:    {start: 2026-01-19, end: 2026-01-30, split: train, kind: quiet}
+  quiet_2024_10:    {start: 2024-10-07, end: 2024-10-18, split: val, kind: quiet}
+  canal_2024_11:    {start: 2024-11-25, end: 2024-12-06, split: val, kind: incident}
+  gazimestan_2026:  {start: 2026-06-20, end: 2026-07-05, split: test, kind: incident}
+  quiet_2026_10:    {start: 2026-10-05, end: 2026-10-16, split: test, kind: quiet}

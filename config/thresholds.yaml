@@ -1,0 +1,39 @@
+# Model and scoring thresholds. Versioned; every change bumps `version`.
+version: thr-v1
+
+tps:  # brief Section 8
+  weights: {severity: 0.25, velocity: 0.20, reach: 0.15, coordination: 0.15, offline_intent: 0.15, proximity: 0.10}
+  severity_by_label: {T2: 1.0, T3: 1.0, T1: 0.8, T8: 0.8, T4: 0.7, T5: 0.7, T6: 0.6, T7: 0.6, T9: 0.4, T10: 0.4}
+  reach_log10_divisor: 7
+  credibility_min: 0.6
+  credibility_by_tier: {0: 1.0, 1: 0.95, 2: 0.85, 3: 0.7}
+  credibility_by_verdict: {CONFIRMED: 1.0, CORROBORATED: 1.0, DISPUTED: 0.85, UNVERIFIED: 0.9, DEBUNKED: 1.0}
+  bands: {P1: 75, P2: 50, P3: 30}
+
+significance:
+  velocity_window_minutes: 60
+  velocity_z_cap: 6.0          # z at which Velocity factor saturates to 1.0
+  poisson_low_count: 20        # below this baseline mean, use Poisson tail instead of normal z
+  near_duplicate_window_minutes: 10
+  near_duplicate_similarity: 0.90
+  new_account_days: 30
+  coordination_weights: {near_dup_share: 0.4, new_account_share: 0.3, fanout: 0.3}
+  fanout_saturation: 10        # forwards from one source at which fan-out = 1.0
+  synchronised_frame_outlets: 3
+  synchronised_frame_hours: 6
+
+clustering:
+  similarity: 0.85
+  window_hours: 48
+  phash_max_distance: 8
+
+classifier:
+  cascade_low: 0.35
+  cascade_high: 0.75
+  decision_threshold: 0.5
+
+verifier:
+  nli_uncertain_low: 0.4
+  nli_uncertain_high: 0.8
+  corroboration_min_origins: 2
+  corroboration_max_tier: 2

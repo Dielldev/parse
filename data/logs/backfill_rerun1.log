@@ -1,0 +1,3 @@
+[done] src_mir_pravda_sq            sitemap  total=  22 fetched=   32 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 8, 'quiet_2025_08': 0, 'election_2025_12': 0, 'quiet_2026_01': 3, 'quiet_2024_10': 0, 'canal_2024_11': 4, 'gazimestan_2026': 7, 'quiet_2026_10': 0} errors=0
+[done] src_mir_pravda_other         sitemap  total=   0 fetched=  150 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 0, 'quiet_2025_08': 0, 'election_2025_12': 0, 'quiet_2026_01': 0, 'quiet_2024_10': 0, 'canal_2024_11': 0, 'gazimestan_2026': 0, 'quiet_2026_10': 0} errors=1
+        ! sitemap walk stopped at 150 files; 326 not opened

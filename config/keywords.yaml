@@ -1,0 +1,88 @@
+# Atlas keyword and narrative seeds, brief Section 6. Versioned config; do not hard-code in Python.
+# Serbian terms are written in Latin. Cyrillic text is transliterated to Latin before matching.
+# Matching is case-insensitive and diacritic-insensitive (see atlas.normalise.text.fold).
+version: kw-v1
+
+topics:
+  ksf_military:
+    sq: ["FSK", "Forca e Sigurisë", "ushtria e Kosovës", "dronë"]
+    sr: ["KBS", "kosovska vojska", "Kosovske bezbednosne snage", "OVK"]
+    ru: ["КСБ", "армия Косова", "косовская армия"]
+    en: ["KSF", "Kosovo Security Force", "Kosovo army"]
+  places_north:
+    sq: ["veriu", "Mitrovicë", "Zveçan", "Leposaviq", "Zubin Potok", "Jarinjë", "Banjskë"]
+    sr: ["sever", "Mitrovica", "Zvečan", "Leposavić", "Zubin Potok", "Jarinje", "Banjska", "Gazivode"]
+    ru: ["север Косова", "Митровица", "Баньска"]
+    en: ["north Kosovo", "Mitrovica", "Zvecan", "Leposavic", "Zubin Potok", "Jarinje", "Banjska", "Gazivode"]
+  police:
+    sq: ["Policia e Kosovës", "NJSO", "arrestim"]
+    sr: ["kosovska policija", "ROSU", "hapšenje", "privođenje"]
+    ru: ["косовская полиция", "аресты сербов"]
+    en: ["Kosovo Police", "ROSU", "arrest"]
+  mobilisation:
+    sq: ["protestë", "bllokadë", "barrikada"]
+    sr: ["protest", "barikade", "blokada", "okupljanje", "odbrana"]
+    ru: ["протест", "баррикады"]
+    en: ["protest", "barricade", "roadblock"]
+  violence_sabotage:
+    sq: ["sulm", "shpërthim", "armë", "kanali Ibër-Lepenc"]
+    sr: ["napad", "eksplozija", "oružje", "kanal Ibar-Lepenac"]
+    ru: ["нападение", "взрыв", "теракт"]
+    en: ["attack", "explosion", "weapons", "Ibar-Lepenac canal", "sabotage"]
+  political:
+    sq: ["zgjedhje", "Kurti", "presidenti", "KFOR", "BE"]
+    sr: ["Kurti", "Kurtijev režim", "Srpska lista", "KiM", "Kosovo i Metohija", "Kvinta"]
+    ru: ["Курти", "Приштина", "НАТО", "KFOR"]
+    en: ["Kurti", "Srpska Lista", "KFOR", "Quint", "election"]
+  war_persecution_framing:
+    sq: ["luftë", "gjenocid", "armatim", "Turqia"]
+    sr: ["Kurti preti ratom", "sprema rat", "teror", "lov na Srbe", "genocid", "Turska naoružava",
+         "fabrika municije", "žandarmerija", "lične karte", "tablice"]
+    ru: ["готовит войну", "террор против сербов", "геноцид"]
+    en: ["preparing for war", "terror against Serbs", "genocide", "ammunition factory", "gendarmerie"]
+  heritage:
+    sq: ["trashëgimia", "kishat", "Beteja e Kosovës"]
+    sr: ["crkve", "manastiri", "Kosovski boj", "Vidovdan", "prekrajanje istorije", "Gazimestan"]
+    ru: ["сербские святыни", "монастыри"]
+    en: ["monastery", "churches", "Battle of Kosovo", "Vidovdan", "Gazimestan"]
+
+# Kosovo relevance gate used by collectors when a source is not Kosovo-specific.
+relevance_terms: ["Kosov", "Косов", "Prishtin", "Priština", "Pristina", "Приштин", "KFOR", "Kurti", "Курти",
+                  "Mitrovic", "Митровиц", "Zvečan", "Zveçan", "Zvecan", "Jarinj", "Banjsk", "Gazimestan",
+                  "Gazivod", "Ibar", "Ibër", "Leposavi", "Zubin Potok", "FSK", "KSF", "KBS", "Srpska lista",
+                  "Gračanic", "Graçanic", "EULEX", "UNMIK", "Kvinta", "KiM"]
+
+# Places that set Proximity = 1.0 (north, crossings, critical infrastructure).
+proximity_sensitive:
+  north: ["Mitrovica", "Mitrovicë", "Zvečan", "Zveçan", "Zvecan", "Leposavić", "Leposaviq", "Leposavic",
+          "Zubin Potok", "Banjska", "Banjskë", "sever Kosova", "veriu"]
+  crossings: ["Jarinje", "Jarinjë", "Brnjak", "Bërnjak", "Merdare", "Merdarë", "Ibar bridge", "ura e Ibrit", "most na Ibru"]
+  infrastructure: ["Ibar-Lepenac", "Ibër-Lepenc", "Gazivode", "Ujmani", "Gazivoda", "KEK", "Obilić", "Obiliq",
+                   "Kosovo A", "Kosovo B", "substation", "nënstacion", "trafostanica"]
+proximity_kosovo_other: ["Prishtina", "Priština", "Pristina", "Prizren", "Peja", "Peć", "Gjakova", "Đakovica",
+                         "Ferizaj", "Uroševac", "Gjilan", "Gnjilane", "Gračanica", "Graçanica", "Štrpce", "Shtërpcë"]
+
+narratives:
+  N1: "KSF is the KLA reborn / an illegal army under UNSCR 1244"
+  N2: "Pogrom / ethnic cleansing / terror against Serbs by Kurti's regime"
+  N3: "NATO / KFOR is abandoning Kosovo"
+  N4: "The West is betraying Albanians / the EU punishes Kosovo"
+  N5: "Kosovo is a terrorist / drug / mafia state"
+  N6: "Fake orders, mobilisation notices or statements from officials (deepfakes)"
+  N7: "Serbia will return / imminent intervention / volunteers"
+  N8: "Election fraud and illegitimacy of institutions"
+  N9: "Priština / Kurti is preparing for war: arming, Turkish weapons, ammunition factory, gendarmerie"
+  N10: "Kurti erases Serbian heritage: churches, monasteries, rewriting the Battle of Kosovo"
+  N11: "Kurti alone blocks dialogue / Priština as the only obstacle to peace"
+
+# Trigger calendar (brief Section 4). Window: 72 h before to 48 h after.
+trigger_calendar:
+  - {month: 2, day: 17, name: "Independence Day", threats: [T6, T5]}
+  - {month: 3, day: 17, name: "March 2004 riots anniversary", threats: [T6, T8]}
+  - {month: 5, day: 26, name: "Zvečan clashes anniversary (late May)", threats: [T5, T6]}
+  - {month: 6, day: 28, name: "Vidovdan at Gazimestan", threats: [T4, T5, T6]}
+  - {month: 9, day: 24, name: "Banjska anniversary", threats: [T2, T6]}
+  - {month: 11, day: 28, name: "Albanian Flag Day / canal attack anniversary", threats: [T3, T6]}
+  - {month: 11, day: 29, name: "Canal attack anniversary", threats: [T3, T6]}
+trigger_window_hours_before: 72
+trigger_window_hours_after: 48

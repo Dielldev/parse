@@ -1,0 +1,22 @@
+# Model stack (user decision, 2026-11-21): open models via Featherless AI, no Anthropic models.
+# `provider: local` runs on this machine for free; `provider: featherless` uses the API key in FEATHERLESS_API_KEY.
+# Prices are USD per 1M tokens from https://api.featherless.ai/v1/models (Developer plan, read 2026-11-21).
+# On a flat-rate Featherless subscription there is no per-token charge; the ledger then records 0.
+version: models-v1
+
+featherless:
+  base_url: https://api.featherless.ai/v1
+  max_concurrency: 2        # Basic plan = 2 concurrent units; raise to match your plan
+  timeout_s: 120
+
+budget:
+  total_usd: 5.00           # hard stop for all Featherless spend in this project
+  require_approval: true    # every paid run needs --approve after you see the estimate
+
+models:
+  teacher:      {provider: featherless, id: Qwen/Qwen3-8B, enable_thinking: false, price_in: 0.117, price_out: 0.455}
+  detector:     {provider: featherless, id: featherless-ai/Qwen3.5-4B-classifier, price_in: 0.03, price_out: 0.0}
+  nli:          {provider: featherless, id: featherless-ai/Qwen3.5-4B-classifier, price_in: 0.03, price_out: 0.0}
+  translation:  {provider: featherless, id: Qwen/Qwen3-4B, enable_thinking: false, price_in: 0.40, price_out: 0.80}
+  ocr_fallback: {provider: featherless, id: lightonai/LightOnOCR-2-1B, price_in: 0.30, price_out: 1.20}
+  embedding:    {provider: local, id: Qwen/Qwen3-Embedding-0.6B, dim: 1024, price_in: 0.01, price_out: 0.02}

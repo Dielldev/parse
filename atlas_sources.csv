@@ -1,0 +1,31 @@
+platform,handle_or_url,name,focus,language,status,notes
+x,https://x.com/Lukai1861,Luka | Дунав Intel,Balkan defence procurement and capability analysis,en,seed,Reference account (Serbia/Albania/Israel/US arms deals with specs)
+x,https://x.com/tangosix,Tango Six portal,Serbian and regional military aviation and air defence,sr,verified,Posts link to tangosix.rs articles; strong on Serbian Air Force and Air Defence and neighbours' air defence
+x,https://x.com/petarV,Petar Vojinović,Serbian and regional aviation and defence commentary,sr,verified,Founder of Tango Six
+x,https://x.com/bezbednosna,Balkan Security Network (Balkanska bezbednosna mreža),Western Balkans defence and security news and analysis,sr,verified,Linked from balkansec.net footer
+x,https://x.com/CalibreObscura,Calibre Obscura,Weapons identification and arms proliferation,en,verified,Deep weapons-ID work; global not Balkan-only
+x,https://x.com/Osinttechnical,OSINTtechnical,Equipment identification and conflict imagery,en,verified,Mostly Russia-Ukraine
+x,https://x.com/bellingcat,Bellingcat,Investigative OSINT,en,verified,Long-form investigations
+x,https://x.com/Strickbenj,Benjamin Strick,Geolocation and imagery analysis,en,verified,
+x,https://x.com/RALee85,Rob Lee,Russian military equipment and operations analysis,en,verified-mention,Recommended in a Grok-generated ranking; confirm activity
+x,https://x.com/Oryxspioenkop,Oryx,Equipment loss and inventory documentation,en,to-verify,Handle from prior knowledge; confirm still active
+x,https://x.com/Defence_blog,Defence Blog,Global defence procurement news,en,to-verify,Handle from prior knowledge
+x,https://x.com/armyrecognition,Army Recognition,Global defence procurement and equipment news,en,to-verify,Site covered the Albania HIMARS sale in detail; confirm handle
+telegram,https://t.me/balkanspectator,Balkan Spectator,Balkan and Black Sea defence diplomacy energy politics digest,en,verified,Public channel; readable without login at https://t.me/s/balkanspectator
+telegram,https://t.me/bulgarianmilitary,BulgarianMilitary.com,Global defence and procurement news,en,verified,Small channel (~85 subs at capture); website bulgarianmilitary.com is the main output
+web,https://www.adriadefense.com/,AdriaDefense,CEE and SEE defence industry procurement and analysis,en,verified,No X or Telegram; LinkedIn only; has an SEE tag page /tag/see/
+web,https://www.balkansec.net/,Balkan Security Network,Western Balkans defence and security,sr,verified,Facebook and Instagram also linked
+web,https://balkanspectator.com/,Balkan Spectator,Balkan defence diplomacy energy,en,verified,Has a Defence section and sources each item
+web,https://www.tangosix.rs/,Tango Six,Serbian and regional aviation and defence,sr,verified,
+web,https://www.armyrecognition.com/,Army Recognition,Global equipment and procurement news,en,verified,
+web,https://www.intellinews.com/,bne IntelliNews Balkan Blog,Western Balkans military build-up analysis,en,verified,
+web,https://balkaninsight.com/,Balkan Insight (BIRN),Regional news and investigations incl. defence spending,en,verified,
+web,https://www.kosovo-online.com/en,Kosovo Online,Regional politics and defence analysis,en,verified,Serbian-leaning outlet; tag bias in Atlas
+web,https://www.kosovodispatch.com/en,Kosovo Dispatch,Kosovo defence and politics,en,verified,
+web,https://thegeopost.com/en,The Geopost,Albanian-language regional news incl. Serbian arms purchases,sq/en,verified,
+web,https://www.gazetaexpress.com/en,Gazeta Express,Kosovo and Albania news incl. defence co-production,sq/en,verified,
+official,https://www.mod.gov.al/eng/newsroom,Albania Ministry of Defence newsroom,Official Albanian defence announcements,en/sq,verified,Primary source
+official,https://www.dsca.mil/press-media/major-arms-sales,DSCA Major Arms Sales,US Foreign Military Sales notifications,en,verified,Primary source for posts like the Albania HIMARS one; since Feb 2026 new FMS notices are published on the State Department site instead
+reddit,https://www.reddit.com/r/CredibleDefense/,r/CredibleDefense,Moderated defence analysis,en,to-verify,Public; use Reddit API
+reddit,https://www.reddit.com/r/LessCredibleDefence/,r/LessCredibleDefence,Defence news and procurement discussion,en,to-verify,Public; use Reddit API
+reddit,https://www.reddit.com/r/WarCollege/,r/WarCollege,Military history and doctrine Q&A,en,to-verify,Public; use Reddit API
