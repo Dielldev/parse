@@ -77,3 +77,50 @@
 [done] src_web_sputnik              sitemap  total= 307 fetched= 1172 {'banjska': 78, 'quiet_2024_04': 2, 'quiet_2025_04': 1, 'quiet_2025_08': 2, 'election_2025_12': 69, 'quiet_2026_01': 40, 'quiet_2024_10': 2, 'canal_2024_11': 94, 'gazimestan_2026': 19, 'quiet_2026_10': 0} errors=2
         ! election_2025_12: 278 candidates, capped at 250
         ! canal_2024_11: 286 candidates, capped at 250
+[done] src_web_thegeopost           sitemap  total= 192 fetched= 1438 {'banjska': 27, 'quiet_2024_04': 11, 'quiet_2025_04': 5, 'quiet_2025_08': 4, 'election_2025_12': 47, 'quiet_2026_01': 11, 'quiet_2024_10': 5, 'canal_2024_11': 6, 'gazimestan_2026': 46, 'quiet_2026_10': 30} errors=3
+        ! election_2025_12: 297 candidates, capped at 250
+        ! quiet_2026_01: 293 candidates, capped at 250
+        ! gazimestan_2026: 325 candidates, capped at 250
+[done] src_web_kurir                sitemap  total= 322 fetched= 1773 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 72, 'quiet_2025_08': 52, 'election_2025_12': 47, 'quiet_2026_01': 31, 'quiet_2024_10': 0, 'canal_2024_11': 73, 'gazimestan_2026': 47, 'quiet_2026_10': 0} errors=257
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+        ! quiet_2026_01: 500 candidates, capped at 250
+        ! canal_2024_11: 500 candidates, capped at 250
+[done] src_web_nova                 sitemap  total= 238 fetched= 2150 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 32, 'quiet_2025_08': 41, 'election_2025_12': 28, 'quiet_2026_01': 25, 'quiet_2024_10': 0, 'canal_2024_11': 50, 'gazimestan_2026': 32, 'quiet_2026_10': 30} errors=8
+        ! sitemap walk stopped at 150 files; 688 not opened
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+        ! quiet_2026_01: 500 candidates, capped at 250
+[done] src_web_n1                   sitemap  total= 373 fetched= 2400 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 44, 'quiet_2025_08': 37, 'election_2025_12': 27, 'quiet_2026_01': 35, 'quiet_2024_10': 71, 'canal_2024_11': 80, 'gazimestan_2026': 48, 'quiet_2026_10': 31} errors=9
+        ! sitemap walk stopped at 150 files; 611 not opened
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+        ! quiet_2026_01: 500 candidates, capped at 250
+[done] src_web_klankosova           sitemap  total=2408 fetched= 2529 {'banjska': 247, 'quiet_2024_04': 236, 'quiet_2025_04': 236, 'quiet_2025_08': 239, 'election_2025_12': 245, 'quiet_2026_01': 240, 'quiet_2024_10': 242, 'canal_2024_11': 243, 'gazimestan_2026': 240, 'quiet_2026_10': 240} errors=10
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+[done] src_web_telegraf             sitemap  total= 356 fetched= 2543 {'banjska': 57, 'quiet_2024_04': 35, 'quiet_2025_04': 31, 'quiet_2025_08': 42, 'election_2025_12': 31, 'quiet_2026_01': 28, 'quiet_2024_10': 36, 'canal_2024_11': 49, 'gazimestan_2026': 24, 'quiet_2026_10': 23} errors=11
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+[done] src_web_rtbalkan             sitemap  total= 816 fetched= 2505 {'banjska': 120, 'quiet_2024_04': 114, 'quiet_2025_04': 63, 'quiet_2025_08': 61, 'election_2025_12': 77, 'quiet_2026_01': 60, 'quiet_2024_10': 77, 'canal_2024_11': 88, 'gazimestan_2026': 91, 'quiet_2026_10': 65} errors=11
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+[done] src_web_kosovo_online        sitemap  total=2137 fetched= 2518 {'banjska': 200, 'quiet_2024_04': 250, 'quiet_2025_04': 249, 'quiet_2025_08': 250, 'election_2025_12': 248, 'quiet_2026_01': 250, 'quiet_2024_10': 250, 'canal_2024_11': 191, 'gazimestan_2026': 0, 'quiet_2026_10': 249} errors=9
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+[done] src_off_kosovopolice         sitemap  total= 247 fetched= 1267 {'banjska': 35, 'quiet_2024_04': 23, 'quiet_2025_04': 8, 'quiet_2025_08': 30, 'election_2025_12': 49, 'quiet_2026_01': 31, 'quiet_2024_10': 6, 'canal_2024_11': 18, 'gazimestan_2026': 24, 'quiet_2026_10': 23} errors=0

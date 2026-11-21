@@ -1,3 +1,21 @@
 [done] src_mir_pravda_sq            sitemap  total=  22 fetched=   32 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 8, 'quiet_2025_08': 0, 'election_2025_12': 0, 'quiet_2026_01': 3, 'quiet_2024_10': 0, 'canal_2024_11': 4, 'gazimestan_2026': 7, 'quiet_2026_10': 0} errors=0
 [done] src_mir_pravda_other         sitemap  total=   0 fetched=  150 {'banjska': 0, 'quiet_2024_04': 0, 'quiet_2025_04': 0, 'quiet_2025_08': 0, 'election_2025_12': 0, 'quiet_2026_01': 0, 'quiet_2024_10': 0, 'canal_2024_11': 0, 'gazimestan_2026': 0, 'quiet_2026_10': 0} errors=1
         ! sitemap walk stopped at 150 files; 326 not opened
+[done] src_web_slobodnaevropa       sitemap  total= 611 fetched= 2528 {'banjska': 181, 'quiet_2024_04': 86, 'quiet_2025_04': 41, 'quiet_2025_08': 37, 'election_2025_12': 79, 'quiet_2026_01': 37, 'quiet_2024_10': 35, 'canal_2024_11': 48, 'gazimestan_2026': 35, 'quiet_2026_10': 32} errors=11
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 428 candidates, capped at 250
+        ! quiet_2025_04: 376 candidates, capped at 250
+        ! quiet_2025_08: 350 candidates, capped at 250
+        ! election_2025_12: 463 candidates, capped at 250
+[done] src_web_alo                  sitemap  total= 479 fetched= 2527 {'banjska': 112, 'quiet_2024_04': 58, 'quiet_2025_04': 44, 'quiet_2025_08': 42, 'election_2025_12': 38, 'quiet_2026_01': 25, 'quiet_2024_10': 38, 'canal_2024_11': 48, 'gazimestan_2026': 43, 'quiet_2026_10': 31} errors=11
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
+[done] src_web_blic                 sitemap  total= 528 fetched= 2530 {'banjska': 123, 'quiet_2024_04': 61, 'quiet_2025_04': 41, 'quiet_2025_08': 44, 'election_2025_12': 35, 'quiet_2026_01': 21, 'quiet_2024_10': 47, 'canal_2024_11': 63, 'gazimestan_2026': 46, 'quiet_2026_10': 47} errors=10
+        ! banjska: 500 candidates, capped at 250
+        ! quiet_2024_04: 500 candidates, capped at 250
+        ! quiet_2025_04: 500 candidates, capped at 250
+        ! quiet_2025_08: 500 candidates, capped at 250
+        ! election_2025_12: 500 candidates, capped at 250
