@@ -6,3 +6,7 @@ __pycache__/
 data/evidence/
 data/models/
 data/*.jsonl
+
+# Browser scout: the agent browser keeps logins here. Never commit it.
+data/browser-profile/
+data/browser-accounts.json

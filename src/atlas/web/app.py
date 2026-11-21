@@ -89,7 +89,8 @@ async def api_ask(request: Request):
     q = str(body.get("q", "")).strip()[:300]
     if not q:
         raise HTTPException(400, "empty question")
-    gen = ask_mod.run(q, window=str(body.get("window") or ""), lang=str(body.get("lang") or ""))
+    gen = ask_mod.run(q, window=str(body.get("window") or ""), lang=str(body.get("lang") or ""),
+                      fresh=bool(body.get("fresh")))
     return StreamingResponse((json.dumps(ev, default=str) + "\n" for ev in gen), media_type="application/x-ndjson")
 
 
@@ -255,3 +256,9 @@ def api_stats():
         return {"sources": s.scalar(select(func.count()).select_from(Source)),
                 "signals": s.scalar(select(func.count()).select_from(Signal)),
                 "spent_usd": budget.spent()}
+
+
+# ---------------------------------------------------------------- field agents (/agents and /api/agents/*)
+from atlas.web import agents as agents_mod  # noqa: E402
+
+app.include_router(agents_mod.router)

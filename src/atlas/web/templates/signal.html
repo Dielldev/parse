@@ -1,14 +1,16 @@
 {% extends "base.html" %}{% set active = 'signals' %}
 {% block title %}Signal{% endblock %}
 {% block body %}
-<p><a href="/signals">← Signals</a></p>
-<h1>{{ sig.title or '(no title)' }}</h1>
-<p class="lead">{{ src.name }} · <span class="pill t{{ src.tier }}">Tier {{ src.tier }} · {{ tier_names[src.tier] }}</span>
-  {% if src.bias_note %}<span class="muted"> · {{ src.bias_note }}</span>{% endif %}</p>
+<header class="ph">
+  <div class="ph-top"><a class="backlink lbl" href="/signals">← Signals</a><span class="lbl mono">{{ sig.signal_id }}</span></div>
+  <h1 class="title">{{ sig.title or '(no title)' }}</h1>
+  <p class="lead">{{ src.name }} &nbsp;<span class="pill t{{ src.tier }}">Tier {{ src.tier }} · {{ tier_names[src.tier] }}</span>
+    {% if src.bias_note %}<span class="muted"> · {{ src.bias_note }}</span>{% endif %}</p>
+</header>
 
 <div class="grid2">
-<div class="panel">
-  <h2 style="margin-top:0">Record</h2>
+<div>
+  <h2 class="sec"><span>Record</span><i>/A</i></h2>
   <dl class="meta">
     <dt>Signal ID</dt><dd class="mono">{{ sig.signal_id }}</dd>
     <dt>Published</dt><dd>{{ sig.published_at.strftime('%Y-%m-%d %H:%M UTC') if sig.published_at else 'unknown' }}</dd>
@@ -25,8 +27,8 @@
       {% if m.phash %}<span class="mono"> pHash {{ m.phash }}</span>{% else %}<span class="muted"> (not hashed yet)</span>{% endif %}{% endfor %}</dd>{% endif %}
   </dl>
 </div>
-<div class="panel">
-  <h2 style="margin-top:0">Evidence</h2>
+<div>
+  <h2 class="sec"><span>Evidence</span><i>/B</i></h2>
   {% if ev %}
   <dl class="meta">
     <dt>SHA-256</dt><dd class="mono">{{ ev.sha256 }}</dd>
@@ -42,8 +44,8 @@
 </div>
 </div>
 
-<h2>Text (original language)</h2>
+<h2 class="sec"><span>Text · original language</span><i>{{ sig.lang or '' }}</i></h2>
 <div class="text">{{ sig.text_original or '' }}</div>
-{% if sig.text_latin %}<h2>Transliterated to Latin</h2><div class="text">{{ sig.text_latin }}</div>{% endif %}
-{% if sig.text_en %}<h2>English</h2><div class="text">{{ sig.text_en }}</div>{% endif %}
+{% if sig.text_latin %}<h2 class="sec"><span>Transliterated to Latin</span><i>sr-Latn</i></h2><div class="text">{{ sig.text_latin }}</div>{% endif %}
+{% if sig.text_en %}<h2 class="sec"><span>English</span><i>en</i></h2><div class="text">{{ sig.text_en }}</div>{% endif %}
 {% endblock %}

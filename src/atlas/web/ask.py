@@ -24,6 +24,8 @@ TIER_NAMES = {0: "Official / primary", 1: "Established outlet", 2: "Specialist O
 MAX_TERMS = 6
 CANDIDATES = 1500   # rows pulled for ranking; the match count itself is exact
 TOP_K = 8
+AGENT_LIMIT = 5        # new items per source when Ask sends agents
+AGENT_BUDGET_S = 15.0  # Ask waits at most this long for agents before searching
 
 STOP = set("""
 a an and are as at be by can did do does for from had has have how i in is it its me of on or show tell that the
@@ -84,7 +86,38 @@ def _initials(name: str) -> str:
     return ("".join(p[0] for p in parts[:2]) or name[:2]).upper()
 
 
-def run(q: str, window: str = "", lang: str = "") -> Iterator[dict]:
+def _agents_step(terms: list[str]) -> dict:
+    """Send field agents to every live-readable news/official source for these terms, wait (bounded), report."""
+    from atlas.agents import runner
+    from atlas.agents.methods import method_for
+
+    t0 = time.perf_counter()
+    run_id = runner.start("web", " ".join(terms), None, limit=AGENT_LIMIT, origin="ask", fetch_full=False,
+                          budget_s=AGENT_BUDGET_S, http_timeout=8.0)
+    run = runner.wait(run_id, AGENT_BUDGET_S + 3)
+    stats = dict(run["stats"])
+    kept = len(run["signal_ids"])
+    with session() as s:
+        names = {x.source_id: (x.name, x.tier, method_for(x))
+                 for x in s.scalars(select(Source).where(Source.source_id.in_(list(stats) or [""])))}
+    by_state = Counter(v["state"] for v in stats.values())
+    top = sorted(stats.items(), key=lambda kv: -kv[1].get("kept", 0))
+    return {"type": "step", "id": "agents", "ms": round((time.perf_counter() - t0) * 1000, 1),
+            "title": "Field agents", "subtitle": f"{len(stats)} live sources", "icon": "send",
+            "status": "ok" if kept else ("warn" if by_state.get("error") else "empty"),
+            "summary": f"{kept} new items from {sum(1 for v in stats.values() if v.get('kept'))} sources"
+                       + ("" if run["done"].is_set() else " · slow ones keep going in the background"),
+            "rows": [["sent to", f"{len(stats)} sources (site search API + RSS feeds)"],
+                     ["kept", f"{kept} new items, archived and searchable now"],
+                     ["outcome", ", ".join(f"{k} {v}" for k, v in by_state.most_common())],
+                     ["run", run_id]],
+            "table": {"cols": ["Source", "Method", "Read", "New"],
+                      "rows": [[names.get(sid, (sid,))[0], v["method"], v.get("seen", 0), v.get("kept", 0)]
+                               for sid, v in top[:15]]},
+            "run_id": run_id, "kept": kept}
+
+
+def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterator[dict]:
     t_all = time.perf_counter()
 
     def step(sid: str, t0: float, **kw) -> dict:
@@ -110,6 +143,13 @@ def run(q: str, window: str = "", lang: str = "") -> Iterator[dict]:
                rows=[["terms", ", ".join(terms)],
                      ["scripts", "Latin, and Serbian Cyrillic via the transliterated text"],
                      ["diacritics", "c ↔ č ć, s ↔ š, z ↔ ž, e ↔ ë, dj ↔ đ"]])
+
+    # 2b. field agents (only when asked for fresh reports): new items land in the archive before the search
+    agent_kept = None
+    if fresh:
+        ag = _agents_step(terms)
+        agent_kept = ag["kept"]
+        yield ag
 
     with session() as s:
         # 3. registry
@@ -147,7 +187,8 @@ def run(q: str, window: str = "", lang: str = "") -> Iterator[dict]:
             yield {"type": "answer", "headline": f"Nothing in the corpus mentions {', '.join(terms)}.",
                    "bullets": ["Atlas only searches sources in its registry and the backfill windows collected so far.",
                                "Try another spelling, or clear the window and language filters."],
-                   "citations": [], "ms": round((time.perf_counter() - t_all) * 1000)}
+                   "citations": [], "agents": {"topic": " ".join(terms), "sent": fresh, "kept": agent_kept},
+                   "ms": round((time.perf_counter() - t_all) * 1000)}
             return
 
         # 5. sources (fan-out)
@@ -253,4 +294,5 @@ def run(q: str, window: str = "", lang: str = "") -> Iterator[dict]:
                rows=[["method", "Counts and dates from the matches; no language model wrote this answer."]])
     yield {"type": "answer",
            "headline": f"{n_match:,} signals from {len(per_src)} sources mention {', '.join(terms)}.",
-           "bullets": bullets, "citations": cites, "ms": round((time.perf_counter() - t_all) * 1000)}
+           "bullets": bullets, "citations": cites, "agents": {"topic": " ".join(terms), "sent": fresh, "kept": agent_kept},
+           "ms": round((time.perf_counter() - t_all) * 1000)}

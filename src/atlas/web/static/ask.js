@@ -11,6 +11,7 @@
   const STEPS = [
     ['trigger', 'Reading the question'],
     ['normalise', 'Normalising the wording'],
+    ['agents', 'Sending field agents to live sources'],
     ['registry', 'Checking the source registry'],
     ['search', 'Searching the archive'],
     ['sources', 'Gathering matches by source'],
@@ -44,20 +45,23 @@
     const q = ta.value.trim();
     if (!q || busy) return;
     ta.value = '';
-    ask(q, $('#window').value, $('#lang').value, $('#cite').checked);
+    ask(q, $('#window').value, $('#lang').value, $('#cite').checked, $('#fresh')?.checked);
     grow();
   });
-  ta.focus();
+  // Arriving from the Agents page ("Ask Atlas about …"): ask straight away.
+  const preset = new URLSearchParams(location.search).get('q');
+  if (preset) { history.replaceState(null, '', location.pathname); ta.value = preset; grow(); setTimeout(() => form.requestSubmit(), 0); }  // after Trace is defined
+  ta.focus({preventScroll: true});
 
   // ---------------------------------------------------------------- one turn
-  async function ask(q, windowName, lang, cite) {
+  async function ask(q, windowName, lang, cite, fresh = false) {
     busy = true;
     document.body.classList.add('threaded');
     const turn = document.createElement('article');
     turn.className = 'turn';
     const filt = [windowName, lang].filter(Boolean).join(' · ');
     turn.innerHTML = `
-      <div class="q-bubble">${esc(q)}</div><div class="q-meta">${filt ? esc(filt) : 'All windows · all languages'}</div>
+      <div class="q-bubble">${esc(q)}</div><div class="q-meta">${filt ? esc(filt) : 'All windows · all languages'}${fresh ? ' · field agents sent' : ''}</div>
       <div class="trace running">
         <button type="button" class="trace-head" aria-expanded="false" disabled>${MARK}
           <span class="trace-stage"></span><span class="trace-time"></span>${icon('chev', 'trace-chev')}</button>
@@ -66,14 +70,14 @@
       <div class="answer"></div>`;
     thread.appendChild(turn);
     turn.scrollIntoView({behavior: 'smooth', block: 'start'});
-    const trace = new Trace(turn);
+    const trace = new Trace(turn, fresh);
 
     const queue = []; let streamDone = false, wake = null;
     const push = (ev) => { queue.push(ev); if (wake) { wake(); wake = null; } };
     const reader = (async () => {
       try {
         const r = await fetch('/api/ask', {method: 'POST', headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({q, window: windowName, lang})});
+          body: JSON.stringify({q, window: windowName, lang, fresh})});
         if (!r.ok || !r.body) throw new Error(`Server answered ${r.status}`);
         const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '';
         for (;;) {
@@ -95,7 +99,7 @@
         await trace.step(ev);
       } else if (ev.type === 'answer') {
         await trace.end(ev.ms);
-        renderAnswer(turn, ev, cite);
+        renderAnswer(turn, ev, cite, () => ask(q, windowName, lang, cite, true));
       } else if (ev.type === 'error') {
         await trace.end(null, true);
         $('.answer', turn).innerHTML = `<div class="err-card">Atlas could not finish: ${esc(ev.message)}</div>`;
@@ -106,7 +110,20 @@
     ta.focus();
   }
 
-  function renderAnswer(turn, a, cite) {
+  // Field agents: report what they brought back, or offer to send them for newer reports.
+  function agentsBlock(a) {
+    const g = a.agents;
+    if (!g || !g.topic) return '';
+    const open = `<a class="ag-ask-link" href="/agents?topic=${encodeURIComponent(g.topic)}">Choose sources on the Agents page →</a>`;
+    if (g.sent) return `<div class="ag-ask" style="--i:${a.bullets.length + 1}"><span class="ag-code m-wp-search">AGT</span>
+      <p><b>${g.kept ? `Field agents brought back ${g.kept} new item${g.kept === 1 ? '' : 's'}` : 'Field agents found nothing newer'}</b>
+      ${g.kept ? 'and they are included above.' : 'than what was already archived.'}</p>${open}</div>`;
+    return `<div class="ag-ask" style="--i:${a.bullets.length + 1}"><span class="ag-code m-wp-search">AGT</span>
+      <p><b>Want newer reports?</b> Send agents to the live news and official sources, then answer again.</p>
+      <button type="button" class="ag-btn ag-ask-go">Send agents</button>${open}</div>`;
+  }
+
+  function renderAnswer(turn, a, cite, resend) {
     const cards = (cite && a.citations.length) ? `<div class="cites-h" style="--i:${a.bullets.length + 1}">Sources · ${a.citations.length}</div>
       <div class="cites" style="--i:${a.bullets.length + 2}">${
       a.citations.map(c => `<a class="cite" href="/signals/${encodeURIComponent(c.id)}">
@@ -115,12 +132,15 @@
         <div class="foot"><span class="pill t${c.tier}">Tier ${c.tier}</span><span class="pill idle">${esc(c.date)}</span>
           <span class="pill idle">${esc(c.lang)}</span><span class="pill idle">${esc(c.window)}</span></div></a>`).join('')}</div>` : '';
     $('.answer', turn).innerHTML = `<h3>${esc(a.headline)}</h3>
-      ${a.bullets.length ? `<ul style="--i:1">${a.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}${cards}`;
+      ${a.bullets.length ? `<ul style="--i:1">${a.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}${agentsBlock(a)}${cards}`;
+    const go = $('.ag-ask-go', turn);
+    if (go) go.addEventListener('click', () => { if (!busy) { go.disabled = true; resend(); } });
   }
 
   // ---------------------------------------------------------------- the trace
   class Trace {
-    constructor(turn) {
+    constructor(turn, fresh = false) {
+      this.fresh = fresh;
       this.root = $('.trace', turn); this.head = $('.trace-head', turn); this.stage = $('.trace-stage', turn);
       this.time = $('.trace-time', turn); this.log = $('.trace-log', turn);
       this.n = 0; this.t0 = performance.now(); this.since = 0;
@@ -149,7 +169,8 @@
       this.n++;
       this.addLog(ev);
       const i = STEPS.findIndex(x => x[0] === ev.id);
-      const next = STEPS[i + 1];
+      let next = STEPS[i + 1];
+      if (next && next[0] === 'agents' && !this.fresh) next = STEPS[i + 2];   // agents only run when asked
       if (next && ev.status !== 'error') this.start(next[0]);
     }
     async end(ms, failed) {

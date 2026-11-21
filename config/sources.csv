@@ -102,3 +102,4 @@ src_tg_balkan_pro,telegram,https://t.me/s/balkan_pro,balkan_pro,ru/sr,3,to-verif
 src_tg_rentv_news,telegram,https://t.me/s/rentv_news,REN TV news,ru,3,to-verify,later,5.6,"Russian TV feed; very high volume, keyword-filter",
 src_tg_mid_russia,telegram,https://t.me/s/MID_Russia,Russian MFA,ru,0,to-verify,later,5.6,Official (RU); party with stated position on Kosovo,Russian MFA's own statements only
 src_tg_tass_world,telegram,https://t.me/s/tass_world,TASS world,ru,3,to-verify,later,5.6,Russian state agency; Pravda feeder (BIRN); high volume,
+src_rd_kosovo,reddit,https://www.reddit.com/r/kosovo/,r/kosovo,,3,verified,yes,browser-scout,,

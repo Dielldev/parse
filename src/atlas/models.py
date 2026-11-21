@@ -11,7 +11,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-PLATFORMS = ("telegram", "x", "facebook", "tiktok", "youtube", "news", "mirror", "official", "restricted", "reddit")
+PLATFORMS = ("telegram", "x", "facebook", "tiktok", "youtube", "news", "mirror", "official", "restricted", "reddit",
+             "discord")
 EDGE_TYPES = ("forward", "quote", "copy", "link", "translate")
 EMBED_DIM = 1024  # Qwen/Qwen3-Embedding-0.6B (config/models.yaml)
 
@@ -184,3 +185,18 @@ class AuditLog(Base):
     action: Mapped[str] = mapped_column(String, nullable=False)
     detail: Mapped[dict | None] = mapped_column(JSONB)
     allowed: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+
+class AgentRun(Base):
+    """One dispatch from the Agents page or Ask Atlas: which sources an agent visited and what it kept."""
+    __tablename__ = "agent_run"
+    run_id: Mapped[str] = mapped_column(String, primary_key=True)
+    kind: Mapped[str] = mapped_column(String, nullable=False)  # web | telegram | discord
+    topic: Mapped[str | None] = mapped_column(Text)
+    source_ids: Mapped[list[str] | None] = mapped_column(ARRAY(String))
+    status: Mapped[str] = mapped_column(String, nullable=False)  # running | done | failed
+    origin: Mapped[str] = mapped_column(String, nullable=False, server_default="agents-page")
+    stats: Mapped[dict | None] = mapped_column(JSONB)       # per-source outcome
+    signal_ids: Mapped[list[str] | None] = mapped_column(ARRAY(String))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

@@ -1,0 +1,62 @@
+{# Tactical map of Kosovo. Hand-plotted outline (approximate, for orientation only), equirectangular at 42.6°N.
+   x = (lon - 19.95) * 309.1, y = (43.32 - lat) * 420 in a 600 x 640 viewBox.
+   mode='ask'     -> hotspots open a question on the Ask page
+   mode='signals' -> hotspots open the Signals list, with counts from `counts` (window -> total) #}
+{% macro kosovo_map(mode='ask', counts=none, cls='') %}
+{% set hot = [
+  {'k': 'jarinje', 'name': 'Jarinje gate', 'sub': 'Border crossing', 'lon': 20.80, 'lat': 43.23, 'a': 'start', 'dx': 14, 'dy': 4, 'w': '', 'q': 'Jarinje border crossing'},
+  {'k': 'banjska', 'name': 'Banjska', 'sub': 'Attack · 24 Sep 2023', 'lon': 20.78, 'lat': 42.99, 'a': 'start', 'dx': 14, 'dy': -8, 'w': 'banjska', 'q': 'What happened at Banjska?'},
+  {'k': 'canal', 'name': 'Ibar–Lepenac canal', 'sub': 'Blast · 29 Nov 2024', 'lon': 20.72, 'lat': 42.93, 'a': 'end', 'dx': -14, 'dy': 12, 'w': 'canal_2024_11', 'q': 'Ibar-Lepenac canal explosion'},
+  {'k': 'mitrovica', 'name': 'Mitrovica bridge', 'sub': 'Ibar crossing', 'lon': 20.87, 'lat': 42.89, 'a': 'start', 'dx': 14, 'dy': 14, 'w': '', 'q': 'Mitrovica Ibar bridge'},
+  {'k': 'gazimestan', 'name': 'Gazimestan', 'sub': 'Vidovdan · 28 Jun', 'lon': 21.11, 'lat': 42.69, 'a': 'end', 'dx': -14, 'dy': -4, 'w': 'gazimestan_2026', 'q': 'Gazimestan gathering'},
+  {'k': 'prishtina', 'name': 'Prishtinë / Priština', 'sub': 'Election · Dec 2025', 'lon': 21.166, 'lat': 42.663, 'a': 'start', 'dx': 14, 'dy': 10, 'w': 'election_2025_12', 'q': 'December 2025 election in Kosovo'},
+] %}
+{% set cities = [
+  ('Leposaviq / Leposavić', 20.80, 43.10, 'start'), ('Podujevë / Podujevo', 21.19, 42.91, 'start'),
+  ('Pejë / Peć', 20.29, 42.66, 'start'), ('Gjakovë / Đakovica', 20.43, 42.38, 'start'),
+  ('Ferizaj / Uroševac', 21.155, 42.37, 'start'), ('Gjilan / Gnjilane', 21.47, 42.46, 'end'),
+  ('Prizren', 20.74, 42.21, 'start'),
+] %}
+<svg class="kmap {{ 'all' if mode == 'signals' }} {{ cls }}" viewBox="0 0 600 640" role="img" aria-label="Map of Kosovo with incident hotspots">
+  <defs>
+    <pattern id="kdots" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="3" y="3" width="1" height="1" class="kdot"/></pattern>
+  </defs>
+  <g class="k-grid">
+    {% for x, l in [(15.5, '20.0°E'), (170, '20.5°E'), (324.6, '21.0°E'), (479.1, '21.5°E')] %}
+    <path d="M{{ x }} 0V640"/><text x="{{ x + 4 }}" y="12">{{ l }}</text>{% endfor %}
+    {% for y, l in [(134.4, '43.0°N'), (344.4, '42.5°N'), (554.4, '42.0°N')] %}
+    <path d="M0 {{ y }}H600"/><text x="4" y="{{ y - 4 }}">{{ l }}</text>{% endfor %}
+  </g>
+  <g class="k-nb">
+    <text x="440" y="84">Serbia</text><text x="28" y="168">Montenegro</text>
+    <text x="40" y="520">Albania</text><text x="392" y="586">North Macedonia</text>
+  </g>
+  <path class="k-land" d="M262.7 21.0 L284.4 33.6 L312.2 63.0 L340.0 79.8 L361.6 109.2 L392.6 126.0 L423.5 142.8 L454.4 168.0 L485.3 189.0 L510.0 218.4 L534.7 243.6 L562.6 268.8 L568.7 294.0 L553.3 323.4 L534.7 352.8 L510.0 386.4 L500.7 420.0 L494.6 449.4 L463.7 453.6 L432.7 462.0 L401.8 504.0 L361.6 470.4 L324.6 478.8 L293.6 504.0 L262.7 533.4 L238.0 575.4 L216.4 604.8 L194.7 613.2 L185.5 575.4 L194.7 533.4 L179.3 499.8 L170.0 466.2 L145.3 441.0 L123.6 420.0 L92.7 415.8 L74.2 378.0 L46.4 344.4 L37.1 319.2 L21.6 281.4 L30.9 247.8 L52.5 226.8 L83.5 210.0 L108.2 193.2 L132.9 184.8 L163.8 159.6 L185.5 142.8 L194.7 121.8 L207.1 92.4 L219.5 58.8 L238.0 37.8 Z"/>
+  <path class="k-river" d="M157.6 155.4 L188.6 159.6 L219.5 163.8 L244.2 172.2 L268.9 180.6 L284.4 180.6 L278.2 163.8 L268.9 142.8 L262.7 113.4 L262.7 88.2 L268.9 58.8 L278.2 21.0"/>
+  <path class="k-river minor" d="M324.6 344.4 L330.7 302.4 L315.3 260.4 L299.8 218.4 L284.4 180.6"/>
+  <text class="k-rl" x="170" y="150">Ibar</text><text class="k-rl" x="318" y="330" transform="rotate(-78 318 330)">Sitnica</text>
+  <g class="k-cities">
+    {% for name, lon, lat, a in cities %}{% set x = ((lon - 19.95) * 309.1)|round(1) %}{% set y = ((43.32 - lat) * 420)|round(1) %}
+    <rect x="{{ x - 2 }}" y="{{ y - 2 }}" width="4" height="4"/>
+    <text x="{{ x + (8 if a == 'start' else -8) }}" y="{{ y + 4 }}" text-anchor="{{ a }}">{{ name }}</text>{% endfor %}
+  </g>
+  <g class="k-hot">
+    {% for h in hot %}{% set x = ((h.lon - 19.95) * 309.1)|round(1) %}{% set y = ((43.32 - h.lat) * 420)|round(1) %}
+    {% if mode == 'signals' %}{% set href = '/signals?window=' ~ h.w if h.w else '/signals?q=' ~ (h.q|urlencode) %}{% else %}{% set href = '/?q=' ~ (h.q|urlencode) %}{% endif %}
+    <a href="{{ href }}" class="hs" data-k="{{ h.k }}" style="--d:{{ loop.index0 * 0.45 }}s">
+      <title>{{ h.name }} — {{ h.sub }}</title>
+      <circle class="ring" cx="{{ x }}" cy="{{ y }}" r="5"/><circle class="core" cx="{{ x }}" cy="{{ y }}" r="3.2"/>
+      <path class="tick" d="M{{ x - 9 }} {{ y }}h4M{{ x + 5 }} {{ y }}h4M{{ x }} {{ y - 9 }}v4M{{ x }} {{ y + 5 }}v4"/>
+      <text class="hn" x="{{ x + h.dx }}" y="{{ y + h.dy }}" text-anchor="{{ h.a }}">{{ h.name }}</text>
+      <text class="hd" x="{{ x + h.dx }}" y="{{ y + h.dy + 12 }}" text-anchor="{{ h.a }}">{{ h.sub }}{% if counts is not none and h.w %} · {{ "{:,}".format(counts.get(h.w, 0)) }} sig{% endif %}</text>
+    </a>{% endfor %}
+  </g>
+  <g class="k-scale"><path d="M20 618h75.7M20 613v10M57.9 615v6M95.7 613v10"/><text x="20" y="608">0</text><text x="95.7" y="608" text-anchor="middle">20 km</text></g>
+  <g class="k-north"><path d="M566 626V598M560 606l6-8 6 8"/><text x="566" y="590" text-anchor="middle">N</text></g>
+</svg>
+{% endmacro %}
+
+{% macro stars(cls='') %}<svg class="stars {{ cls }}" viewBox="0 0 132 30" aria-hidden="true">
+  {% for x, y in [(8, 24), (30, 13), (54, 7), (78, 7), (102, 13), (124, 24)] %}
+  <path transform="translate({{ x }} {{ y }})" d="M0-5.5 1.3-1.8 5.2-1.7 2.1.7 3.2 4.5 0 2.2-3.2 4.5-2.1.7-5.2-1.7-1.3-1.8z"/>{% endfor %}
+</svg>{% endmacro %}

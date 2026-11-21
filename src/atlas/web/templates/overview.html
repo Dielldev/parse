@@ -1,41 +1,65 @@
-{% extends "base.html" %}{% set active = 'overview' %}
+{% extends "base.html" %}{% from "_kosovo.html" import kosovo_map %}{% set active = 'overview' %}
 {% block title %}Overview{% endblock %}
 {% block body %}
-<h1>Overview</h1>
-<p class="lead">What has been collected so far, and how far each build phase has got. Numbers are live from the database.</p>
+<header class="ph">
+  <div class="ph-top"><span class="lbl">/0.6 — Overview</span><span class="lbl">Live from the database</span></div>
+  <h1>Overview</h1>
+  <p class="tl lbl">SQ Pasqyra · SR Pregled</p>
+  <p class="lead">What has been collected so far, and how far each build phase has got.</p>
+</header>
 
 <div class="cards">
   <div class="card"><div class="k">Sources in registry</div><div class="v">{{ n_sources }}</div>
     <div class="s">{{ by_status.get('yes', 0) }} collected · {{ by_status.get('later', 0) }} later · {{ by_status.get('phase2', 0) }} phase 2</div></div>
   <div class="card"><div class="k">Signals collected</div><div class="v">{{ "{:,}".format(n_signals) }}</div>
-    <div class="s">articles and posts, with publish times</div></div>
+    <div class="s">Articles and posts, with publish times</div></div>
   <div class="card"><div class="k">Archived evidence</div><div class="v">{{ "{:,}".format(n_evidence) }}</div>
-    <div class="s">raw pages, SHA-256, write-once</div></div>
+    <div class="s">Raw pages, SHA-256, write-once</div></div>
   <div class="card"><div class="k">Teacher-labelled</div><div class="v">{{ n_labelled }}</div>
-    <div class="s">waiting for the Featherless key</div></div>
+    <div class="s">Waiting for the Featherless key</div></div>
   <div class="card"><div class="k">Model spend</div><div class="v">${{ "%.2f"|format(spent) }}</div>
-    <div class="s">cap ${{ "%.2f"|format(budget_cap) }} · Anthropic $0</div></div>
+    <div class="s">Cap ${{ "%.2f"|format(budget_cap) }} · Anthropic $0</div></div>
 </div>
 
-<h2>Build phases</h2>
+{% set counts = {} %}{% for r in table %}{% set _ = counts.update({r.name: r.total}) %}{% endfor %}
+<h2 class="sec"><span>Theatre · Kosovo</span><i>Signals per incident window</i></h2>
+<div class="theatre-grid">
+  <div class="map-panel">{{ kosovo_map('signals', counts) }}</div>
+  <div class="panel scroll"><table>
+    <tr><th>Incident</th><th>Where</th><th>Window</th><th class="n">Signals</th></tr>
+    {% for w, place, what in [('banjska', 'Banjska, Zvečan / Zveçan', 'Armed attack on Kosovo Police'),
+                              ('canal_2024_11', 'Varage, Zubin Potok', 'Ibar–Lepenac canal explosion'),
+                              ('election_2025_12', 'Kosovo-wide', 'December 2025 election'),
+                              ('gazimestan_2026', 'Gazimestan, Obiliq / Obilić', 'Vidovdan gathering · test set')] %}
+    {% set r = (table|selectattr('name', 'equalto', w)|first) %}
+    <tr><td><a href="/signals?window={{ w }}">{{ what }}</a></td><td class="muted">{{ place }}</td>
+        <td class="mono muted">{{ r.start if r else '' }} → {{ r.end if r else '' }}</td><td class="n"><b>{{ "{:,}".format(counts.get(w, 0)) }}</b></td></tr>
+    {% endfor %}
+    <tr class="total"><td>Quiet baselines</td><td class="muted">Kosovo-wide</td><td class="mono muted">{{ table|selectattr('kind', 'equalto', 'quiet')|list|length }} windows</td>
+        <td class="n">{{ "{:,}".format(table|selectattr('kind', 'equalto', 'quiet')|sum(attribute='total')) }}</td></tr>
+  </table>
+  <p class="muted">Red markers are incident flashpoints; gold is the capital. Click a marker to open its signals. Outline is hand-plotted for orientation, not a survey boundary.</p></div>
+</div>
+
+<h2 class="sec"><span>Build phases</span><i>{{ phases|length }} phases</i></h2>
 <div class="phases">
 {% for p in phases %}
   <div class="phase {{ 'done' if p.status == 'done' else ('prog' if 'progress' in p.status or 'built' in p.status or 'ready' in p.status else '') }}">
-    <div class="num">{{ p.n }}</div>
-    <div><div class="nm">{{ p.name }}</div><div class="wh">{{ p.what }}</div></div>
-    <div><span class="pill {{ 'ok' if p.status == 'done' else ('warn' if p.status != 'not started' else 'idle') }}">{{ p.status }}</span></div>
+    <div class="ph-l"><p class="wh">{{ p.what }}</p><span class="idx">/0.{{ p.n }}</span></div>
+    <div class="ph-r"><div class="nm">{{ p.name }}</div>
+      <span class="pill {{ 'ok' if p.status == 'done' else ('warn' if p.status != 'not started' else 'idle') }}">{{ p.status }}</span></div>
   </div>
 {% endfor %}
 </div>
 
-<h2>Signals per time window and language</h2>
+<h2 class="sec"><span>Signals per time window and language</span><i>Split by event</i></h2>
 <div class="panel scroll">
 <table>
   <tr><th>Window</th><th>Split</th><th>Dates</th>{% for l in langs %}<th class="n">{{ l }}</th>{% endfor %}<th class="n">Total</th></tr>
   {% for r in table %}
   <tr><td><a href="/signals?window={{ r.name }}">{{ r.name }}</a> <span class="muted">{{ r.kind }}</span></td>
       <td><span class="pill {{ 'acc' if r.split == 'train' else ('warn' if r.split == 'val' else 'bad') }}">{{ r.split }}</span></td>
-      <td class="muted">{{ r.start }} → {{ r.end }}</td>
+      <td class="muted mono">{{ r.start }} → {{ r.end }}</td>
       {% for c in r.cells %}<td class="n">{{ c }}</td>{% endfor %}<td class="n"><b>{{ r.total }}</b></td></tr>
   {% endfor %}
   <tr class="total"><td>All</td><td></td><td></td>{% for c in col_totals %}<td class="n">{{ c }}</td>{% endfor %}<td class="n">{{ col_totals|sum }}</td></tr>
@@ -45,14 +69,14 @@
 
 <div class="grid2">
 <div>
-<h2>Signals by source tier</h2>
-<div class="panel"><table>
-  {% for t in [0,1,2,3] %}<tr><td><span class="pill t{{t}}">Tier {{t}}</span> {{ tier_names[t] }}</td><td class="n">{{ "{:,}".format(by_tier.get(t, 0)) }}</td></tr>{% endfor %}
+<h2 class="sec"><span>Signals by source tier</span><i>/A</i></h2>
+<div class="panel scroll"><table>
+  {% for t in [0,1,2,3] %}<tr><td><span class="pill t{{t}}">Tier {{t}}</span>&nbsp; {{ tier_names[t] }}</td><td class="n">{{ "{:,}".format(by_tier.get(t, 0)) }}</td></tr>{% endfor %}
 </table></div>
 </div>
 <div>
-<h2>Model stack</h2>
-<div class="panel"><table>
+<h2 class="sec"><span>Model stack</span><i>/B</i></h2>
+<div class="panel scroll"><table>
   {% for role, m in models.items() %}<tr><td>{{ role }}</td><td class="mono">{{ m.id }}</td>
   <td><span class="pill {{ 'ok' if m.provider == 'local' else 'acc' }}">{{ 'local, free' if m.provider == 'local' else 'Featherless' }}</span></td></tr>{% endfor %}
 </table></div>
