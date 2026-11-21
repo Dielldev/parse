@@ -6,23 +6,16 @@
 is a post threat-relevant (detection), is the story big enough (significance), and is it true (validation).
 Truth and spread are separate: a false story spreading fast is still alerted, marked Unverified or Debunked.</p>
 
-<div class="wf" aria-label="Pipeline">
-  <div class="node trigger"><div class="tile k-bolt"><svg viewBox="0 0 24 24"><use href="#i-bolt"/></svg></div><div class="nm">Collect</div><div class="sm">registry sources only</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-lock"><svg viewBox="0 0 24 24"><use href="#i-lock"/></svg></div><div class="nm">Archive</div><div class="sm">SHA-256 evidence</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-type"><svg viewBox="0 0 24 24"><use href="#i-type"/></svg></div><div class="nm">Normalise</div><div class="sm">language, script, OCR</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-spark"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></div><div class="nm">Detect</div><div class="sm">calibrated probabilities</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-branch"><svg viewBox="0 0 24 24"><use href="#i-branch"/></svg></div><div class="nm">Cluster</div><div class="sm">events, origin groups</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-sort"><svg viewBox="0 0 24 24"><use href="#i-sort"/></svg></div><div class="nm">Score</div><div class="sm">TPS + tripwires</div></div>
-  <span class="link"></span>
-  <div class="node "><div class="tile k-globe"><svg viewBox="0 0 24 24"><use href="#i-globe"/></svg></div><div class="nm">Verify</div><div class="sm">P1/P2 only</div></div>
-  <span class="link"></span>
-  <div class="node out"><div class="tile k-file"><svg viewBox="0 0 24 24"><use href="#i-file"/></svg></div><div class="nm">Alert</div><div class="sm">human decides</div></div>
-</div>
+<ol class="steps-row" aria-label="Pipeline">
+  <li><b>Collect</b><span>registry sources only</span></li>
+  <li><b>Archive</b><span>SHA-256 evidence</span></li>
+  <li><b>Normalise</b><span>language, script, OCR</span></li>
+  <li><b>Detect</b><span>calibrated probabilities</span></li>
+  <li><b>Cluster</b><span>events, origin groups</span></li>
+  <li><b>Score</b><span>TPS + tripwires</span></li>
+  <li><b>Verify</b><span>P1/P2 only</span></li>
+  <li><b>Alert</b><span>human decides</span></li>
+</ol>
 
 <div class="grid2">
 <section class="panel">

@@ -3,8 +3,8 @@
 {% block mainclass %}ask{% endblock %}
 {% block body %}
 <section class="hero">
-  <div class="orb" aria-hidden="true"></div>
-  <h1><span id="greet">Good afternoon</span><br>What should Atlas <span class="grad">look into?</span></h1>
+  <p class="greet" id="greet">Good afternoon</p>
+  <h1>What should Atlas look into?</h1>
   <p class="sub">Ask about an incident, a place or a narrative. Atlas searches its archive and shows every step it takes.</p>
 </section>
 
@@ -12,7 +12,7 @@
 
 <div class="composer-wrap">
   <form class="composer" id="composer" autocomplete="off">
-    <label for="q" class="sr-only" style="position:absolute;left:-9999px">Question</label>
+    <label for="q" class="sr-only">Question</label>
     <textarea id="q" rows="1" placeholder="e.g. What happened at Banjska, and who reported it first?"></textarea>
     <div class="row">
       <span class="chip" id="chip-window"><svg class="ic sm" style="position:static"><use href="#i-clock"/></svg>
@@ -29,7 +29,7 @@
     </div>
   </form>
   <div class="suggest" id="suggest">
-    {% for text, w in suggestions %}<button type="button" data-q="{{ text }}" data-window="{{ w }}"><svg class="ic"><use href="#i-sparkles"/></svg>{{ text }}</button>{% endfor %}
+    {% for text, w in suggestions %}<button type="button" data-q="{{ text }}" data-window="{{ w }}">{{ text }}</button>{% endfor %}
   </div>
   <p class="hint">Answers come from collected, archived sources only. No paid model is called.</p>
 </div>
