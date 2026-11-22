@@ -162,7 +162,7 @@
   .tr-why { grid-template-columns: 1fr 1fr; }
   .tr-why > div:nth-child(2) { border-right: 0; }
   .tr-why > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .tr-main { grid-template-columns: 1fr; }
+  .tr-main { grid-template-columns: minmax(0, 1fr); }
   .tr-rail { position: static; max-height: none; }
 }
 @media (max-width: 760px) {
@@ -175,3 +175,20 @@
   .tr-tab { padding: 12px 14px; }
   .tr-recent table th:nth-child(n+4), .tr-recent table td:nth-child(n+4) { display: none; }
 }
+
+/* Reset the global button look (40px tall, uppercase mono, dark fill) for the Tracer and Watch controls. */
+.tr-step-h, .tr-tab, .tr-examples button, .tr-go, .wt-mode, .wt-filter button, .wt-s-act > button, .wt-stop, .wt-more {
+  height: auto; }
+.tr-step-h, .tr-examples button, .wt-mode { text-transform: none; letter-spacing: 0; }
+.tr-step-h { font: 400 14px/1.4 var(--sans); color: var(--text); background: none; border: 0; opacity: 1;
+  grid-template-columns: 34px minmax(0, 1fr) auto; }
+.tr-step-h:hover { opacity: 1; }
+.tr-n { white-space: nowrap; font-size: 11px; }
+.tr-step[data-state=ok] .tr-n::before { content: "✓"; margin-right: 4px; }
+.tr-st b { font-size: 14px; line-height: 1.35; }
+.tr-sum { font-size: 12.5px; }
+.tr-ms { white-space: nowrap; }
+.tr-step-b { padding-left: 58px; }
+.tr-out, .tr-two > section, .tr-main > * { min-width: 0; }
+.tr-two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 760px) { .tr-two { grid-template-columns: minmax(0, 1fr); } }

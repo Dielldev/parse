@@ -185,14 +185,15 @@ def _before(a: Node, b: Node) -> bool:
     return a.id < b.id
 
 
-def pair_edge(a: Node, b: Node, c: dict, common_media: frozenset = frozenset()) -> dict | None:
+def pair_edge(a: Node, b: Node, c: dict, common_media: frozenset = frozenset(),
+              nav_links: frozenset = frozenset()) -> dict | None:
     """The strongest typed edge from earlier post a to later post b, or None. Section 10 step 3."""
     if a.when and b.when and b.when - a.when > timedelta(days=c["max_edge_gap_days"]):
         return None
     found = []
     if b.forwarded_from and b.forwarded_from in (a.source_id, a.url_n):
         found.append(("forward", 1.0, "forwarded_from"))
-    if a.url_n and a.url_n in b.links_n:
+    if a.url_n and a.url_n in b.links_n and (b.source_id, a.url_n) not in nav_links:
         found.append(("link", 1.0, "outgoing link"))
     shared_media = (a.media_k & b.media_k) - common_media
     if shared_media and a.source_id != b.source_id:
@@ -229,9 +230,20 @@ def common_media_keys(nodes: list[Node], c: dict) -> frozenset:
     return frozenset(k for k, v in cnt.items() if v > lim or (v >= 3 and len(per_src[k]) == 1))
 
 
+def nav_links_of(nodes: list[Node], k: int = 3) -> frozenset:
+    """(outlet, page) pairs where the outlet links to its own page from k+ posts: a sidebar or "most read" widget,
+    not evidence that the page is where the story came from."""
+    cnt = Counter((n.source_id, u) for n in nodes for u in n.links_n)
+    own = defaultdict(set)
+    for n in nodes:
+        own[n.source_id].add(n.url_n)
+    return frozenset(key for key, v in cnt.items() if v >= k and key[1] in own[key[0]])
+
+
 def build_graph(nodes: list[Node], c: dict) -> dict[str, dict]:
     """For each post, its best inbound edge (its parent). The result is a forest: one tree per origin group."""
     common = common_media_keys(nodes, c)
+    nav = nav_links_of(nodes)
     order = sorted(nodes, key=lambda n: (n.when is None, n.when or datetime.min.replace(tzinfo=timezone.utc), n.id))
     parent: dict[str, dict] = {}
     for j, b in enumerate(order):
@@ -239,7 +251,7 @@ def build_graph(nodes: list[Node], c: dict) -> dict[str, dict]:
         for a in order[:j]:
             if a.probe or not _before(a, b):   # pasted text is the newest thing in the trace, never a parent
                 continue
-            e = pair_edge(a, b, c, common)
+            e = pair_edge(a, b, c, common, nav)
             if e and (best is None or (EDGE_RANK[e["type"]], e["sim"]) > (EDGE_RANK[best["type"]], best["sim"])):
                 best = e
         if best:
@@ -292,11 +304,36 @@ def depth_of(nid: str, parent: dict[str, dict]) -> int:
     return d
 
 
-def pick_origin(nodes: list[Node], parent: dict[str, dict], group: dict[str, str], c: dict) -> dict:
-    """Section 10 step 4: earliest published node with no inbound edge, and how far to trust it."""
+def pick_origin(nodes: list[Node], parent: dict[str, dict], group: dict[str, str], c: dict,
+                seed_id: str | None = None, story_terms: list[str] | None = None, seed_title: str = "") -> dict:
+    """Section 10 step 4: earliest published node with no inbound edge, and how far to trust it.
+
+    A root counts only if it is where the seed's own chain begins, or some post in its origin group names the story
+    in its headline (2+ distinct names from the seed's search words): an earlier post about something else in the
+    same place (even one that was copied) is context, not the origin. Without search words: the group must spread."""
     real = [n for n in nodes if not n.probe]
     roots = sorted((n for n in real if n.id not in parent),
                    key=lambda n: (n.published_at is None, n.when or datetime.max.replace(tzinfo=timezone.utc)))
+    size = Counter(group.values())
+    seed_root = group.get(seed_id) if seed_id else None
+    all_roots = roots
+    terms = set(story_terms or [])
+
+    # words next to each other in the seed's headline are one name ("Zubin Potok" counts once)
+    seq = [stem(fold(w)) for w in re.findall(r"[^\W\d_]+", seed_title)]
+    name_of = {}
+    for i, w in enumerate(seq):
+        name_of.setdefault(w, name_of.get(seq[i - 1], i) if i and seq[i - 1] in terms and w in terms else i)
+
+    def names_story(n: Node) -> bool:
+        hit = {stem(fold(w)) for w in re.findall(r"[^\W\d_]{4,}", n.title)} & terms
+        return len({name_of.get(w, w) for w in hit}) >= 2
+
+    if terms:
+        named = {group.get(n.id, n.id) for n in real if names_story(n)}
+        roots = [n for n in roots if n.id == seed_root or n.id in named] or roots
+    else:
+        roots = [n for n in roots if size[n.id] > 1 or n.id == seed_root] or roots
     if not roots:
         return {"signal_id": None, "confidence": 0.0, "method": "earliest_observed", "reasons": ["No posts to trace."]}
     o = roots[0]
@@ -310,20 +347,20 @@ def pick_origin(nodes: list[Node], parent: dict[str, dict], group: dict[str, str
     if o.platform == "mirror":
         conf -= 0.25
         reasons.append("−0.25 · it is a mirror site, which republishes material from elsewhere")
-    size = Counter(group.values())
     if size[o.id] == 1 and len(real) > 1:
         conf -= 0.1
         reasons.append("−0.10 · nothing else in the trace copies, quotes or links to it")
-    if len(roots) > 1 and roots[1].when and o.when:
-        gap = (roots[1].when - o.when).total_seconds() / 60
+    nxt = next((n for n in all_roots if n is not o and n.when and o.when and n.when >= o.when), None)
+    if nxt is not None:
+        gap = (nxt.when - o.when).total_seconds() / 60
         if gap <= c["ambiguous_origin_minutes"]:
             conf -= 0.15
-            reasons.append(f"−0.15 · another independent post ({roots[1].source}) appeared {gap:.0f} min later")
+            reasons.append(f"−0.15 · another independent post ({nxt.source}) appeared {gap:.0f} min later")
     conf -= 0.1
     reasons.append("−0.10 · Atlas only sees its registry; X, Facebook and TikTok are Phase 2, so an earlier post "
                    "may exist outside the archive")
     return {"signal_id": o.id, "confidence": round(max(0.05, min(0.95, conf)), 2), "method": "earliest_observed",
-            "reasons": reasons, "runner_up": roots[1].id if len(roots) > 1 else None}
+            "reasons": reasons, "runner_up": nxt.id if nxt is not None else (roots[1].id if len(roots) > 1 else None)}
 
 
 def amplifiers(nodes: list[Node], parent: dict[str, dict], origin_id: str | None) -> list[dict]:
@@ -753,9 +790,12 @@ def run(seed: dict, ai: bool = False, fresh: bool = False, persist: bool = True,
             # Pasted text has no date. Find the archived post it matches best (its "twin"), then search again
             # around that post's date so the candidates are the story's own week, not every year that shares words.
             scored = [(overlap(probe.sh, shingles(f"{sg.title or ''} {(sg.text_latin or sg.text_original or '')[:6000]}"))[2],
-                       h, sg, sr) for sg, sr, h in found[:300]]
-            best = max(scored, key=lambda x: (x[0], x[1]))
-            if best[0] >= 0.3 and best[2].published_at:
+                       h, sg, sr) for sg, sr, h in found if sg.published_at]
+            top = max((x[0] for x in scored), default=0.0)
+            # among the posts that match the text (nearly) best, the earliest is the original; later ones quote it
+            close = [x for x in scored if x[0] >= max(0.3, top * 0.85)]
+            best = min(close, key=lambda x: x[2].published_at) if close else (0.0, 0, None, None)
+            if best[0] >= 0.3:
                 twin = _node_from(best[2], best[3])
                 anchor = best[2].published_at
                 found = _search(s, terms, anchor, c["search_days"], c["max_candidates"], need, until)
@@ -854,7 +894,7 @@ def run(seed: dict, ai: bool = False, fresh: bool = False, persist: bool = True,
 
     # 4. origin ----------------------------------------------------------------------------------------------------
     t0 = time.perf_counter()
-    origin = pick_origin(nodes, parent, group, c)
+    origin = pick_origin(nodes, parent, group, c, seed_node.id, terms, seed_node.title)
     on = next(n for n in real if n.id == origin["signal_id"])
     depth = {n.id: depth_of(n.id, parent) for n in nodes}
     seed_path = []

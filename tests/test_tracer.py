@@ -128,3 +128,20 @@ def test_diverse_cut_keeps_other_languages():
 @pytest.mark.parametrize("raw,want", [(5400, 5400), ("5400", 5400), ("6.48K", 6480), ("1.2M", 1200000), ("", 0), ("n/a", 0)])
 def test_engagement_counts(raw, want):
     assert T.count(raw) == want
+
+
+def test_earlier_post_nothing_copies_is_context_not_origin():
+    ctx = node("ctx", -35, text="Policija pojačala mere na severu, više patrola i punktova u kritičnim zonama", src="kossev")
+    a, b = node("a", 0, src="kossev"), node("b", 20, src="nova")
+    parent = T.build_graph([ctx, a, b], C)
+    group = T.groups_of([ctx, a, b], parent)
+    assert T.pick_origin([ctx, a, b], parent, group, C, seed_id="b")["signal_id"] == "a"
+
+
+def test_sidebar_links_from_one_outlet_are_not_evidence():
+    side = node("side", -30, text="Policija pojačala mere na severu, više patrola i punktova u kritičnim zonama",
+                src="kossev")
+    posts = [node(f"p{i}", 10 * i, text=f"{STORY} {i}" if i == 0 else f"Sasvim druga vest broj {i} o drugoj temi danas",
+                  src="kossev", links=[side.url]) for i in range(4)]
+    parent = T.build_graph([side] + posts, C)
+    assert not any(e["from"] == "side" for e in parent.values())
