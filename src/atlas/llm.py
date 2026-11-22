@@ -22,6 +22,34 @@ class MissingApiKey(RuntimeError):
     pass
 
 
+class RateLimiter:
+    """Sliding one-minute window shared by every Featherless call in this process. A call over the limit waits
+    for the oldest call in the window to age out instead of failing."""
+
+    def __init__(self, per_minute: int):
+        self.per_minute = max(1, int(per_minute))
+        self._calls: list[float] = []
+        self._lock = threading.Lock()
+
+    def wait(self) -> float:
+        waited = 0.0
+        while True:
+            with self._lock:
+                now = time.monotonic()
+                self._calls = [t for t in self._calls if now - t < 60]
+                if len(self._calls) < self.per_minute:
+                    self._calls.append(now)
+                    return waited
+                pause = 60 - (now - self._calls[0]) + 0.05
+            time.sleep(pause)
+            waited += pause
+
+
+@lru_cache
+def rate_limiter() -> RateLimiter:
+    return RateLimiter(budget.models_cfg()["featherless"].get("requests_per_minute", 40))
+
+
 class Featherless:
     def __init__(self, api_key: str | None = None, transport: httpx.BaseTransport | None = None):
         cfg = budget.models_cfg()["featherless"]
@@ -32,11 +60,12 @@ class Featherless:
                                    headers={"Authorization": f"Bearer {key}"})
         self._sem = threading.Semaphore(cfg["max_concurrency"])
 
-    def _post(self, path: str, body: dict) -> dict:
+    def _post(self, path: str, body: dict, tries: int = 4) -> dict:
         with self._sem:
-            for attempt in range(4):
+            for attempt in range(tries):
+                rate_limiter().wait()
                 r = self.client.post(path, json=body)
-                if r.status_code in (429, 503) and attempt < 3:  # concurrency limit / model warming up
+                if r.status_code in (429, 503) and attempt < tries - 1:  # concurrency limit / model warming up
                     time.sleep(5 * (attempt + 1))
                     continue
                 r.raise_for_status()
@@ -88,13 +117,13 @@ class Featherless:
         return data["choices"][0]["message"].get("content") or "", {"in": tin, "out": tout, "usd": usd}
 
     # ---------------------------------------------------------------- /v1/classifier (probabilities)
-    def classify(self, role: str, stage: str, text: str, questions: dict) -> tuple[dict, dict]:
+    def classify(self, role: str, stage: str, text: str, questions: dict, tries: int = 4) -> tuple[dict, dict]:
         """Returns {question_id: answer}. noul answers carry a probability in 0.01..0.99; choice answers
         carry a probability per option. Only input tokens are billed."""
         budget.check(0.0)
         data = self._post("/classifier", {"model": budget.model(role)["id"],
                                           "messages": [{"role": "user", "content": text}],
-                                          "questions": questions})
+                                          "questions": questions}, tries=tries)
         tin, tout, usd = self._settle(role, stage, data)
         return data["answers"], {"in": tin, "out": tout, "usd": usd}
 

@@ -37,3 +37,35 @@ verifier:
   nli_uncertain_high: 0.8
   corroboration_min_origins: 2
   corroboration_max_tier: 2
+
+tracer:  # brief Section 10, A12 Tracer
+  search_days: 10            # look this far either side of the seed for earlier and later posts
+  max_candidates: 800        # archive rows pulled by the word search before ranking
+  max_nodes: 120             # posts kept in one trace (the closest to the seed)
+  member_cosine: 0.70        # meaning similarity to the seed (local embeddings) to count as the same story
+  member_cosine_cross: 0.56  # ... when the post is in another language (measured: same incident sq<->sr 0.57-0.66)
+  member_overlap: 0.12       # ... or this share of the seed's 4-word phrases
+  copy_jaccard: 0.25         # 4-word phrase overlap (Jaccard) for a copy edge
+  quote_containment: 0.45    # share of the shorter text found in the longer one for a quote edge
+  quote_min_shared: 6        # ... and at least this many shared 4-word phrases
+  translate_cosine: 0.76     # cross-language meaning similarity for a translate edge (true translations 0.71-0.87)
+  max_edge_gap_days: 14      # no edge between posts further apart than this
+  lookback_hours: 48         # older posts join a trace only when a post in it links or forwards to them
+  ambiguous_origin_minutes: 30
+  common_media_share: 0.2    # an image on more than this share of posts is a site default, not evidence
+  stance_checks: 6           # independent origin groups the verifier checks (model calls)
+
+watch:  # A0 Watcher: the automation that feeds the Tracer
+  live_interval_s: 300       # live mode: one collection round every 5 minutes (sites' rate limits apply on top)
+  live_items_per_source: 5
+  live_budget_s: 60          # how long one round may spend visiting accounts
+  replay_interval_s: 3       # replay mode: seconds between ticks
+  replay_step_minutes: 120   # replay mode: story time released per tick
+  story_open_hours: 48       # a story takes new posts for this long after its last one
+  join_overlap: 0.25         # same 4-word phrases as a story post
+  join_cosine: 0.80          # or meaning this close to the story (same language)
+  join_cosine_names: 0.60    # or this close AND sharing 2+ title names/places (any language)
+  trace_min_posts: 2         # trace a story once it has this many posts ...
+  trace_min_sources: 2       # ... from this many different accounts
+  traces_per_cycle: 3        # at most this many traces per cycle (the biggest growth first)
+  ai_min_sources: 3          # with Qwen on: label and check claims only for stories 3+ accounts carry

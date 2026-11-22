@@ -5,6 +5,7 @@ Read-only over the database; the scoring and verdict demos call the same code th
 """
 from __future__ import annotations
 
+import inspect
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -46,9 +47,10 @@ PHASES = [
      "what": "Qwen3-8B labels posts with T1-T10 / N1-N11; a labeling UI for the team to correct 500-800 posts."},
     {"n": 3, "name": "Classifier and calibration", "status": "not started",
      "what": "Qwen3.5-4B-classifier probabilities, temperature-scaled on the canal window, scored on Gazimestan 2026."},
-    {"n": 4, "name": "Clustering and significance", "status": "logic built",
-     "what": "Group signals into events with embeddings + image hashes; velocity, independent origins, "
-             "coordination, proximity feed the Threat Priority Score."},
+    {"n": 4, "name": "Clustering, tracing and significance", "status": "tracer live",
+     "what": "The Tracer (/trace) builds the spread graph from one post, link, screenshot or text: typed edges, origin "
+             "groups, earliest observed source, amplifiers, discovery queue. Velocity, independent origins, "
+             "coordination and proximity feed the Threat Priority Score. Batch clustering of the whole corpus is next."},
     {"n": 5, "name": "Verifier", "status": "logic built",
      "what": "Claim extraction, evidence from Tier 0-1 sources, NLI stance, verdict by fixed rules."},
     {"n": 6, "name": "Alerts, back-test, report", "status": "not started",
@@ -69,11 +71,19 @@ SUGGESTIONS = [
 
 
 def _models() -> list[dict]:
-    return [{"role": r, "id": m["id"], "local": m["provider"] == "local"}
+    from atlas.web.models_live import ROLE_INFO, key_set
+    ok = key_set()
+    return [{"role": r, "id": m["id"], "local": m["provider"] == "local", "ready": m["provider"] == "local" or ok,
+             **ROLE_INFO.get(r, {"name": r, "does": "", "where": ""})}
             for r, m in budget.models_cfg()["models"].items()]
 
 
+def _spend() -> dict:
+    return {"spent": budget.spent(), "cap": budget.total_budget()}
+
+
 templates.env.globals["model_list"] = _models
+templates.env.globals["model_spend"] = _spend
 
 
 # ---------------------------------------------------------------- pages
@@ -89,9 +99,155 @@ async def api_ask(request: Request):
     q = str(body.get("q", "")).strip()[:300]
     if not q:
         raise HTTPException(400, "empty question")
+    # Answer engine from the model menu (cookie), unless the request says otherwise. Qwen is the default.
+    ai = body.get("ai")
+    if ai is None:
+        ai = request.cookies.get("atlas_engine", "qwen") == "qwen"
+    if ai:   # over the per-visitor limit: still answer, just without the billed model steps
+        from atlas.web import models_live as ml
+        try:
+            ml.check_rate(request.client.host if request.client else "?")
+        except ml.TooMany:
+            ai = False
+    kw = {"ai": bool(ai)} if "ai" in inspect.signature(ask_mod.run).parameters else {}
     gen = ask_mod.run(q, window=str(body.get("window") or ""), lang=str(body.get("lang") or ""),
-                      fresh=bool(body.get("fresh")))
+                      fresh=bool(body.get("fresh")), **kw)
     return StreamingResponse((json.dumps(ev, default=str) + "\n" for ev in gen), media_type="application/x-ndjson")
+
+
+# ---------------------------------------------------------------- tracer (A12, brief Section 10)
+def _engine_ai(request: Request, body: dict) -> bool:
+    """Same rule as Ask: the model menu's engine (cookie) unless the request says; rate-limited per visitor."""
+    ai = body.get("ai")
+    if ai is None:
+        ai = request.cookies.get("atlas_engine", "qwen") == "qwen"
+    if ai:
+        from atlas.web import models_live as ml
+        try:
+            ml.check_rate(request.client.host if request.client else "?")
+        except ml.TooMany:
+            ai = False
+    return bool(ai)
+
+
+@app.get("/trace", response_class=HTMLResponse)
+def trace_page(request: Request, signal: str = "", q: str = "", url: str = ""):
+    from atlas import tracer
+    return templates.TemplateResponse(request, "trace.html", {
+        "active": "trace", "prefill": {"signal": signal, "q": q, "url": url}, "recent": tracer.recent(),
+        "event_id": "", "steps": TRACE_STEPS})
+
+
+@app.get("/trace/{event_id}", response_class=HTMLResponse)
+def trace_saved(request: Request, event_id: str):
+    from atlas import tracer
+    if tracer.load(event_id) is None:
+        raise HTTPException(404, "trace not found")
+    return templates.TemplateResponse(request, "trace.html", {
+        "active": "trace", "prefill": {}, "recent": tracer.recent(), "event_id": event_id, "steps": TRACE_STEPS})
+
+
+@app.get("/api/trace/{event_id}")
+def api_trace_saved(event_id: str):
+    from atlas import tracer
+    t = tracer.load(event_id)
+    if t is None:
+        raise HTTPException(404, "trace not found")
+    return t
+
+
+@app.post("/api/trace")
+async def api_trace(request: Request):
+    """Stream a trace as NDJSON: one line per Section 10 step, then the result. Seed: signal_id | url | text | image
+    (a data: URL of a screenshot, read with OCR)."""
+    from atlas import tracer
+    body = await request.json()
+    if body.get("signal_id"):
+        seed = {"kind": "signal", "signal_id": str(body["signal_id"]).strip()[:64]}
+    elif body.get("url"):
+        seed = {"kind": "url", "url": str(body["url"]).strip()[:1000]}
+    elif body.get("image"):
+        seed = {"kind": "image", "image": str(body["image"])}
+    elif str(body.get("text", "")).strip():
+        seed = {"kind": "text", "text": str(body["text"]).strip()[:6000]}
+    else:
+        raise HTTPException(400, "nothing to trace: send signal_id, url, text or image")
+    gen = tracer.run(seed, ai=_engine_ai(request, body), fresh=bool(body.get("fresh")))
+    return StreamingResponse((json.dumps(ev, default=str) + "\n" for ev in gen), media_type="application/x-ndjson")
+
+
+# ---------------------------------------------------------------- watch: the automation dashboard (A0)
+@app.get("/watch", response_class=HTMLResponse)
+def watch_page(request: Request):
+    from atlas import watch
+    w = watch.windows()
+    return templates.TemplateResponse(request, "watch.html", {
+        "active": "watch", "windows": w, "steps": TRACE_STEPS, "cfg": watch.cfg()})
+
+
+@app.get("/api/watch/state")
+def api_watch_state():
+    from atlas import watch
+    return watch.WATCHER.state()
+
+
+@app.get("/api/watch/accounts")
+def api_watch_accounts():
+    from atlas import watch
+    st = watch.WATCHER.state()
+    acc = watch.accounts()
+    for a in acc:
+        a["session_posts"] = st["per_source"].get(a["id"], 0)
+        a["session_kosovo"] = st["per_source_kos"].get(a["id"], 0)
+    return acc
+
+
+@app.post("/api/watch/start")
+async def api_watch_start(request: Request):
+    from datetime import datetime, timezone
+
+    from atlas import watch
+    body = await request.json()
+    start_at = None
+    if body.get("start_at"):
+        try:
+            start_at = datetime.fromisoformat(str(body["start_at"])).replace(tzinfo=timezone.utc)
+        except ValueError as e:
+            raise HTTPException(400, "start_at must be a date and time") from e
+    ai = bool(body.get("ai"))
+    if ai:
+        from atlas.web import models_live as ml
+        if not ml.key_set():
+            raise HTTPException(400, "Checking claims needs FEATHERLESS_API_KEY in .env.")
+    try:
+        watch.WATCHER.start(str(body.get("mode", "replay")), window=body.get("window"),
+                            step_min=int(body["step_min"]) if body.get("step_min") else None,
+                            interval=float(body["interval"]) if body.get("interval") not in (None, "") else None,
+                            ai=ai, start_at=start_at)
+    except (RuntimeError, ValueError) as e:
+        raise HTTPException(400, str(e)) from e
+    return watch.WATCHER.state()
+
+
+@app.post("/api/watch/stop")
+def api_watch_stop():
+    from atlas import watch
+    watch.WATCHER.stop()
+    return watch.WATCHER.state()
+
+
+TRACE_STEPS = [
+    ("seed", "Seed", "The post, link, screenshot or text to trace"),
+    ("expand", "Expand backwards", "Shared words, links, images and meaning, in any language"),
+    ("graph", "Build the graph", "Forward · quote · copy · link · translate"),
+    ("origin", "Pick the origin", "Earliest node with no parent, and how sure"),
+    ("amplifiers", "Find the amplifiers", "Who passed it on, and how far"),
+    ("discover", "Discover new sources", "Upstream sites outside the registry"),
+    ("world", "Link to the real world", "Official statements and trigger dates"),
+    ("score", "Score significance", "Speed, origins, platforms, coordination, place"),
+    ("verify", "Check the claim", "One post per origin group; verdict by fixed rules"),
+    ("brief", "Write the brief", "What it is, where it began, who carried it"),
+]
 
 
 @app.get("/overview", response_class=HTMLResponse)
@@ -183,6 +339,22 @@ def signal_detail(request: Request, signal_id: str):
         hash_ok = p.exists() and verify(p, ev.sha256)
     return templates.TemplateResponse(request, "signal.html", {
         "sig": sig, "src": src, "ev": ev, "hash_ok": hash_ok, "llm": llm, "tier_names": TIER_NAMES})
+
+
+@app.post("/api/signals/{signal_id}/model/{action}")
+def api_signal_model(signal_id: str, action: str, request: Request, body: dict | None = None):
+    """Run one billed Featherless model on one signal (label, detect, translate, claim, ocr) and store the output."""
+    from atlas.web import models_live as ml
+    if action not in ("label", "detect", "translate", "claim", "ocr"):
+        raise HTTPException(404, "unknown model action")
+    try:
+        ml.check_rate(request.client.host if request.client else "?")
+    except ml.TooMany as e:
+        raise HTTPException(429, str(e)) from e
+    try:
+        return ml.run_action(signal_id, action, claim=str((body or {}).get("claim", "")))
+    except ml.ModelError as e:
+        raise HTTPException(400, str(e)) from e
 
 
 @app.get("/evidence/{sha}/{kind}")

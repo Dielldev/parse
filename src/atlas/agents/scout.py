@@ -138,6 +138,15 @@ def ensure_source(s, platform: str, t: dict) -> Source:
 def plan(platform: str, target: str, topic: str) -> list[dict]:
     if platform not in PLATFORMS:
         raise ValueError("unknown platform")
+    parts = [x for x in re.split(r"[,\s]+", (target or "").strip()) if x]
+    if len(parts) > 1:
+        out, seen = [], set()
+        for raw in parts[:8]:
+            t = parse_target(platform, raw)
+            if t and t["id"] not in seen:
+                seen.add(t["id"])
+                out.append(t)
+        return out
     t = parse_target(platform, target)
     if t:
         return [t]
@@ -429,7 +438,7 @@ class Scout:
         await self.page.goto(url, wait_until="domcontentloaded", timeout=45000)
         self.run["url"] = self.page.url
         _push(self.run, {"t": "url", "url": self.page.url})
-        await self.pause(1.2)
+        await self.pause(0.8)
 
     async def glide(self, x: float, y: float, steps: int = 14) -> None:
         await self.page.mouse.move(x, y, steps=steps)
@@ -440,8 +449,8 @@ class Scout:
         await self.glide(x or VIEW["width"] * 0.55, y or VIEW["height"] * 0.5)
         for _ in range(8):
             await self.page.mouse.wheel(0, dy / 8)
-            await asyncio.sleep(0.06)
-        await self.pause(1.3)
+            await asyncio.sleep(0.04)
+        await self.pause(0.8)
 
     async def type_into(self, selector: str, text: str) -> bool:
         """Click a search box and type like a person. False if the box is not there (caller falls back to a URL)."""
@@ -485,19 +494,37 @@ class Scout:
             pass
 
     async def read(self, t: dict, posts: list[dict], seen: set) -> bool:
-        """Read posts one by one. Returns False when this target is finished (limit, cap, time, stop)."""
-        for p in posts:
-            if p["key"] in seen or not (p.get("text") or p.get("title")):
-                continue
-            seen.add(p["key"])
-            if self.over():
-                return False
-            matched, tags = self.judge(p)
-            await self.look_at(p["ak"], hit=matched)
-            self.record(t, p, matched, tags)
-            if t["kept"] >= self.run["limit"] or t["read"] >= READ_CAP:
-                return False
-        return True
+        """Read a screen of posts. Only matches get the slow, visible look (scroll, cursor, highlight); the rest are
+        judged straight from the extracted text and skimmed with one scroll, so a screen takes about a second
+        instead of ~0.8 s per post. Returns False when this target is finished (limit, cap, time, stop)."""
+        last = None
+        try:
+            for p in posts:
+                if p["key"] in seen or not (p.get("text") or p.get("title")):
+                    continue
+                seen.add(p["key"])
+                if self.over():
+                    return False
+                matched, tags = self.judge(p)
+                if matched:
+                    await self.look_at(p["ak"], hit=True)
+                last = p["ak"]
+                self.record(t, p, matched, tags)
+                if t["kept"] >= self.run["limit"] or t["read"] >= READ_CAP:
+                    return False
+            return True
+        finally:
+            if last:
+                await self.skim(last)
+
+    async def skim(self, ak: str) -> None:
+        """Bring the last post read on this screen into view, so the mirror shows the scout moving through them."""
+        try:
+            await self.page.locator(f'[data-atlas-key="{ak}"]').first.evaluate(
+                "el => el.scrollIntoView({block: 'center', behavior: 'smooth'})")
+            await asyncio.sleep(0.35)
+        except Exception:  # noqa: BLE001
+            pass
 
     def record(self, t: dict, p: dict, matched: bool, tags: list[str]) -> None:
         from atlas.collectors.emit import emit, parse_dt
@@ -563,11 +590,18 @@ class Scout:
 
     async def reddit(self, t: dict) -> None:
         topic, sub = self.run["topic"], t.get("handle")
-        if sub:
-            # Reddit's search page asks logged-out visitors for a human check, so the scout reads the newest
-            # posts of the subreddit and filters them for your topic itself.
+        searched = False
+        if sub and topic:
+            # The subreddit's own search finds older posts on the topic, not just the last screen of new ones.
+            # Logged-out visitors sometimes get a human check there; then read the newest posts and filter them.
+            await self.goto(f"https://www.reddit.com/r/{sub}/search/?q={quote(topic)}&restrict_sr=1&sort=new&type=posts",
+                            f"Searching {t['label']} for “{topic}”")
+            searched = await self._reddit_wall(soft=True) and bool(await self.extract("reddit_list"))
+            if not searched:
+                self.step("read", f"Search gave nothing here; reading {t['label']}'s newest posts instead")
+        if sub and not searched:
             await self.goto(f"https://www.reddit.com/r/{sub}/new/", f"Opening {t['label']}, newest posts first")
-        else:
+        elif not sub:
             await self.goto(f"https://www.reddit.com/search/?q={quote(topic)}&type=posts&sort=new",
                             f"Searching Reddit for “{topic}”")
         await self._reddit_wall()
@@ -611,14 +645,19 @@ class Scout:
         matched = topic_match(self.run["terms"], body) if self.run["terms"] else is_kosovo_relevant(body)
         return matched, tags_of(body)
 
-    async def _reddit_wall(self) -> None:
+    async def _reddit_wall(self, soft: bool = False) -> bool:
+        """Raise NeedsLogin on a human check or a block page. With soft=True, return False instead of raising."""
         body = (await self.page.evaluate("() => document.body?.innerText?.slice(0, 2000) || ''")).lower()
+        walled = "prove your humanity" in body or "blocked by network security" in body or "whoa there, pardner" in body
+        if soft:
+            return not walled
         if "prove your humanity" in body:
             raise NeedsLogin("Reddit wants a human check. Open the agent browser (Reddit tab), complete it yourself "
                              "or log in, then send the scout again.")
         if "blocked by network security" in body or "whoa there, pardner" in body:
             raise NeedsLogin("Reddit blocked the hidden browser. Turn on “Show the browser on this screen”, "
                              "or log the agent browser in to Reddit once.")
+        return True
 
     async def x(self, t: dict) -> None:
         topic, h = self.run["topic"], t.get("handle")

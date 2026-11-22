@@ -56,11 +56,15 @@
     </div>
     {% for p in scout %}
     <div class="sc-sugg" data-kind="{{ p.kind }}" {{ 'hidden' if not loop.first }}>
-      {% if suggest[p.kind] %}<span class="lbl">Try</span>
+      {% if suggest[p.kind] %}<span class="lbl">{{ {'telegram': 'Channels', 'reddit': 'Subreddits', 'x': 'Accounts'}.get(p.kind, 'Try') }}</span>
+        {% if p.kind == 'telegram' %}<button type="button" class="sc-chip all" data-v="" title="Every Telegram channel in the source registry">All channels</button>{% endif %}
         {% for s in suggest[p.kind] %}<button type="button" class="sc-chip" data-v="{{ s }}">{{ s if p.kind != 'discord' else '#' ~ s.rsplit('/', 1)[-1][-6:] }}</button>{% endfor %}
       {% elif p.kind == 'discord' %}<span class="sc-sugg-note">In Discord: right-click a channel → <b>Copy Link</b>, paste it above.</span>{% endif %}
     </div>
     {% endfor %}
+    <div class="sc-sugg sc-topics"><span class="lbl">Topics</span>
+      {% for s in topics %}<button type="button" class="sc-chip sc-topic-chip" data-v="{{ s }}">{{ s }}</button>{% endfor %}
+    </div>
 
     <div class="sc-acct" id="sc-acct" hidden>
       <span class="sc-acct-ic" aria-hidden="true"></span>

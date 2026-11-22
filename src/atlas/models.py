@@ -109,7 +109,9 @@ class Event(Base):
     priority: Mapped[str | None] = mapped_column(String)
     explanation: Mapped[str | None] = mapped_column(Text)
     verification: Mapped[dict | None] = mapped_column(JSONB)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    seed: Mapped[dict | None] = mapped_column(JSONB)   # what the Tracer started from (signal, text, image, URL)
+    trace: Mapped[dict | None] = mapped_column(JSONB)  # the Tracer's full result, as shown on /trace/<event_id>
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), index=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 

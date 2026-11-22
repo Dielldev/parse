@@ -9,6 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/static/atlas.css">
+<style>
+  /* model menu: answer engine choice + what each model does */
+  .model-pop { max-height: calc(100vh - 72px); overflow-y: auto; }
+  .pop-row.engine { cursor: pointer; }
+  .pop-row.engine:hover { background: var(--bg-2); }
+  .pop-row.engine:not(.on) .tick { visibility: hidden; }
+  .pop-row span.pr-desc { white-space: normal; overflow: visible; margin: 2px 0; }
+  .pop-row.model-row { align-items: flex-start; }
+  .pop-row.model-row .tag { margin-top: 2px; white-space: nowrap; }
+  .pop-foot { padding: 10px 14px 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.5; }
+  .pop-foot a { display: block; margin-top: 4px; color: var(--text); }
+</style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e1f2b' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M3 6c6.5 0 7 6 12 6M3 18c6.5 0 7-6 12-6M3 12h18'/%3E%3C/svg%3E">
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
@@ -43,6 +55,8 @@
     <a class="brand" href="/" aria-label="ATLAS home"><svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg><span>ATLAS</span></a>
     <nav class="nav-links" aria-label="Main">
       <a href="/" class="{{ 'on' if active == 'ask' }}">Ask</a>
+      <a href="/watch" class="{{ 'on' if active == 'watch' }}">Watch</a>
+      <a href="/trace" class="{{ 'on' if active == 'trace' }}">Trace</a>
       <a href="/signals" class="{{ 'on' if active == 'signals' }}">Signals</a>
       <a href="/sources" class="{{ 'on' if active == 'sources' }}">Sources</a>
       <a href="/agents" class="{{ 'on' if active == 'agents' }}">Agents</a>
@@ -52,19 +66,27 @@
     <div class="nav-r">
       <div class="model" id="model">
         <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="false">
-          <span class="dot"></span><span class="model-name">Atlas Retrieval</span><span class="badge-free">$0</span><svg class="ic sm"><use href="#i-chev"/></svg>
+          <span class="dot"></span><span class="model-name">Qwen models</span><span class="badge-free">paid</span><svg class="ic sm"><use href="#i-chev"/></svg>
         </button>
         <div class="model-pop" role="menu">
           <div class="pop-h">Answer engine</div>
-          <div class="pop-row on">
-            <div><b>Atlas Retrieval</b><span>Search, rank and hash checks on this machine. No model calls.</span></div>
+          <div class="pop-row engine" data-engine="qwen" role="menuitemradio" tabindex="0">
+            <div><b>Qwen models</b><span class="pr-desc">Searches the archive, then labels, translates and writes the answer with the models below. About $0.002 a question.</span></div>
             <svg class="ic tick"><use href="#i-check"/></svg></div>
-          <div class="pop-h">Pipeline models</div>
+          <div class="pop-row engine" data-engine="retrieval" role="menuitemradio" tabindex="0">
+            <div><b>Atlas Retrieval</b><span class="pr-desc">Search, rank and hash checks on this machine only. No model calls, $0.</span></div>
+            <svg class="ic tick"><use href="#i-check"/></svg></div>
+          <div class="pop-h">What each model does</div>
           {% for m in model_list() %}
-          <div class="pop-row dim">
-            <div><b>{{ m.role }}</b><span class="mono">{{ m.id }}</span></div>
-            <span class="tag {{ 'ok' if m.local else '' }}">{{ 'local' if m.local else 'paid · approve' }}</span></div>
+          <div class="pop-row model-row">
+            <div><b>{{ m.name }}</b><span class="pr-desc">{{ m.does }}</span><span class="mono">{{ m.id }}</span></div>
+            {% if m.local %}<span class="tag ok">local · free</span>
+            {% elif m.ready %}<span class="tag ok" title="FEATHERLESS_API_KEY is set">connected</span>
+            {% else %}<span class="tag" title="Set FEATHERLESS_API_KEY in .env">no key</span>{% endif %}</div>
           {% endfor %}
+          {% set sp = model_spend() %}
+          <div class="pop-foot mono">Spent ${{ "%.4f"|format(sp.spent) }} of ${{ "%.2f"|format(sp.cap) }} cap · billed per token on Featherless
+            <a href="/how-it-works#models">How they fit together →</a></div>
         </div>
       </div>
       <a class="btn-cta" href="/">New thread</a>
@@ -81,9 +103,10 @@
     </div>
   </div>
   <div class="menu" id="menu">
-    <a href="/"><span>Ask</span><i>/01</i></a><a href="/signals"><span>Signals</span><i>/02</i></a>
-    <a href="/sources"><span>Sources</span><i>/03</i></a><a href="/agents"><span>Agents</span><i>/04</i></a>
-    <a href="/how-it-works"><span>Workflow</span><i>/05</i></a><a href="/overview"><span>Overview</span><i>/06</i></a>
+    <a href="/"><span>Ask</span><i>/01</i></a><a href="/watch"><span>Watch</span><i>/02</i></a>
+    <a href="/trace"><span>Trace</span><i>/03</i></a><a href="/signals"><span>Signals</span><i>/04</i></a>
+    <a href="/sources"><span>Sources</span><i>/05</i></a><a href="/agents"><span>Agents</span><i>/06</i></a>
+    <a href="/how-it-works"><span>Workflow</span><i>/07</i></a><a href="/overview"><span>Overview</span><i>/08</i></a>
   </div>
 </header>
 
@@ -100,8 +123,8 @@
       <hr>
       <div class="foot-btns"><a href="/signals">Signals</a><a href="/sources">Registry</a><a href="/overview">Status</a></div>
     </div>
-    <div class="foot-col"><h4>Platform</h4><a href="/">Ask Atlas</a><a href="/signals">Signals</a><a href="/sources">Source registry</a><a href="/how-it-works">Workflow</a><a href="/overview">Overview</a></div>
-    <div class="foot-col"><h4>Pipeline</h4><a href="/how-it-works">Collect</a><a href="/how-it-works">Archive</a><a href="/how-it-works">Normalise</a><a href="/how-it-works">Detect</a><a href="/how-it-works">Score</a><a href="/how-it-works">Verify</a></div>
+    <div class="foot-col"><h4>Platform</h4><a href="/">Ask Atlas</a><a href="/watch">Watch</a><a href="/trace">Tracer</a><a href="/signals">Signals</a><a href="/sources">Source registry</a><a href="/how-it-works">Workflow</a><a href="/overview">Overview</a></div>
+    <div class="foot-col"><h4>Pipeline</h4><a href="/how-it-works">Collect</a><a href="/how-it-works">Archive</a><a href="/how-it-works">Normalise</a><a href="/how-it-works">Detect</a><a href="/trace">Trace</a><a href="/how-it-works">Score</a><a href="/how-it-works">Verify</a></div>
     <div class="foot-col"><h4>Theatre</h4><a href="/signals?window=banjska">Banjska</a><a href="/signals?window=canal_2024_11">Ibar–Lepenac canal</a><a href="/signals?q=Jarinje">Jarinje gate</a><a href="/signals?q=Mitrovica">Mitrovicë / Mitrovica</a><a href="/signals?window=gazimestan_2026">Gazimestan</a></div>
     <div class="foot-col"><h4>Doctrine</h4><span>Registry sources only</span><span>Evidence is write-once</span><span>Truth and spread scored apart</span><span>A human decides</span></div>
   </div>
@@ -111,6 +134,21 @@
 (() => {
   const m = document.getElementById('model'), b = m.querySelector('.model-btn');
   b.addEventListener('click', e => { e.stopPropagation(); const o = m.classList.toggle('open'); b.setAttribute('aria-expanded', o); });
+  // Answer engine: kept in a cookie so /api/ask knows it without the page sending anything.
+  const getEngine = () => (document.cookie.match(/(?:^|; )atlas_engine=(\w+)/) || [])[1] || 'qwen';
+  const showEngine = (eng) => {
+    m.querySelectorAll('.engine').forEach(r => { const on = r.dataset.engine === eng; r.classList.toggle('on', on); r.setAttribute('aria-checked', on); });
+    m.querySelector('.model-name').textContent = eng === 'qwen' ? 'Qwen models' : 'Atlas Retrieval';
+    m.querySelector('.badge-free').textContent = eng === 'qwen' ? 'paid' : '$0';
+    document.documentElement.dataset.engine = eng;
+  };
+  m.querySelectorAll('.engine').forEach(r => {
+    const pick = () => { document.cookie = `atlas_engine=${r.dataset.engine}; path=/; max-age=31536000; samesite=lax`; showEngine(r.dataset.engine); };
+    r.addEventListener('click', pick);
+    r.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+  showEngine(getEngine());
+  window.atlasEngine = getEngine;
   const nav = document.getElementById('nav'), mb = document.getElementById('menu-btn');
   mb.addEventListener('click', e => { e.stopPropagation(); const o = nav.classList.toggle('menu-open'); mb.setAttribute('aria-expanded', o); });
   document.addEventListener('click', e => {

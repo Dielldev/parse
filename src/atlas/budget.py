@@ -36,6 +36,10 @@ def total_budget() -> float:
     return float(models_cfg()["budget"]["total_usd"])
 
 
+def require_approval() -> bool:
+    return bool(models_cfg()["budget"].get("require_approval", True))
+
+
 def cost(role: str, in_tok: int, out_tok: int) -> float:
     m = model(role)
     return (in_tok * m["price_in"] + out_tok * m["price_out"]) / 1e6

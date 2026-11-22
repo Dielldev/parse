@@ -81,15 +81,17 @@ def _source_cards(s) -> dict[str, list[dict]]:
 # Browser scout destinations, in tab order. `suggest` is filled from the registry.
 SCOUT = [
     {"kind": "telegram", "name": "Telegram", "where": "Public channels", "login": False,
-     "how": "Opens t.me/s/<channel>, the public web preview anyone can see. Types your topic into the channel's "
-            "search, then scrolls back through older posts.", "placeholder": "@channel or t.me/… (empty = registry sweep)"},
+     "how": "Pick channels below (or type @names), say what to look for, press the button. The scout opens each "
+            "channel's public page, searches it for your words and keeps the posts that match. No account needed.",
+     "placeholder": "Pick channels below, or type @channel"},
     {"kind": "discord", "name": "Discord", "where": "Servers you joined", "login": True,
      "how": "Opens the channel in Discord's web app with the agent browser's own account and scrolls back through "
             "the messages. It only sees servers that account joined; joining stays your job.",
      "placeholder": "https://discord.com/channels/…/…"},
     {"kind": "reddit", "name": "Reddit", "where": "Subreddits + threads", "login": False,
-     "how": "Opens the subreddit's newest posts, keeps the ones on your topic, then opens the busiest threads and "
-            "reads what people say in the comments. Use the visible browser: Reddit blocks hidden ones. ", "placeholder": "r/kosovo (empty = all of Reddit)"},
+     "how": "Searches the subreddit for your topic (or reads its newest posts), then opens the busiest threads and "
+            "reads what people say in the comments. Use the visible browser: Reddit blocks hidden ones.",
+     "placeholder": "Pick subreddits below, or type r/name (empty = all of Reddit)"},
     {"kind": "x", "name": "X", "where": "Search + profiles", "login": True,
      "how": "Runs an X search for your topic, newest first (or a handle's posts), and scrolls the timeline. "
             "X shows nothing logged out, so log the agent browser in once.", "placeholder": "@handle (empty = all of X)"},
@@ -113,7 +115,11 @@ def _suggestions(s) -> dict[str, list[str]]:
             continue
         if label.lower() not in {x.lower() for x in out[src.platform]}:
             out[src.platform].append(label)
-    return {k: v[:8] for k, v in out.items()}
+    return {k: v[:10] for k, v in out.items()}
+
+
+# One-click topics under "Look for" on every scout tab.
+SCOUT_TOPICS = ["Banjska", "Jarinje", "Ibar bridge", "KSF", "Kurti", "mobilisation", "KFOR", "Zvečan"]
 
 
 @router.get("/agents", response_class=HTMLResponse)
@@ -124,7 +130,7 @@ def agents_page(request: Request):
         suggest = _suggestions(s)
     news = [c for c in cards["web"] if not c["blocked"]]
     return templates.TemplateResponse(request, "agents.html", {
-        "scout": SCOUT, "suggest": suggest, "news": news, "news_ready": sum(1 for c in news if c["ready"]),
+        "scout": SCOUT, "suggest": suggest, "topics": SCOUT_TOPICS, "news": news, "news_ready": sum(1 for c in news if c["ready"]),
         "methods": METHODS, "accounts": scout.accounts(), "busy": scout.busy(), "runs": runner.recent()})
 
 

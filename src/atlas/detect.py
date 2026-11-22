@@ -66,8 +66,8 @@ def parse(answers: dict) -> dict[str, float]:
     return {k: float(v["noul"]) for k, v in answers.items() if v.get("type") == "noul"}
 
 
-def detect(fl, title: str | None, text: str | None, stage: str = "detect") -> tuple[dict[str, float], dict]:
-    answers, usage = fl.classify(ROLE, stage, post_text(title, text), questions())
+def detect(fl, title: str | None, text: str | None, stage: str = "detect", tries: int = 4) -> tuple[dict[str, float], dict]:
+    answers, usage = fl.classify(ROLE, stage, post_text(title, text), questions(), tries=tries)
     return parse(answers), usage
 
 
@@ -80,9 +80,9 @@ NLI_QUESTION = {"stance": {
                  "unrelated": "The evidence does not address the claim"}}}
 
 
-def stance(fl, claim: str, evidence: str) -> tuple[str, dict[str, float], dict]:
+def stance(fl, claim: str, evidence: str, tries: int = 4) -> tuple[str, dict[str, float], dict]:
     """NLI-style stance for the Verifier. Returns the chosen label and its probability per option."""
     answers, usage = fl.classify("nli", "verify-stance", f"CLAIM:\n{claim}\n\nEVIDENCE:\n{evidence[:4000]}",
-                                 NLI_QUESTION)
+                                 NLI_QUESTION, tries=tries)
     a = answers["stance"]
     return a["choice"], a["probabilities"], usage

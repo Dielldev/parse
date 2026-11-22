@@ -8,10 +8,12 @@ featherless:
   base_url: https://api.featherless.ai/v1
   max_concurrency: 2        # Basic plan = 2 concurrent units; raise to match your plan
   timeout_s: 120
+  requests_per_minute: 40   # all Featherless calls from this machine share this; extra calls wait their turn
+  web_actions_per_minute: 10   # per browser: model buttons on signal pages + Ask answers that use the models
 
 budget:
   total_usd: 5.00           # hard stop for all Featherless spend in this project
-  require_approval: true    # every paid run needs --approve after you see the estimate
+  require_approval: false   # user decision 2026-11-21: paid runs go ahead without --approve (the cap above still stops them)
 
 models:
   teacher:      {provider: featherless, id: Qwen/Qwen3-8B, enable_thinking: false, price_in: 0.117, price_out: 0.455}

@@ -27,13 +27,51 @@
       const tab = $(`.sc-tab[data-kind="${k}"]`);
       $('#sc-target').placeholder = tab.dataset.placeholder;
       $('#sc-how').textContent = PLAT[k]?.how || '';
-      $$('.sc-sugg').forEach(s => { s.hidden = s.dataset.kind !== k; });
+      $$('.sc-sugg[data-kind]').forEach(s => { s.hidden = s.dataset.kind !== k; });
       $('#sc-err').hidden = true;
       drawAccount();
+      syncChips();
     }
   }
   $$('.sc-tab').forEach(t => t.addEventListener('click', () => pick(t.dataset.kind)));
-  $$('.sc-chip').forEach(c => c.addEventListener('click', () => { $('#sc-target').value = c.dataset.v; $('#sc-topic').focus(); }));
+  // Where: chips toggle channels in and out of the field ("@a, @b"); "All channels" empties it (registry sweep).
+  const parts = () => $('#sc-target').value.split(/[\s,]+/).filter(Boolean);
+  function syncChips() {
+    const cur = parts().map(x => x.toLowerCase());
+    $$(`.sc-sugg[data-kind="${kind}"] .sc-chip`).forEach(c =>
+      c.classList.toggle('on', c.dataset.v ? cur.includes(c.dataset.v.toLowerCase()) : !cur.length));
+    const topic = $('#sc-topic').value.trim().toLowerCase();
+    $$('.sc-topic-chip').forEach(c => c.classList.toggle('on', c.dataset.v.toLowerCase() === topic));
+    sendLabel();
+  }
+  function sendLabel() {
+    const n = parts().length, topic = $('#sc-topic').value.trim(), one = parts()[0];
+    const where = {
+      telegram: n ? (n > 1 ? `${n} channels` : one) : 'all channels',
+      reddit: n ? (n > 1 ? `${n} subreddits` : one) : 'all of Reddit',
+      x: n ? (n > 1 ? `${n} accounts` : one) : 'all of X',
+      discord: 'the channel',
+    }[kind];
+    if (!where) return;
+    const t = topic.length > 22 ? topic.slice(0, 22) + '…' : topic;
+    $('#sc-send-label').textContent = topic ? `Search ${where} for “${t}”` : `Read the latest from ${where}`;
+  }
+  $$('.sc-sugg[data-kind] .sc-chip').forEach(c => c.addEventListener('click', () => {
+    const v = c.dataset.v;
+    if (!v) $('#sc-target').value = '';
+    else if (kind === 'discord') $('#sc-target').value = v;
+    else {
+      const cur = parts(), i = cur.findIndex(x => x.toLowerCase() === v.toLowerCase());
+      if (i >= 0) cur.splice(i, 1); else cur.push(v);
+      $('#sc-target').value = cur.join(', ');
+    }
+    syncChips();
+  }));
+  $$('.sc-topic-chip').forEach(c => c.addEventListener('click', () => {
+    $('#sc-topic').value = c.classList.contains('on') ? '' : c.dataset.v; syncChips(); $('#sc-topic').focus();
+  }));
+  $('#sc-target').addEventListener('input', syncChips);
+  $('#sc-topic').addEventListener('input', syncChips);
 
   // ================================================================ agent-browser account (log in once, join servers)
   function drawAccount() {

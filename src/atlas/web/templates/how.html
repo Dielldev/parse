@@ -22,6 +22,23 @@
   <li><b>Alert</b><span>Human decides</span></li>
 </ol>
 
+<h2 class="sec" id="models"><span>Models</span><i>Which model runs at which stage</i></h2>
+<p class="muted" style="margin-top:0">Five models run on Featherless and are billed per token; one runs free on this computer.
+Every call checks the ${{ "%.2f"|format(model_spend().cap) }} cap first and is logged to <span class="mono">data/spend_ledger.csv</span>
+(spent so far: ${{ "%.4f"|format(model_spend().spent) }}). Try any of them from a signal's page with the <b>Run a model</b> buttons.</p>
+{% set stage = {'ocr_fallback': 'Normalise', 'translation': 'Normalise', 'embedding': 'Cluster', 'detector': 'Detect',
+                'teacher': 'Detect · Brief', 'nli': 'Verify'} %}
+{% set order = ['ocr_fallback', 'translation', 'teacher', 'detector', 'embedding', 'nli'] %}
+<div class="scroll"><table>
+  <tr><th>Stage</th><th>Model</th><th>What it does</th><th>Where you can run it</th><th></th></tr>
+  {% for role in order %}{% set m = model_list()|selectattr('role', 'equalto', role)|first %}{% if m %}
+  <tr><td>{{ stage[role] }}</td><td><b>{{ m.name }}</b><div class="mono muted">{{ m.id }}</div></td><td>{{ m.does }}</td>
+    <td>{{ m.where }}</td><td class="mono">{{ 'local · free' if m.local else ('connected' if m.ready else 'no key') }}</td></tr>
+  {% endif %}{% endfor %}
+</table></div>
+<p class="muted">The classifier model (detector, claim checker) is sometimes unavailable on Featherless while it loads. When that
+happens the same question goes to Qwen3-8B and the result says so.</p>
+
 <div class="grid2">
 <div>
 <h2 class="sec"><span>Threat Priority Score</span><i>/A — Try it</i></h2>

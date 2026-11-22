@@ -50,8 +50,10 @@ def estimate(rows) -> dict:
             "usd_developer_plan": round(budget.cost(ROLE, int(tin), int(tout)), 3), "usd_flat_rate_plan": 0.0}
 
 
-def translate_one(fl, sid, lang, title, text) -> None:
+def translate_one(fl, sid, lang, title, text) -> dict:
+    """Translate and store one signal. Returns the usage ({"in", "out", "usd"}); English costs nothing."""
     src = body(title, text)
+    usage = {"in": 0, "out": 0, "usd": 0.0}
     if lang == "en":
         en = src
     else:
@@ -60,13 +62,15 @@ def translate_one(fl, sid, lang, title, text) -> None:
     with session() as s:
         s.get(Signal, sid).text_en = en.strip()
         s.add(LlmOutput(stage="translate", model=budget.model(ROLE)["id"], prompt_version=PROMPT_VERSION,
-                        subject_id=sid, output={"lang": lang}))
+                        subject_id=sid, output={"lang": lang}, input_tokens=usage["in"],
+                        output_tokens=usage["out"], usd=usage["usd"]))
+    return usage
 
 
 def run(rows, approve: bool) -> int:
     est = estimate(rows)
     budget.check(est["usd_developer_plan"])
-    if not approve:
+    if not approve and budget.require_approval():
         raise SystemExit("Not run: pass --approve after the estimate has been approved.")
     from atlas.llm import Featherless
     fl = Featherless()

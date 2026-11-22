@@ -1,10 +1,11 @@
 """Teacher labeling with Qwen/Qwen3-8B on Featherless (config/models.yaml, role `teacher`).
 
-Nothing paid runs without --approve, and the budget cap in config/models.yaml is checked before each call.
+Runs are billed on Featherless. The budget cap in config/models.yaml is checked before each call; --approve is
+only required when `require_approval: true` there.
 Usage:
   uv run python -m atlas.label_teacher estimate --pilot          # free: sample + estimated cost
-  uv run python -m atlas.label_teacher run --pilot --approve     # paid: label 50 posts
-  uv run python -m atlas.label_teacher run -n 3000 --approve     # paid: the full teacher set
+  uv run python -m atlas.label_teacher run --pilot               # paid: label 50 posts
+  uv run python -m atlas.label_teacher run -n 3000               # paid: the full teacher set
 """
 from __future__ import annotations
 
@@ -117,11 +118,13 @@ def estimate(items: list[tuple[Signal, Source]]) -> dict:
             "spent_so_far": round(budget.spent(), 4), "budget_cap": budget.total_budget()}
 
 
-def label_one(fl, sig: Signal, src: Source) -> bool:
+def label_one(fl, sig: Signal, src: Source) -> dict | None:
+    """Label one post and store it. Returns {"label": TeacherLabel, "usage": {...}}, or None if the reply was
+    never valid JSON."""
     try:
         out, usage = fl.chat_json(ROLE, STAGE, system_prompt(), user_content(sig, src), TeacherLabel)
     except ValueError:
-        return False
+        return None
     with session() as s:
         s.add(LlmOutput(stage=STAGE, model=budget.model(ROLE)["id"], prompt_version=PROMPT_VERSION,
                         subject_id=sig.signal_id, output=out.model_dump(), input_tokens=usage["in"],
@@ -129,19 +132,19 @@ def label_one(fl, sig: Signal, src: Source) -> bool:
         row = s.get(Signal, sig.signal_id)
         row.labels, row.narratives = list(out.labels), list(out.narratives)
         row.entities = {"places": out.places, "orgs": out.orgs}
-    return True
+    return {"label": out, "usage": usage}
 
 
 def run(items, approve: bool) -> dict:
     est = estimate(items)
     budget.check(est["usd_developer_plan"])
-    if not approve:
+    if not approve and budget.require_approval():
         raise SystemExit("Not run: pass --approve after the estimate has been approved.")
     from atlas.llm import Featherless
     fl = Featherless()
     workers = budget.models_cfg()["featherless"]["max_concurrency"]
     with ThreadPoolExecutor(workers) as ex:
-        ok = sum(ex.map(lambda it: label_one(fl, *it), items))
+        ok = sum(1 for r in ex.map(lambda it: label_one(fl, *it), items) if r)
     return {"labelled": ok, "failed": len(items) - ok, "spent_total": round(budget.spent(), 4)}
 
 
