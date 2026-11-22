@@ -2,10 +2,10 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from atlas.agents import registry_edit, runner
-from atlas.agents.methods import DISCORD_CHANNEL_RE, method_for, topic_match
-from atlas.models import Source
-from atlas.registry import import_sources
+from parse.agents import registry_edit, runner
+from parse.agents.methods import DISCORD_CHANNEL_RE, method_for, topic_match
+from parse.models import Source
+from parse.registry import import_sources
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def client(db, tmp_path, monkeypatch):
     csv_copy = tmp_path / "sources.csv"
     csv_copy.write_text(registry_edit.CSV_PATH.read_text())
     monkeypatch.setattr(registry_edit, "CSV_PATH", csv_copy)   # never touch the real registry file
-    from atlas.web.app import app
+    from parse.web.app import app
     return TestClient(app)
 
 
@@ -80,7 +80,7 @@ def test_parked_telegram_source_is_gated_until_approved(client, db):
 
 # ---------------------------------------------------------------- browser scout (no browser is launched here)
 def test_scout_parses_what_people_type():
-    from atlas.agents import scout
+    from parse.agents import scout
     assert scout.parse_target("telegram", "https://t.me/balkanar")["url"] == "https://t.me/s/balkanar"
     assert scout.parse_target("telegram", "@balkanar")["id"] == "src_tg_balkanar"
     assert scout.parse_target("reddit", "r/kosovo")["url"] == "https://www.reddit.com/r/kosovo/"
@@ -93,7 +93,7 @@ def test_scout_parses_what_people_type():
 
 
 def test_scout_plan_needs_a_target_or_topic(client):
-    from atlas.agents import scout
+    from parse.agents import scout
     with pytest.raises(ValueError):
         scout.plan("discord", "", "kurti")
     with pytest.raises(ValueError):
@@ -103,17 +103,17 @@ def test_scout_plan_needs_a_target_or_topic(client):
 
 
 def test_scout_registers_new_targets_and_respects_blocks(client, db):
-    from atlas.agents import scout
-    src = scout.ensure_source(db, "telegram", scout.parse_target("telegram", "@atlas_test_channel"))   # flushed; rolled back after
+    from parse.agents import scout
+    src = scout.ensure_source(db, "telegram", scout.parse_target("telegram", "@parse_test_channel"))   # flushed; rolled back after
     assert src.origin == "browser-scout" and src.tier == 3
-    assert "src_tg_atlas_test_channel" in registry_edit.CSV_PATH.read_text()
+    assert "src_tg_parse_test_channel" in registry_edit.CSV_PATH.read_text()
     blocked = next(x for x in db.query(Source).all() if x.mvp_collect.startswith("blocked"))
     with pytest.raises(scout.Refused):
         scout.ensure_source(db, blocked.platform, {"id": blocked.source_id, "url": blocked.url or "x", "label": "b"})
 
 
 def test_scout_tags_framing():
-    from atlas.agents import scout
+    from parse.agents import scout
     assert "War / persecution" in scout.tags_of("Kurti sprema rat, teror nad Srbima")
     assert "North" in scout.tags_of("Напад у Звечану")
     assert scout.tags_of("weather is nice") == []

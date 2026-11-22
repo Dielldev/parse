@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from atlas import tracer as T
+from parse import tracer as T
 
 C = {"copy_jaccard": 0.25, "quote_containment": 0.45, "quote_min_shared": 6, "translate_cosine": 0.76,
      "max_edge_gap_days": 14, "ambiguous_origin_minutes": 30, "common_media_share": 0.2}

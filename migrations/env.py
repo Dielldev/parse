@@ -1,8 +1,8 @@
 from alembic import context
 from sqlalchemy import create_engine
 
-from atlas.models import Base
-from atlas.settings import DATABASE_URL
+from parse.models import Base
+from parse.settings import DATABASE_URL
 
 target_metadata = Base.metadata
 

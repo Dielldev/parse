@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% set active = 'sources' %}
+{% block title %}Sources{% endblock %}
+{% block body %}
+<header class="ph">
+  <div class="ph-top"><span class="lbl">/0.3 — Source registry</span><span class="lbl">{{ sources|length }} sources</span></div>
+  <h1>Source registry</h1>
+  <p class="tl lbl">SQ Regjistri i burimeve · SR Registar izvora</p>
+  <p class="lead">Parse collects only from these sources. Tier reflects documented editorial record, never language.
+  A Tier-0 source counts as Tier 0 only for claims about its own actions (its scope); otherwise it is treated as a party's claim.</p>
+</header>
+<form class="filters" method="get">
+  <select name="tier"><option value="">All tiers</option>
+    {% for t in [0,1,2,3] %}<option value="{{t}}" {{ 'selected' if tier == t|string }}>Tier {{t}} · {{ tier_names[t] }}</option>{% endfor %}</select>
+  <select name="mode"><option value="">Any collection mode</option>
+    {% for m in modes %}<option value="{{m}}" {{ 'selected' if mode == m }}>{{m}}</option>{% endfor %}</select>
+  <button>Filter</button> <span class="lbl muted">{{ sources|length }} sources</span>
+</form>
+<div class="panel scroll"><table>
+  <tr><th>Source</th><th>Tier</th><th>Lang</th><th>Platform</th><th>Collection</th><th class="n">Signals</th><th>Bias note / Tier-0 scope</th><th>Last check</th></tr>
+  {% for s in sources %}
+  <tr>
+    <td>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}<div class="muted mono">{{ s.source_id }}</div></td>
+    <td><span class="pill t{{ s.tier }}">T{{ s.tier }}</span></td>
+    <td class="mono">{{ s.lang }}</td><td>{{ s.platform }}</td>
+    <td>{% set m = s.mvp_collect %}<span class="pill {{ 'ok' if m == 'yes' and s.status == 'verified' else ('bad' if m.startswith('blocked') else 'idle') }}">{{ m }}</span>
+        <div class="muted mono">{{ s.status }}</div></td>
+    <td class="n">{% if counts.get(s.source_id) %}<a href="/signals?source={{ s.source_id }}">{{ counts[s.source_id] }}</a>{% else %}0{% endif %}</td>
+    <td>{{ s.bias_note or '' }}{% if s.tier0_scope %}<div class="muted">Scope: {{ s.tier0_scope }}</div>{% endif %}</td>
+    <td class="muted mono">{{ s.check_note or '' }}</td>
+  </tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

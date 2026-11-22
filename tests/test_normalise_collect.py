@@ -2,10 +2,10 @@ from datetime import date, datetime, timezone
 
 import pytest
 
-from atlas import budget
-from atlas.collectors.backfill import Window, _even_sample, date_hint, slug_relevant, window_candidates
-from atlas.collectors.emit import published_from_html
-from atlas.normalise.text import detect_lang, fold, is_kosovo_relevant, sr_cyr_to_lat
+from parse import budget
+from parse.collectors.backfill import Window, _even_sample, date_hint, slug_relevant, window_candidates
+from parse.collectors.emit import published_from_html
+from parse.normalise.text import detect_lang, fold, is_kosovo_relevant, sr_cyr_to_lat
 
 
 def test_transliteration_and_fold():

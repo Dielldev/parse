@@ -1,6 +1,6 @@
-# Atlas keyword and narrative seeds, brief Section 6. Versioned config; do not hard-code in Python.
+# Parse keyword and narrative seeds, brief Section 6. Versioned config; do not hard-code in Python.
 # Serbian terms are written in Latin. Cyrillic text is transliterated to Latin before matching.
-# Matching is case-insensitive and diacritic-insensitive (see atlas.normalise.text.fold).
+# Matching is case-insensitive and diacritic-insensitive (see parse.normalise.text.fold).
 version: kw-v1
 
 topics:

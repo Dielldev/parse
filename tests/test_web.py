@@ -2,16 +2,16 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from atlas.collectors.emit import emit
-from atlas.models import Source
-from atlas.registry import import_sources
+from parse.collectors.emit import emit
+from parse.models import Source
+from parse.registry import import_sources
 
 
 @pytest.fixture
 def client(db):
     import_sources(db)
     db.commit()
-    from atlas.web.app import app
+    from parse.web.app import app
     return TestClient(app)
 
 
@@ -19,7 +19,7 @@ def test_pages_render(client):
     for path in ("/", "/overview", "/how-it-works", "/sources", "/sources?tier=0", "/signals", "/signals?q=Kosovo&lang=sq"):
         r = client.get(path)
         assert r.status_code == 200, path
-        assert "ATLAS" in r.text
+        assert "PARSE" in r.text
 
 
 def test_signal_detail_and_evidence_served_as_plain_text(client, db, tmp_path, monkeypatch):
@@ -101,7 +101,7 @@ def test_tracer_page_and_api(client, db, monkeypatch):
     """The Tracer page renders, and a pasted text is traced back to the earliest archived copy (local only)."""
     from datetime import datetime, timezone
 
-    from atlas import tracer
+    from parse import tracer
     monkeypatch.setattr(tracer, "_embed", lambda nodes: (0, 0, None))   # no embedder in tests
     assert client.get("/trace").status_code == 200
     text = ("Snažna eksplozija kod Zubinog Potoka oštetila je kanal Ibar-Lepenac, voda curi a snabdevanje je "
@@ -128,7 +128,7 @@ def test_watch_replay_groups_and_traces(client, db, monkeypatch):
     """The automation: a replayed window is grouped into a story, the story is traced, the dashboard sees it."""
     from datetime import datetime, timezone
 
-    from atlas import tracer, watch
+    from parse import tracer, watch
     monkeypatch.setattr(tracer, "_embed", lambda nodes: (0, 0, None))
     text = ("Snažna eksplozija kod Zubinog Potoka oštetila je kanal Ibar-Lepenac, voda curi a snabdevanje je "
             "prekinuto za veći deo opštine Zubin Potok prema prvim informacijama sa terena.")

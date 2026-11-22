@@ -2,9 +2,9 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from atlas.scoring import significance as sig
-from atlas.scoring import tps
-from atlas.scoring.verdict import EvidenceItem as E, decide
+from parse.scoring import significance as sig
+from parse.scoring import tps
+from parse.scoring.verdict import EvidenceItem as E, decide
 
 
 # ---------------------------------------------------------------- TPS

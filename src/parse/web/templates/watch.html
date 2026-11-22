@@ -1,0 +1,72 @@
+{% extends "base.html" %}{% set active = 'watch' %}
+{% block title %}Watch{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="/static/trace.css">
+<link rel="stylesheet" href="/static/watch.css">
+<header class="ph">
+  <div class="ph-top"><a class="backlink lbl" href="/">← Ask</a><span class="lbl mono">A0 · Watcher · automation</span></div>
+  <h1 class="title">Parse watches the accounts. You read the stories.</h1>
+  <p class="lead tr-lead">The watcher visits every account in the registry that posts about Kosovo, keeps the new posts, groups them into
+    stories, and runs the <a href="/trace">Tracer</a> on each story as it grows: <b>where it started</b>, <b>how it spread</b>,
+    <b>who amplified it</b>, <b>how urgent it is</b>. A story that reaches P1/P2 raises an alert.
+    <b>Replay</b> runs an archived window in time order as if it were live, which is the back-test the brief asks for.</p>
+</header>
+
+<section class="panel wt-ctl" aria-label="Watcher controls">
+  <div class="wt-modes" role="radiogroup" aria-label="Mode">
+    <button type="button" class="wt-mode on" data-mode="replay" role="radio" aria-checked="true"><b>Replay a window</b><span>Archived posts released in time order, as if live</span></button>
+    <button type="button" class="wt-mode" data-mode="live" role="radio" aria-checked="false"><b>Live accounts</b><span>Field agents visit every live account every {{ (cfg.live_interval_s // 60)|int }} min</span></button>
+  </div>
+  <div class="wt-opts">
+    <label class="wt-f" data-for="replay"><span class="lbl">Window</span>
+      <select id="wt-window">{% for name, w in windows.items() %}<option value="{{ name }}" data-start="{{ w.start }}" data-end="{{ w.end }}" {{ 'selected' if name == 'canal_2024_11' }}>{{ name }} · {{ w.kind }} · {{ w.start }} → {{ w.end }}</option>{% endfor %}</select></label>
+    <label class="wt-f" data-for="replay"><span class="lbl">Start at (UTC)</span><input type="datetime-local" id="wt-start"></label>
+    <label class="wt-f" data-for="replay"><span class="lbl">Each tick releases</span>
+      <select id="wt-step"><option value="60">1 hour</option><option value="120">2 hours</option><option value="180" selected>3 hours</option><option value="360">6 hours</option></select></label>
+    <label class="wt-f wt-note" data-for="live" hidden><span class="lbl">Accounts</span><span id="wt-live-n">—</span></label>
+    <label class="toggle wt-ai" title="Label posts (T1–T10) and check claims against independent sources with the Qwen models. Billed per token; the budget cap applies."><input type="checkbox" id="wt-ai"> Label &amp; check claims with Qwen</label>
+    <span class="spacer"></span>
+    <button type="button" class="tr-go" id="wt-start-btn">Start watching <svg class="ic sm"><use href="#i-arrow"/></svg></button>
+    <button type="button" class="wt-stop" id="wt-stop-btn" hidden>Stop</button>
+  </div>
+  <div class="wt-status mono" id="wt-status" aria-live="polite">Idle. Choose a mode and start.</div>
+  <div class="wt-progress" id="wt-progress" hidden><i></i></div>
+</section>
+
+<section class="wt-pipe" aria-label="Pipeline">
+  {% for id, title, sub in [('collect','Collect','posts from the accounts'),('filter','Filter','about Kosovo'),('group','Group','stories touched'),('trace','Trace','stories traced'),('alert','Alert','P1 / P2 raised')] %}
+  <div class="wt-stage" data-stage="{{ id }}"><span class="tr-n mono">{{ '%02d'|format(loop.index) }}</span>
+    <b>{{ title }}</b><span class="wt-big mono" data-c="{{ id }}">0</span><span class="muted">{{ sub }} · this cycle</span></div>
+  {% endfor %}
+</section>
+
+<section class="wt-kpis" aria-label="Totals">
+  <div><span class="lbl">Accounts watched live</span><b id="k-acc">—</b><span class="muted" id="k-acc-s"></span></div>
+  <div><span class="lbl">Posts collected</span><b id="k-posts">0</b></div>
+  <div><span class="lbl">About Kosovo</span><b id="k-kos">0</b></div>
+  <div><span class="lbl">Stories</span><b id="k-stories">0</b></div>
+  <div><span class="lbl">Traced</span><b id="k-traced">0</b><span class="muted" id="k-traces"></span></div>
+  <div><span class="lbl">Alerts P1/P2</span><b id="k-alerts">0</b></div>
+</section>
+
+<div class="wt-main">
+  <section aria-label="Stories">
+    <div class="wt-h"><h2 class="sec"><span>Stories</span><i id="wt-sn">/0</i></h2>
+      <div class="wt-filter" role="tablist"><button type="button" class="on" data-f="all">All</button><button type="button" data-f="traced">Traced</button><button type="button" data-f="alert">Alerts</button></div></div>
+    <div id="wt-stories" class="wt-stories"><div class="tr-wait">No stories yet. Start the watcher: stories appear here as posts come in, and each one is traced as it grows.</div></div>
+  </section>
+  <aside aria-label="Live activity">
+    <h2 class="sec"><span>Incoming posts</span><i id="wt-fn">/0</i></h2>
+    <ol class="wt-feed" id="wt-feed"><li class="muted">Waiting for the first cycle.</li></ol>
+    <h2 class="sec"><span>Activity log</span><i>automation</i></h2>
+    <ol class="wt-log" id="wt-log"></ol>
+  </aside>
+</div>
+
+<section aria-label="Accounts">
+  <h2 class="sec"><span>Accounts in the registry</span><i id="wt-an"></i></h2>
+  <div class="panel scroll"><table id="wt-acc"><thead><tr><th>Account</th><th>Platform</th><th>Tier</th><th>Status</th><th>This session</th><th>Archived</th><th>Last post</th></tr></thead><tbody></tbody></table></div>
+  <button type="button" class="wt-more" id="wt-acc-more">Show all accounts</button>
+</section>
+{% endblock %}
+{% block scripts %}<script src="/static/watch.js"></script>{% endblock %}

@@ -25,7 +25,7 @@ def migrated_db():
     from alembic import command
     from alembic.config import Config
 
-    from atlas.settings import ROOT
+    from parse.settings import ROOT
     cfg = Config(str(ROOT / "alembic.ini"))
     cfg.set_main_option("script_location", str(ROOT / "migrations"))
     command.upgrade(cfg, "head")
@@ -34,7 +34,7 @@ def migrated_db():
 
 @pytest.fixture
 def db(migrated_db):
-    from atlas.db import SessionLocal
+    from parse.db import SessionLocal
     s = SessionLocal()
     yield s
     s.rollback()

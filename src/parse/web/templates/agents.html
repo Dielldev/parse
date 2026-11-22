@@ -1,0 +1,211 @@
+{% extends "base.html" %}{% set active = 'agents' %}
+{% block title %}Agents{% endblock %}
+{% macro icon(k) -%}
+{% if k == 'telegram' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.5 2.8 10.8c-.9.4-.9 1.6.1 1.9l4.6 1.5 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.4 4.8 3.5c.6.4 1.4.1 1.6-.6L22.9 5c.2-1-.6-1.8-1.4-1.5ZM9 14l9-6.6-7.2 7.8-.3 3.3L9 14Z"/></svg>
+{% elif k == 'discord' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.3 5.4A17 17 0 0 0 15 4l-.6 1.1a15.6 15.6 0 0 0-4.8 0L9 4a17 17 0 0 0-4.3 1.4C2 9.4 1.3 13.3 1.6 17.2a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12 12 0 0 0 10.8 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.5-.7-8.4-3.1-11.8ZM8.7 14.8c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg>
+{% elif k == 'reddit' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.1a2.3 2.3 0 0 0-3.9-1.6 11 11 0 0 0-5.6-1.7l1-4.5 3.1.7a1.6 1.6 0 1 0 .2-1l-3.6-.8a.5.5 0 0 0-.6.4l-1.1 5.2a11 11 0 0 0-5.7 1.7A2.3 2.3 0 1 0 3.3 14a4.5 4.5 0 0 0 0 .7c0 3.4 3.9 6.1 8.7 6.1s8.7-2.7 8.7-6.1a4.5 4.5 0 0 0 0-.7 2.3 2.3 0 0 0 1.3-1.9ZM7.3 13.7a1.6 1.6 0 1 1 1.6 1.6 1.6 1.6 0 0 1-1.6-1.6Zm9 4.3a5.8 5.8 0 0 1-4.3 1.3A5.8 5.8 0 0 1 7.7 18a.4.4 0 0 1 .6-.6 4.9 4.9 0 0 0 3.7 1.1 4.9 4.9 0 0 0 3.7-1.1.4.4 0 1 1 .6.6Zm-.3-2.7a1.6 1.6 0 1 1 1.6-1.6 1.6 1.6 0 0 1-1.6 1.6Z"/></svg>
+{% elif k == 'x' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg>
+{% else %}<svg viewBox="0 0 24 24" aria-hidden="true" class="st"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>{% endif %}
+{%- endmacro %}
+{% block body %}
+<link rel="stylesheet" href="/static/agents.css">
+
+<header class="ph">
+  <div class="ph-top"><span class="lbl">/0.4 — Field agents</span><span class="lbl">Read-only · every post archived with a fingerprint</span></div>
+  <h1>Send a scout.</h1>
+  <p class="tl lbl">SQ Zbuluesi · SR Izviđač</p>
+  <p class="lead">Pick a platform, name a channel, say what to look for. Parse opens a real browser on this screen, goes
+    into the channel, searches it, scrolls through what people are posting and keeps every post that matches. You watch
+    it work, live.</p>
+</header>
+
+<!-- ============================================================ console -->
+<section class="ops sc-console" id="console">
+  <div class="sc-tabs" role="tablist" aria-label="Platform">
+    {% for p in scout %}{% set acct = accounts.get(p.kind) %}
+    <button type="button" role="tab" class="sc-tab b-{{ p.kind }} {{ 'on' if loop.first }}" aria-selected="{{ 'true' if loop.first else 'false' }}"
+            data-kind="{{ p.kind }}" data-login="{{ 1 if p.login else 0 }}" data-placeholder="{{ p.placeholder }}">
+      <span class="sc-tab-ic">{{ icon(p.kind) }}</span>
+      <span class="sc-tab-name">{{ p.name }}</span>
+      <span class="sc-tab-where">{{ p.where }}</span>
+      <span class="sc-tab-st" data-acct="{{ p.kind }}">
+        {% if not p.login %}<i class="ok"></i>No login needed
+        {% elif acct and acct.connected %}<i class="ok"></i>Agent logged in
+        {% else %}<i class="warn"></i>Log in once{% endif %}</span>
+    </button>
+    {% endfor %}
+    <button type="button" role="tab" class="sc-tab b-web" aria-selected="false" data-kind="web">
+      <span class="sc-tab-ic">{{ icon('web') }}</span>
+      <span class="sc-tab-name">News sites</span>
+      <span class="sc-tab-where">Outlets + official</span>
+      <span class="sc-tab-st"><i class="ok"></i>{{ news_ready }} live sites</span>
+    </button>
+  </div>
+
+  <!-- social: browser scout -->
+  <div class="sc-form" id="sc-form">
+    <div class="sc-fields">
+      <label class="sc-field">
+        <span class="lbl">01 · Where</span>
+        <input id="sc-target" type="text" autocomplete="off" spellcheck="false" placeholder="{{ scout[0].placeholder }}">
+      </label>
+      <label class="sc-field">
+        <span class="lbl">02 · Look for</span>
+        <input id="sc-topic" type="text" maxlength="200" autocomplete="off" placeholder="e.g. Banjska, Kurti, war in the north">
+      </label>
+    </div>
+    {% for p in scout %}
+    <div class="sc-sugg" data-kind="{{ p.kind }}" {{ 'hidden' if not loop.first }}>
+      {% if suggest[p.kind] %}<span class="lbl">{{ {'telegram': 'Channels', 'reddit': 'Subreddits', 'x': 'Accounts'}.get(p.kind, 'Try') }}</span>
+        {% if p.kind == 'telegram' %}<button type="button" class="sc-chip all" data-v="" title="Every Telegram channel in the source registry">All channels</button>{% endif %}
+        {% for s in suggest[p.kind] %}<button type="button" class="sc-chip" data-v="{{ s }}">{{ s if p.kind != 'discord' else '#' ~ s.rsplit('/', 1)[-1][-6:] }}</button>{% endfor %}
+      {% elif p.kind == 'discord' %}<span class="sc-sugg-note">In Discord: right-click a channel → <b>Copy Link</b>, paste it above.</span>{% endif %}
+    </div>
+    {% endfor %}
+    <div class="sc-sugg sc-topics"><span class="lbl">Topics</span>
+      {% for s in topics %}<button type="button" class="sc-chip sc-topic-chip" data-v="{{ s }}">{{ s }}</button>{% endfor %}
+    </div>
+
+    <div class="sc-acct" id="sc-acct" hidden>
+      <span class="sc-acct-ic" aria-hidden="true"></span>
+      <p id="sc-acct-text"></p>
+      <button type="button" class="sc-ghost" id="sc-window">Open agent browser</button>
+    </div>
+
+    <div class="sc-go">
+      <div class="ag-depth" role="radiogroup" aria-label="Posts to keep">
+        <span class="lbl">Keep up to</span>
+        {% for n in [5, 10, 25] %}<button type="button" class="{{ 'on' if n == 10 }}" data-n="{{ n }}" role="radio" aria-checked="{{ 'true' if n == 10 else 'false' }}">{{ n }}</button>{% endfor %}
+      </div>
+      <label class="sc-switch"><input type="checkbox" id="sc-headed" checked><span aria-hidden="true"></span>Show the browser on this screen</label>
+      <button type="button" class="ag-dispatch" id="sc-send"><span id="sc-send-label">Send scout</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+    </div>
+    <p class="sc-how" id="sc-how">{{ scout[0].how }}</p>
+    <p class="sc-err" id="sc-err" role="alert" hidden></p>
+  </div>
+
+  <!-- news sites: the bulk collectors -->
+  <div class="sc-form" id="news-form" hidden>
+    <div class="sc-fields one">
+      <label class="sc-field">
+        <span class="lbl">Look for</span>
+        <input id="topic" type="text" maxlength="200" autocomplete="off" placeholder="e.g. Banjska, Ibar-Lepenac canal, KFOR in the north">
+      </label>
+    </div>
+    <details class="sc-pick">
+      <summary><span class="lbl">Sites</span> <span id="news-count">all {{ news_ready }} live sites</span> <i>change</i></summary>
+      <div class="ag-srcs" data-kind="web">
+        <div class="sc-pick-tools"><button type="button" class="ag-link" data-sel="ready">All</button><button type="button" class="ag-link" data-sel="none">None</button></div>
+        <div class="ag-chips">
+          {% for c in news %}
+          <label class="ag-chip {{ 'parked' if not c.ready }}" title="{{ methods[c.method].name if c.method in methods else 'No live channel' }}{{ ' · ' ~ c.bias if c.bias }}">
+            <input type="checkbox" value="{{ c.id }}" {{ 'checked' if c.ready }} {{ 'disabled' if not c.ready }}>
+            <span class="ag-code m-{{ c.method }}">{{ methods[c.method].short if c.method in methods else '—' }}</span>
+            <span class="ag-chip-name">{{ c.name }}</span>
+            <span class="ag-chip-meta">T{{ c.tier }} · {{ c.lang }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+    </details>
+    <div class="sc-go">
+      <div class="ag-depth" role="radiogroup" aria-label="Items per site">
+        <span class="lbl">Up to</span>
+        {% for n in [5, 10, 25] %}<button type="button" class="{{ 'on' if n == 10 }}" data-n="{{ n }}" role="radio" aria-checked="{{ 'true' if n == 10 else 'false' }}">{{ n }}</button>{% endfor %}
+        <span class="lbl">per site</span>
+      </div>
+      <button type="button" class="ag-dispatch" id="dispatch"><span id="dispatch-label">Dispatch agents</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+    </div>
+    <p class="sc-how">One agent per site, in parallel: the site's search API or RSS feed, no browser. Every request passes the registry gate and robots.txt.</p>
+  </div>
+</section>
+
+<!-- ============================================================ scout live -->
+<section id="sc-live" class="sc-live" hidden>
+  <div class="sec"><span>Scout <i id="sc-live-id"></i></span><span class="muted" id="sc-live-topic"></span></div>
+  <div class="sc-stage">
+    <div class="sc-browser">
+      <div class="sc-chrome">
+        <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="sc-url"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span id="sc-url">about:blank</span></span>
+        <span class="sc-ctl" id="sc-ctl"><i></i>Agent in control</span>
+        <button type="button" class="sc-stop" id="sc-stop">Stop</button>
+      </div>
+      <div class="sc-screen">
+        <img id="sc-img" alt="Live view of the agent's browser">
+        <div class="sc-boot" id="sc-boot"><span class="sc-spin" aria-hidden="true"></span><span id="sc-boot-t">Opening the agent browser…</span></div>
+      </div>
+      <ol class="sc-steps" id="sc-steps" aria-live="polite"></ol>
+    </div>
+    <aside class="sc-feed">
+      <div class="sc-feed-h">
+        <div><b id="sc-n-read">0</b><span class="lbl">Read</span></div>
+        <div><b id="sc-n-match">0</b><span class="lbl">Match</span></div>
+        <div><b id="sc-n-kept">0</b><span class="lbl">Archived</span></div>
+        <div><b id="sc-t">0s</b><span class="lbl">Time</span></div>
+      </div>
+      <div class="sc-feed-bar">
+        <span class="lbl" id="sc-feed-title">What it's reading</span>
+        <label class="sc-only"><input type="checkbox" id="sc-only"> Matches only</label>
+      </div>
+      <ol class="sc-posts" id="sc-posts"><li class="sc-posts-empty">Posts show up here as the scout reads them.</li></ol>
+    </aside>
+  </div>
+  <ul class="sc-targets" id="sc-targets"></ul>
+  <div class="sc-sum" id="sc-sum" hidden></div>
+</section>
+
+<!-- ============================================================ news live (bulk collectors) -->
+<section id="live" class="ag-live" hidden>
+  <div class="sec"><span>Live operation <i id="live-id"></i></span><span class="muted" id="live-topic"></span></div>
+  <div class="ag-stats">
+    <div><span class="lbl">Elapsed</span><b id="st-time">0.0s</b></div>
+    <div><span class="lbl">Sources visited</span><b id="st-visited">0/0</b></div>
+    <div><span class="lbl">New items kept</span><b id="st-kept">0</b></div>
+    <div><span class="lbl">Needs attention</span><b id="st-problems">0</b></div>
+  </div>
+  <div class="ag-board">
+    <div class="ag-agents"><div class="ag-col-h lbl">Agents</div><ol id="agents"></ol></div>
+    <div class="ag-finds"><div class="ag-col-h lbl">Findings <span id="finds-n"></span></div>
+      <ol id="finds"><li class="ag-finds-empty">Findings appear here the moment an agent keeps one.</li></ol>
+      <div class="ag-after" id="after" hidden></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ how the scout reads -->
+<section class="sc-howto">
+  <div class="sec"><span>How the scout reads <i>/ each platform</i></span></div>
+  <div class="sc-rules">
+    <div class="sc-rule"><b>Reads like a person</b><span>A real browser, a visible cursor, a pause between pages. It sees what a member of the public, or the agent's own account, already sees.</span></div>
+    <div class="sc-rule"><b>Never speaks</b><span>No posts, replies, reactions, follows or joins. Joining a Discord server stays your decision.</span></div>
+    <div class="sc-rule"><b>Keeps evidence</b><span>Each matching post is archived with its SHA-256 fingerprint, author, time and reach, then Ask Parse can cite it.</span></div>
+    <div class="sc-rule"><b>Flags framing</b><span>Posts are tagged against Parse's keyword groups (war framing, mobilisation, the north) so narratives stand out.</span></div>
+  </div>
+  <div class="sc-plats">
+    {% for p in scout %}
+    <article class="sc-plat b-{{ p.kind }}">
+      <header><span class="sc-tab-ic">{{ icon(p.kind) }}</span><h3>{{ p.name }}</h3>
+        <span class="pill {{ 'warn' if p.login else 'ok' }}">{{ 'Agent login' if p.login else 'No login' }}</span></header>
+      <p>{{ p.how }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ============================================================ history -->
+<section class="ag-history">
+  <div class="sec"><span>Recent runs</span><span class="muted">Scouts, field agents and Ask Parse</span></div>
+  <div class="panel scroll"><table id="history">
+    <tr><th>When</th><th>Where</th><th>Topic</th><th>From</th><th class="n">Sources</th><th class="n">Kept</th><th>Status</th></tr>
+    {% for r in runs %}
+    <tr><td class="mono">{{ r.created }}</td><td>{{ r.kind_name }}</td><td>{{ r.topic or '—' }}</td><td class="muted">{{ r.origin }}</td>
+      <td class="n">{{ r.sources }}</td><td class="n">{{ r.kept }}</td>
+      <td><span class="pill {{ 'ok' if r.status == 'done' and not r.problems else ('warn' if r.status in ('done','running','stopped') else 'bad') }}">{{ r.status }}{{ ' · ' ~ r.problems ~ ' issues' if r.problems }}</span></td></tr>
+    {% else %}<tr><td colspan="7" class="muted">Nothing sent yet.</td></tr>{% endfor %}
+  </table></div>
+</section>
+{% endblock %}
+{% block scripts %}<script>window.AG_METHODS = {{ methods|tojson }}; window.SC = {{ {'scout': scout, 'accounts': accounts, 'busy': busy}|tojson }};</script><script src="/static/agents.js"></script>{% endblock %}

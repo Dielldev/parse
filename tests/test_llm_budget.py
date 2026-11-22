@@ -4,10 +4,10 @@ import json
 import httpx
 import pytest
 
-from atlas import budget
-from atlas.detect import parse, questions
-from atlas.label_teacher import TeacherLabel
-from atlas.llm import Featherless, MissingApiKey, _extract_json
+from parse import budget
+from parse.detect import parse, questions
+from parse.label_teacher import TeacherLabel
+from parse.llm import Featherless, MissingApiKey, _extract_json
 
 
 @pytest.fixture(autouse=True)
@@ -82,7 +82,7 @@ def test_chat_json_rejects_unknown_labels():
 
 
 def test_retry_on_429_then_success(monkeypatch):
-    monkeypatch.setattr("atlas.llm.time.sleep", lambda s: None)
+    monkeypatch.setattr("parse.llm.time.sleep", lambda s: None)
     n = {"i": 0}
 
     def handler(req):

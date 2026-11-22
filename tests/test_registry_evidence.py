@@ -3,9 +3,9 @@ import os
 import pytest
 from sqlalchemy import select, text
 
-from atlas.evidence import archive, verify
-from atlas.models import AuditLog, Evidence, Source
-from atlas.registry import RegistryGateError, gate, import_sources, match_source
+from parse.evidence import archive, verify
+from parse.models import AuditLog, Evidence, Source
+from parse.registry import RegistryGateError, gate, import_sources, match_source
 
 
 def test_import_has_100_plus_sources_with_valid_tiers(db):

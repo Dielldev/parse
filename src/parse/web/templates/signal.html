@@ -1,0 +1,122 @@
+{% extends "base.html" %}{% set active = 'signals' %}
+{% block title %}Signal{% endblock %}
+{% block body %}
+<header class="ph">
+  <div class="ph-top"><a class="backlink lbl" href="/signals">← Signals</a><span class="lbl mono"><a href="/trace?signal={{ sig.signal_id }}" class="trace-this">Trace this story →</a> &nbsp;{{ sig.signal_id }}</span></div>
+  <h1 class="title">{{ sig.title or '(no title)' }}</h1>
+  <p class="lead">{{ src.name }} &nbsp;<span class="pill t{{ src.tier }}">Tier {{ src.tier }} · {{ tier_names[src.tier] }}</span>
+    {% if src.bias_note %}<span class="muted"> · {{ src.bias_note }}</span>{% endif %}</p>
+</header>
+
+<div class="grid2">
+<div>
+  <h2 class="sec"><span>Record</span><i>/A</i></h2>
+  <dl class="meta">
+    <dt>Signal ID</dt><dd class="mono">{{ sig.signal_id }}</dd>
+    <dt>Published</dt><dd>{{ sig.published_at.strftime('%Y-%m-%d %H:%M UTC') if sig.published_at else 'unknown' }}</dd>
+    <dt>First seen by Parse</dt><dd>{{ sig.first_seen_at.strftime('%Y-%m-%d %H:%M UTC') }}</dd>
+    <dt>Language</dt><dd>{{ sig.lang or 'unknown' }}</dd>
+    <dt>Window</dt><dd>{{ sig.window or 'live' }}</dd>
+    <dt>URL</dt><dd><a href="{{ sig.url }}" target="_blank" rel="noopener noreferrer">{{ sig.url }}</a></dd>
+    <dt>Collector</dt><dd class="mono">{{ sig.collector }}</dd>
+    <dt>Legal basis</dt><dd>{{ sig.legal_basis }}</dd>
+    <dt>Labels</dt><dd>{% for l in (sig.labels or []) %}<span class="pill bad">{{ l }}</span> {% else %}<span class="muted">not labelled yet</span>{% endfor %}
+      {% for n in (sig.narratives or []) %}<span class="pill warn">{{ n }}</span> {% endfor %}</dd>
+    {% if sig.entities %}<dt>Places / orgs</dt><dd>{{ (sig.entities.places or [])|join(', ') }} · {{ (sig.entities.orgs or [])|join(', ') }}</dd>{% endif %}
+    {% if sig.media %}<dt>Image</dt><dd>{% for m in sig.media %}<a href="{{ m.url }}" target="_blank" rel="noopener noreferrer">lead image</a>
+      {% if m.phash %}<span class="mono"> pHash {{ m.phash }}</span>{% else %}<span class="muted"> (not hashed yet)</span>{% endif %}{% endfor %}</dd>{% endif %}
+  </dl>
+</div>
+<div>
+  <h2 class="sec"><span>Evidence</span><i>/B</i></h2>
+  {% if ev %}
+  <dl class="meta">
+    <dt>SHA-256</dt><dd class="mono">{{ ev.sha256 }}</dd>
+    <dt>Integrity</dt><dd>{% if hash_ok %}<span class="pill ok">file matches hash</span>{% else %}<span class="pill bad">mismatch or missing</span>{% endif %}</dd>
+    <dt>Archived</dt><dd>{{ ev.fetched_at.strftime('%Y-%m-%d %H:%M UTC') }} · {{ ev.content_type }} · {{ "{:,}".format(ev.size_bytes) }} bytes</dd>
+    <dt>Files</dt><dd><a href="/evidence/{{ ev.sha256 }}/raw" target="_blank">raw page</a>{% if ev.text_uri %} · <a href="/evidence/{{ ev.sha256 }}/text" target="_blank">extracted text</a>{% endif %}
+      <div class="muted">Shown as plain text, so archived pages never run.</div></dd>
+  </dl>
+  {% else %}<p class="muted">No evidence archived.</p>{% endif %}
+  <h2 class="sec"><span>Run a model</span><i>/C — Featherless</i></h2>
+  <div class="mrun" id="mrun" data-id="{{ sig.signal_id }}">
+    <p class="muted mrun-note">Each button calls one Qwen model on this post. Billed per token; the result is saved below.</p>
+    {% set acts = [
+      ('label', 'Label', 'teacher', 'Tags threat types T1–T10, narratives N1–N11, places and organisations.'),
+      ('detect', 'Detect', 'detector', 'Gives a probability for every threat type and narrative.'),
+      ('translate', 'Translate', 'translation', 'Adds an English version of the post below.' if sig.lang != 'en' else 'Already in English.'),
+      ('ocr', 'Read image', 'ocr_fallback', 'Reads the text inside the post\'s image.' if sig.media else 'This post has no image.'),
+    ] %}
+    {% for key, label, role, what in acts %}
+    <div class="mrun-row">
+      <button type="button" class="mrun-btn" data-act="{{ key }}"
+        {{ 'disabled data-off' if (key == 'translate' and sig.lang == 'en') or (key == 'ocr' and not sig.media) }}>{{ label }}</button>
+      <div><b>{{ what }}</b><span class="mono">{{ (model_list()|selectattr('role', 'equalto', role)|first).id }}</span></div>
+      <output class="mrun-out" data-for="{{ key }}"></output>
+    </div>
+    {% endfor %}
+    <div class="mrun-row claim">
+      <button type="button" class="mrun-btn" data-act="claim">Check a claim</button>
+      <div><input type="text" id="claim" maxlength="500" placeholder="e.g. Serbian police blocked the Jarinje crossing">
+        <span class="mono">{{ (model_list()|selectattr('role', 'equalto', 'nli')|first).id }} · supports / contradicts / unrelated</span></div>
+      <output class="mrun-out" data-for="claim"></output>
+    </div>
+  </div>
+
+  {% if llm %}<h2 class="sec"><span>Model outputs</span><i>{{ llm|length }}</i></h2>
+  {% for o in llm %}<div class="muted mono">{{ o.stage }} · {{ o.model }} · {{ o.prompt_version }} · ${{ "%.5f"|format(o.usd or 0) }}</div>
+  <pre class="text mono">{{ o.output | tojson(indent=2) }}</pre>{% endfor %}{% endif %}
+</div>
+</div>
+<style>
+  .mrun { display: grid; gap: 2px; margin-bottom: 24px; }
+  .mrun-note { margin: 0 0 8px; font-size: 13px; }
+  .mrun-row { display: grid; grid-template-columns: 132px 1fr; gap: 4px 12px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line); }
+  .mrun-row b { display: block; font-weight: 500; font-size: 14px; }
+  .mrun-row span { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; overflow-wrap: anywhere; }
+  .mrun-row input { width: 100%; font: inherit; font-size: 14px; padding: 6px 8px; background: var(--bg); color: var(--text); border: 1px solid var(--line-2); }
+  .mrun-btn { height: 32px; padding: 0 12px; font: 500 13px var(--sans, inherit); color: var(--text); background: var(--bg-2); border: 1px solid var(--line-2); cursor: pointer; }
+  .mrun-btn:hover:not(:disabled) { border-color: var(--text); }
+  .mrun-btn:disabled { opacity: .45; cursor: default; }
+  .mrun-btn.busy { cursor: progress; }
+  .mrun-out { grid-column: 2; font-size: 13px; }
+  .mrun-out:empty { display: none; }
+  .mrun-out.ok { color: var(--ok); }
+  .mrun-out.err { color: var(--bad, #c0392b); }
+  .mrun-out small { display: block; color: var(--muted); font-family: var(--mono); font-size: 11px; }
+  @media (max-width: 560px) { .mrun-row { grid-template-columns: 1fr; } .mrun-out { grid-column: 1; } }
+</style>
+<script>
+(() => {
+  const box = document.getElementById('mrun'), id = box.dataset.id;
+  const esc = (t) => String(t ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  box.querySelectorAll('.mrun-btn').forEach(btn => btn.addEventListener('click', async () => {
+    const act = btn.dataset.act, out = box.querySelector(`.mrun-out[data-for="${act}"]`);
+    const claim = act === 'claim' ? document.getElementById('claim').value : '';
+    box.querySelectorAll('.mrun-btn').forEach(b => b.disabled = true);
+    btn.classList.add('busy');
+    const t0 = performance.now();
+    out.className = 'mrun-out'; out.textContent = 'Running…';
+    const tick = setInterval(() => { out.textContent = `Running… ${((performance.now() - t0) / 1000).toFixed(0)}s`; }, 1000);
+    try {
+      const r = await fetch(`/api/signals/${encodeURIComponent(id)}/model/${act}`, {method: 'POST',
+        headers: {'Content-Type': 'application/json'}, body: JSON.stringify({claim})});
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.detail || `Server answered ${r.status}`);
+      const u = d.usage || {};
+      out.className = 'mrun-out ok';
+      out.innerHTML = `${esc(d.summary)}<small>${esc(d.model)} · ${u.in ?? 0} in / ${u.out ?? 0} out tokens · $${(u.usd ?? 0).toFixed(5)} · ${(d.ms / 1000).toFixed(1)}s${d.note ? ' · ' + esc(d.note) : ''}</small><small>Reloading to show the saved output…</small>`;
+      setTimeout(() => location.reload(), 1800);
+    } catch (e) {
+      out.className = 'mrun-out err'; out.textContent = e.message;
+      box.querySelectorAll('.mrun-btn').forEach(b => b.disabled = b.hasAttribute('data-off'));
+    } finally { clearInterval(tick); btn.classList.remove('busy'); }
+  }));
+})();
+</script>
+
+<h2 class="sec"><span>Text · original language</span><i>{{ sig.lang or '' }}</i></h2>
+<div class="text">{{ sig.text_original or '' }}</div>
+{% if sig.text_latin %}<h2 class="sec"><span>Transliterated to Latin</span><i>sr-Latn</i></h2><div class="text">{{ sig.text_latin }}</div>{% endif %}
+{% if sig.text_en %}<h2 class="sec"><span>English</span><i>en</i></h2><div class="text">{{ sig.text_en }}</div>{% endif %}
+{% endblock %}

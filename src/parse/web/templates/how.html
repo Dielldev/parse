@@ -1,0 +1,139 @@
+{% extends "base.html" %}{% set active = 'how' %}
+{% block title %}How it works{% endblock %}
+{% block body %}
+<header class="ph">
+  <div class="ph-top"><span class="lbl">/0.5 — Workflow</span><span class="lbl">Detection · Significance · Validation</span></div>
+  <h1>Workflow</h1>
+  <p class="tl lbl">SQ Rrjedha e punës · SR Tok rada</p>
+  <p class="lead">Parse answers three separate questions, each in a way that can be measured and audited:
+  is a post threat-relevant (detection), is the story big enough (significance), and is it true (validation).
+  Truth and spread are separate: a false story spreading fast is still alerted, marked Unverified or Debunked.</p>
+</header>
+
+<h2 class="sec"><span>Pipeline</span><i>8 stages</i></h2>
+<ol class="steps-row" aria-label="Pipeline">
+  <li><b>Collect</b><span>Registry sources only</span></li>
+  <li><b>Archive</b><span>SHA-256 evidence</span></li>
+  <li><b>Normalise</b><span>Language, script, OCR</span></li>
+  <li><b>Detect</b><span>Calibrated probabilities</span></li>
+  <li><b>Cluster</b><span>Events, origin groups</span></li>
+  <li><b>Score</b><span>TPS + tripwires</span></li>
+  <li><b>Verify</b><span>P1/P2 only</span></li>
+  <li><b>Alert</b><span>Human decides</span></li>
+</ol>
+
+<h2 class="sec" id="models"><span>Models</span><i>Which model runs at which stage</i></h2>
+<p class="muted" style="margin-top:0">Five models run on Featherless and are billed per token; one runs free on this computer.
+Every call checks the ${{ "%.2f"|format(model_spend().cap) }} cap first and is logged to <span class="mono">data/spend_ledger.csv</span>
+(spent so far: ${{ "%.4f"|format(model_spend().spent) }}). Try any of them from a signal's page with the <b>Run a model</b> buttons.</p>
+{% set stage = {'ocr_fallback': 'Normalise', 'translation': 'Normalise', 'embedding': 'Cluster', 'detector': 'Detect',
+                'teacher': 'Detect · Brief', 'nli': 'Verify'} %}
+{% set order = ['ocr_fallback', 'translation', 'teacher', 'detector', 'embedding', 'nli'] %}
+<div class="scroll"><table>
+  <tr><th>Stage</th><th>Model</th><th>What it does</th><th>Where you can run it</th><th></th></tr>
+  {% for role in order %}{% set m = model_list()|selectattr('role', 'equalto', role)|first %}{% if m %}
+  <tr><td>{{ stage[role] }}</td><td><b>{{ m.name }}</b><div class="mono muted">{{ m.id }}</div></td><td>{{ m.does }}</td>
+    <td>{{ m.where }}</td><td class="mono">{{ 'local · free' if m.local else ('connected' if m.ready else 'no key') }}</td></tr>
+  {% endif %}{% endfor %}
+</table></div>
+<p class="muted">The classifier model (detector, claim checker) is sometimes unavailable on Featherless while it loads. When that
+happens the same question goes to Qwen3-8B and the result says so.</p>
+
+<div class="grid2">
+<div>
+<h2 class="sec"><span>Threat Priority Score</span><i>/A — Try it</i></h2>
+<section class="panel">
+  <p class="muted" style="margin-top:0">TPS = 100 × Credibility × weighted sum of six factors (brief, Section 8). Move the sliders; the score is
+  computed by the same code the pipeline runs.</p>
+  {% for f in factors %}
+  <div class="slider"><label for="f_{{f}}">{{ f.replace('_',' ') }} <span class="muted mono">×{{ weights[f] }}</span></label>
+    <input type="range" id="f_{{f}}" min="0" max="1" step="0.05" value="0.3" data-factor="{{f}}">
+    <span class="mono" id="v_{{f}}">0.30</span></div>
+  <div class="help">{{ factor_help[f] }}</div>
+  {% endfor %}
+  <div class="slider"><label for="tier">best source</label>
+    <select id="tier">{% for t in [0,1,2,3] %}<option value="{{t}}" {{ 'selected' if t == 1 }}>Tier {{t}} · {{ tier_names[t] }}</option>{% endfor %}</select><span></span></div>
+  <div class="slider"><label for="verdict">verification</label>
+    <select id="verdict"><option value="">not verified yet</option><option>CONFIRMED</option><option>CORROBORATED</option>
+      <option>DISPUTED</option><option>UNVERIFIED</option><option>DEBUNKED</option></select><span></span></div>
+  <div class="help">Credibility only lowers the score (never below 0.6); it never removes an alert.</div>
+  <h2>Tripwires <span class="muted" style="text-transform:none;letter-spacing:0">— instant P1 whatever the score</span></h2>
+  <div class="trips">{% for k, label in tripwires.items() %}<label><input type="checkbox" class="trip" value="{{k}}"> {{ label }}</label>{% endfor %}</div>
+  <div class="result" id="tps_out" aria-live="polite">…</div>
+</section>
+</div>
+
+<div>
+<h2 class="sec"><span>Verification verdict</span><i>/B — Try it</i></h2>
+<section class="panel">
+  <p class="muted" style="margin-top:0">The model only labels each piece of evidence as supports / contradicts / unrelated. The verdict is decided
+  by fixed rules, not by a model. Two outlets repeating the same Telegram post share one origin group and count once.</p>
+  <div class="evrow head"><span>stance</span><span>source tier</span><span>origin group</span><span>in own scope</span><span></span></div>
+  <div id="evrows"></div>
+  <p><button type="button" class="ghost" id="add">+ Add evidence</button>
+     <label style="margin-left:12px;font-size:14px"><input type="checkbox" id="recycled"> image matches an earlier unrelated event</label></p>
+  <div class="result" id="ver_out" aria-live="polite">…</div>
+  <h2>The rules</h2>
+  <table class="rules">
+    <tr><td><span class="pill bad">DEBUNKED</span></td><td>A Tier-0 source contradicts within its own scope, or the media is recycled from an earlier event.</td></tr>
+    <tr><td><span class="pill ok">CONFIRMED</span></td><td>At least one Tier-0 source supports within its own scope, and nothing contradicts.</td></tr>
+    <tr><td><span class="pill warn">DISPUTED</span></td><td>Both supporting and contradicting evidence exist.</td></tr>
+    <tr><td><span class="pill acc">CORROBORATED</span></td><td>At least 2 independent origin groups at Tier ≤ 2 support it.</td></tr>
+    <tr><td><span class="pill idle">UNVERIFIED</span></td><td>Anything else. Lists what is missing as suggested checks.</td></tr>
+  </table>
+</section>
+</div>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+async function post(url, body) {
+  const r = await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
+  return r.json();
+}
+function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+async function updateTps() {
+  const body = {best_tier: $('#tier').value, verdict: $('#verdict').value,
+                tripwires: [...document.querySelectorAll('.trip:checked')].map(x => x.value)};
+  document.querySelectorAll('[data-factor]').forEach(el => {
+    body[el.dataset.factor] = el.value;
+    $('#v_' + el.dataset.factor).textContent = Number(el.value).toFixed(2);
+  });
+  const r = await post('/api/tps', body);
+  $('#tps_out').innerHTML = `<div class="big ${r.priority}">${r.tps.toFixed(0)} · ${r.priority}</div>
+    <div class="muted">credibility ×${r.credibility.toFixed(2)}</div><p>${esc(r.explanation)}</p>`;
+}
+document.querySelectorAll('[data-factor], #tier, #verdict, .trip').forEach(el => el.addEventListener('input', updateTps));
+
+function addRow(stance='supports', tier='1', origin='', scope=false) {
+  const n = $('#evrows').children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'evrow';
+  row.innerHTML = `
+    <select class="st" aria-label="stance">${['supports','contradicts','unrelated'].map(s => `<option ${s===stance?'selected':''}>${s}</option>`).join('')}</select>
+    <select class="ti" aria-label="tier">${[0,1,2,3].map(t => `<option value="${t}" ${String(t)===tier?'selected':''}>Tier ${t}</option>`).join('')}</select>
+    <input class="og" aria-label="origin group" value="${origin || 'g' + n}">
+    <label><input type="checkbox" class="sc" ${scope?'checked':''}> scope</label>
+    <button type="button" class="ghost rm" aria-label="remove">×</button>`;
+  row.querySelector('.rm').onclick = () => { row.remove(); updateVerdict(); };
+  row.querySelectorAll('select,input').forEach(el => el.addEventListener('input', updateVerdict));
+  $('#evrows').appendChild(row);
+}
+async function updateVerdict() {
+  const evidence = [...document.querySelectorAll('#evrows .evrow')].map(r => ({
+    stance: r.querySelector('.st').value, tier: r.querySelector('.ti').value,
+    origin: r.querySelector('.og').value, in_scope: r.querySelector('.sc').checked}));
+  const r = await post('/api/verdict', {evidence, recycled_media: $('#recycled').checked});
+  const cls = {DEBUNKED:'bad', CONFIRMED:'ok', DISPUTED:'warn', CORROBORATED:'acc', UNVERIFIED:'idle'}[r.verdict];
+  $('#ver_out').innerHTML = `<div class="big"><span class="pill ${cls}" style="font-size:16px;padding:6px 12px">${r.verdict}</span></div>
+    <p>${esc(r.reason)}</p><div class="muted">Evidence used: ${r.evidence_ids.join(', ') || 'none'}</div>
+    <ul>${r.suggested_checks.map(c => `<li>${esc(c)}</li>`).join('')}</ul>`;
+}
+$('#add').onclick = () => { addRow('unrelated', '1'); updateVerdict(); };
+$('#recycled').addEventListener('input', updateVerdict);
+// Starting example: two outlets repeating one Telegram post (same origin group) -> UNVERIFIED.
+addRow('supports', '1', 'telegram_post_A'); addRow('supports', '1', 'telegram_post_A');
+updateTps(); updateVerdict();
+</script>
+{% endblock %}
