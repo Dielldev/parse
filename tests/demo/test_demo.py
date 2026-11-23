@@ -26,14 +26,21 @@ def _fresh_limits():
 
 
 def test_pages_render_from_snapshot():
-    for path in ("/", "/overview", "/sources", "/signals?q=Banjska", "/how-it-works", "/trace"):
+    for path in ("/", "/overview", "/sources", "/signals?q=Banjska", "/how-it-works", "/trace", "/agents"):
         r = client.get(path)
         assert r.status_code == 200, path
 
 
 def test_pipeline_only_routes_are_off():
-    for path in ("/watch", "/agents", "/evidence/" + "a" * 64 + "/raw", "/docs", "/openapi.json", "/api/watch/state"):
+    for path in ("/watch", "/evidence/" + "a" * 64 + "/raw", "/docs", "/openapi.json", "/api/watch/state"):
         assert client.get(path).status_code == 404, path
+
+
+def test_live_agent_and_scout_routes_do_not_exist():
+    # the browser scout, the field-agent dispatcher and their live feeds need outbound network: never mounted here
+    for path in ("/api/scout/start", "/api/scout/status", "/api/agents/dispatch", "/api/agents/discord/channels"):
+        assert client.post(path, json={}).status_code == 404, path
+    assert client.get("/api/scout/status").status_code == 404
 
 
 def test_security_headers_and_nonce_csp():
@@ -140,3 +147,62 @@ def test_snapshot_has_no_embeddings_or_server_secrets():
     with engine.connect() as c:
         assert c.scalar(sa.text("SELECT count(*) FROM signal WHERE embedding IS NOT NULL")) == 0
         assert c.scalar(sa.text("SELECT count(*) FROM signal WHERE length(text_original) > 1300")) == 0
+
+
+def _replay(**body):
+    r = client.post("/api/agents/replay", json=body)
+    return r, ([__import__("json").loads(x) for x in r.text.splitlines() if x] if r.status_code == 200 else [])
+
+
+def test_agents_page_is_a_replay_with_no_key_and_no_live_agent_code():
+    import sys
+    r = client.get("/agents")
+    assert r.status_code == 200 and "This is a replay" in r.text and "window.REPLAY = true" in r.text
+    nonce = r.headers["content-security-policy"].split("'nonce-")[1].split("'")[0]
+    assert f'nonce="{nonce}"' in r.text
+    # nothing that fetches or drives a browser is even imported in demo mode
+    for mod in ("parse.agents.runner", "parse.agents.scout", "parse.agents.methods", "playwright", "trafilatura", "feedparser"):
+        assert mod not in sys.modules, mod
+
+
+def test_telegram_replay_streams_recorded_posts():
+    r, ev = _replay(platform="telegram", target="@balkanspectator", topic="Kosovo", limit=3)
+    assert r.status_code == 200 and r.headers["content-type"].startswith("application/x-ndjson")
+    kinds = [e["t"] for e in ev]
+    assert kinds[0] == "start" and kinds[-1] == "end" and ev[0]["replay"] is True
+    posts = [e for e in ev if e["t"] == "post"]
+    assert posts and all(p["signal_id"] and p["matched"] for p in posts) and len(posts) <= 3
+    assert ev[-1]["kept"] == ev[-1]["matched"] == len(posts)
+
+
+def test_news_replay_reports_archived_items_per_site():
+    r, ev = _replay(platform="web", sources=["src_web_n1", "src_web_kosovo_online"], topic="Banjska", limit=2)
+    assert r.status_code == 200
+    items = [e for e in ev if e["t"] == "item"]
+    assert items and all(i["id"].startswith("sig_") for i in items)
+    done = [e for e in ev if e["t"] == "source" and e["state"] == "done"]
+    assert {d["source"] for d in done} == {"src_web_n1", "src_web_kosovo_online"}
+    assert ev[-1]["t"] == "end" and ev[-1]["kept"] == len(items)
+
+
+def test_login_only_platforms_say_so_instead_of_pretending():
+    r, ev = _replay(platform="x", target="@NATO_KFOR", topic="", limit=5)
+    assert r.status_code == 200
+    assert any(e["t"] == "target" and e["state"] == "login" for e in ev)
+    assert ev[-1]["read"] == 0
+
+
+def test_replay_rejects_bad_input():
+    assert _replay(platform="evil")[0].status_code == 400
+    assert _replay(platform="telegram", limit="many")[0].status_code == 400
+    assert _replay(platform="web", sources=[])[0].status_code == 400
+    assert client.post("/api/agents/replay", content=b"[1]", headers={"content-type": "application/json"}).status_code == 400
+    assert client.post("/api/agents/replay", content=b"nope", headers={"content-type": "application/json"}).status_code == 400
+
+
+def test_replay_clamps_long_text_and_never_echoes_a_url_it_fetched():
+    r, ev = _replay(platform="telegram", target="https://evil.example/x" + "a" * 500, topic="q" * 5000, limit=999)
+    # an unrelated host is just text to the handle parser: it never becomes a request
+    assert r.status_code in (200, 400)
+    if r.status_code == 200:
+        assert len(ev[0]["topic"]) <= 200 and all("evil.example" not in str(e.get("url", "")) for e in ev)

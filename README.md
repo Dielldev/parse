@@ -43,6 +43,7 @@ Gazimestan 2026 and six quiet windows).
 |---|---|---|
 | **Ask** | Ask “What happened at Banjska?” and watch every step: normalise, registry, search, rank, evidence hashes, spread, brief. Cited, deterministic, no model. | No |
 | **Trace** | Paste a post (any language) or a signal ID. Parse builds the spread graph, picks the earliest observed source, finds amplifiers, scores significance and writes a brief. | No (claim check and AI brief: yes) |
+| **Agents** | Send a scout to a Telegram channel or a subreddit, or a fleet of agents to the news sites, and watch every step and post arrive. A **replay** of runs the real agents recorded: nothing is fetched. | No |
 | **Signals / Sources** | Browse and filter the corpus and the tiered source registry. | No |
 | **Workflow** | Play with the real TPS and verdict logic. | No |
 | **Run a model** (on any signal page) | Label, detect, translate, or check a claim with open Qwen models. | **Yes, yours** |
@@ -89,7 +90,8 @@ See [`docs/WATCH_AND_TRACE.md`](docs/WATCH_AND_TRACE.md) for the Watch and Trace
 | Data | Read-only SQLite snapshot, text cut to 1,200-character excerpts that link to the original | Postgres + pgvector, full text, write-once evidence files |
 | Models | Your Featherless key, per request | `FEATHERLESS_API_KEY` in `.env`, with a budget cap |
 | Collection | None | Field agents, RSS, sitemaps, WordPress APIs |
-| Watch, Agents | Not included | Included |
+| Watch | Not included | Included |
+| Agents | Replay of recorded runs over the snapshot (no network, no browser) | Live browser scout and per-site agents |
 | Tracer inputs | Archived signal, pasted text | Also links and screenshots (OCR) |
 | Embeddings, translate edges | Not included | Included |
 | Persistence | None | Everything is archived |
@@ -100,7 +102,7 @@ The demo is built for strangers to use, so it assumes they are not friendly. Wha
 
 * **No server-side secret.** There is no model key on the server; only the visitor's own, per request.
 * **Read-only data.** SQLite opened with `mode=ro` and `PRAGMA query_only`; pending writes are discarded; no evidence files are shipped.
-* **No outbound fetching** except Featherless at a fixed host: link and screenshot tracing, image OCR, field agents and Watch are off, so there is no SSRF surface.
+* **No outbound fetching** except Featherless at a fixed host: link and screenshot tracing, image OCR, live field agents and Watch are off, so there is no SSRF surface. The Agents page only replays what the real agents already archived.
 * **Strict headers.** Nonce-based `Content-Security-Policy` (no inline-script allowance, `connect-src 'self'`, `frame-ancestors 'none'`), HSTS,
   `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, a locked `Permissions-Policy`, and `no-store` on pages and API answers.
 * **Input limits.** Body size cap, only GET/HEAD/POST, key-shaped headers only, capped lengths on every text field.

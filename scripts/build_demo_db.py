@@ -3,9 +3,10 @@
     uv run python scripts/build_demo_db.py            # Postgres (DATABASE_URL) -> demo/parse_demo.sqlite.gz
 
 What goes in: the source registry, every signal (text cut to short excerpts that link back to the original),
-evidence hashes, the saved traces and alerts, the discovery queue and the recorded model outputs.
+evidence hashes, the saved traces and alerts, the discovery queue, the recorded model outputs and the
+recorded agent runs (the Agents page replays them).
 What stays out: embeddings, archived page copies, raw collector internals, personal handles on forum posts, and the
-audit log and agent runs. Nothing in the snapshot is secret; it is the project's own public-source corpus.
+audit log. Nothing in the snapshot is secret; it is the project's own public-source corpus.
 """
 from __future__ import annotations
 
@@ -31,7 +32,7 @@ OUT_DIR = ROOT / "demo"
 OUT = OUT_DIR / "parse_demo.sqlite"
 EXCERPT = 1200          # characters kept of each post; the full text lives at the signal's own URL
 BATCH = 2000
-TABLES = [m.Source, m.Evidence, m.Signal, m.Event, m.EventSignal, m.EventEdge, m.Alert, m.LlmOutput, m.DiscoveryQueue]
+TABLES = [m.Source, m.Evidence, m.Signal, m.Event, m.EventSignal, m.EventEdge, m.Alert, m.LlmOutput, m.DiscoveryQueue, m.AgentRun]
 
 
 def excerpt(text: str | None) -> str | None:
@@ -47,7 +48,8 @@ def fix_signal(row: dict) -> dict:
     row["text_latin"] = excerpt(row["text_latin"])
     row["text_en"] = excerpt(row["text_en"])
     row["embedding"] = None
-    row["engagement"] = None
+    if row["platform"] not in ("telegram", "reddit", "x", "discord"):   # public view/score counts of scouted posts stay
+        row["engagement"] = None
     if row["platform"] == "reddit":   # private individuals' handles stay out of a public demo
         row["author_handle"], row["author_followers"], row["author_created_at"] = None, None, None
     return row

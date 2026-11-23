@@ -438,3 +438,21 @@
 .sc-steps { display: block; padding: 8px 0; }
 @media (max-width: 1100px) { .sc-tab.b-web { grid-column: span 2; } }
 @media (max-width: 720px) { .sc-tab.b-web { grid-column: 1 / -1; } }
+
+/* ---------------------------------------------------------------- public demo: replay of recorded runs */
+.rp-note { margin: 18px 0 0; max-width: 78ch; padding: 12px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--signal);
+  background: var(--signal-soft); font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.rp-note b { font-weight: 600; } .rp-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.sc-sim { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 18px; padding: 0 0 22px; background: #131518; color: #cfd2d6; overflow: hidden; }
+.sc-sim-h { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid #26292e; font: 12px var(--mono); }
+.sc-sim-h i { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); animation: blink 1s steps(2, start) infinite; }
+.sc-sim-h span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sc-sim-h em { font: 500 10px var(--mono); letter-spacing: .12em; color: #8d9299; font-style: normal; }
+.sc-sim-lines { display: grid; gap: 10px; padding: 0 18px; }
+.sc-sim-lines i { display: block; height: 9px; border-radius: 2px; background: linear-gradient(90deg, #22252a 25%, #2c3036 50%, #22252a 75%); background-size: 200% 100%; animation: sim 1.6s linear infinite; }
+.sc-sim-lines i:nth-child(2) { width: 82%; } .sc-sim-lines i:nth-child(3) { width: 64%; }
+.sc-sim-post { margin: 0 18px; padding: 14px 16px; border: 1px solid #2c3036; border-left: 3px solid #4a4f57; background: #181a1e; font-size: 14px; line-height: 1.5;
+  color: #e6e8ea; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.sc-sim-post.hit { border-left-color: var(--signal); background: #1d2024; }
+@keyframes sim { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .sc-sim-lines i, .sc-sim-h i { animation: none; } }

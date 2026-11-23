@@ -60,7 +60,7 @@
       <a href="/trace" class="{{ 'on' if active == 'trace' }}">Trace</a>
       <a href="/signals" class="{{ 'on' if active == 'signals' }}">Signals</a>
       <a href="/sources" class="{{ 'on' if active == 'sources' }}">Sources</a>
-      {% if not demo %}<a href="/agents" class="{{ 'on' if active == 'agents' }}">Agents</a>{% endif %}
+      <a href="/agents" class="{{ 'on' if active == 'agents' }}">Agents</a>
       <a href="/how-it-works" class="{{ 'on' if active == 'how' }}">Workflow</a>
       <a href="/overview" class="{{ 'on' if active == 'overview' }}">Overview</a>
     </nav>
@@ -145,7 +145,7 @@
   <div class="menu" id="menu">
     <a href="/"><span>Ask</span><i>/01</i></a>{% if not demo %}<a href="/watch"><span>Watch</span><i>/02</i></a>{% endif %}
     <a href="/trace"><span>Trace</span><i>/03</i></a><a href="/signals"><span>Signals</span><i>/04</i></a>
-    <a href="/sources"><span>Sources</span><i>/05</i></a>{% if not demo %}<a href="/agents"><span>Agents</span><i>/06</i></a>{% endif %}
+    <a href="/sources"><span>Sources</span><i>/05</i></a><a href="/agents"><span>Agents</span><i>/06</i></a>
     <a href="/how-it-works"><span>Workflow</span><i>/07</i></a><a href="/overview"><span>Overview</span><i>/08</i></a>
   </div>
 </header>

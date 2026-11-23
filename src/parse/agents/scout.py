@@ -33,6 +33,7 @@ from parse.models import AgentRun, AuditLog, Source
 from parse.normalise.text import fold, is_kosovo_relevant
 from parse.settings import DATA_DIR, keywords
 
+from .meta import TAG_NAMES, tags_of  # noqa: F401
 from .methods import DISCORD_CHANNEL_RE, topic_match
 
 PROFILE_DIR = DATA_DIR / "browser-profile"
@@ -54,9 +55,6 @@ PLATFORMS = {
           "hint": "@handle (empty: search all of X)"},
 }
 
-TAG_NAMES = {"ksf_military": "KSF / army", "places_north": "North", "police": "Police", "mobilisation": "Mobilisation",
-             "violence_sabotage": "Violence", "political": "Political", "war_persecution_framing": "War / persecution",
-             "heritage": "Heritage"}
 
 
 class Busy(RuntimeError):
@@ -170,24 +168,6 @@ def plan(platform: str, target: str, topic: str) -> list[dict]:
 
 
 # ---------------------------------------------------------------- tagging
-_tags: list[tuple[str, list[str]]] | None = None
-
-
-def tags_of(text: str) -> list[str]:
-    global _tags
-    if _tags is None:
-        _tags = [(g, sorted({fold(w) for ws in langs.values() for w in ws}))
-                 for g, langs in keywords()["topics"].items()]
-    blob = fold(text or "")
-    out = []
-    for g, words in _tags:
-        for w in words:
-            if (len(w) <= 4 and re.search(rf"\b{re.escape(w)}\b", blob)) or (len(w) > 4 and w in blob):
-                out.append(TAG_NAMES.get(g, g))
-                break
-    return out
-
-
 # ---------------------------------------------------------------- accounts (which platforms the agent browser is logged in to)
 def accounts() -> dict:
     try:

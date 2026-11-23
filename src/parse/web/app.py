@@ -463,14 +463,14 @@ def api_stats():
 
 
 # ---------------------------------------------------------------- field agents (/agents and /api/agents/*)
-if not DEMO:   # browser field agents need a long-running host and outbound network: not part of the web demo
+if not DEMO:
     from parse.web import agents as agents_mod  # noqa: E402
 
     app.include_router(agents_mod.router)
-else:
-    @app.get("/agents", response_class=HTMLResponse)
-    def agents_off():
-        _demo_off("The field agents")
+else:   # the public demo replays recorded runs over the snapshot: no browser, no outbound request, no key
+    from parse.web import replay as replay_mod  # noqa: E402
+
+    app.include_router(replay_mod.router)
 
 
     @app.post("/api/key/check")

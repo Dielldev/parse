@@ -11,12 +11,17 @@
 <link rel="stylesheet" href="/static/agents.css">
 
 <header class="ph">
-  <div class="ph-top"><span class="lbl">/0.4 — Field agents</span><span class="lbl">Read-only · every post archived with a fingerprint</span></div>
+  <div class="ph-top"><span class="lbl">/0.4 — Field agents</span><span class="lbl">{{ "Replay · no key, no browser, nothing fetched" if replay else "Read-only · every post archived with a fingerprint" }}</span></div>
   <h1>Send a scout.</h1>
   <p class="tl lbl">SQ Zbuluesi · SR Izviđač</p>
-  <p class="lead">Pick a platform, name a channel, say what to look for. Parse opens a real browser on this screen, goes
+  <p class="lead">Pick a platform, name a channel, say what to look for. {% if replay %}Parse replays a scout it already sent: it goes
+    into the channel, searches it, scrolls through what people posted and keeps every post that matches. You watch each step as it happens.{% else %}Parse opens a real browser on this screen, goes
     into the channel, searches it, scrolls through what people are posting and keeps every post that matches. You watch
-    it work, live.</p>
+    it work, live.{% endif %}</p>
+  {% if replay %}<p class="rp-note"><b>This is a replay.</b> A public server must not send a browser to the internet for strangers, so the
+    agents re-run the steps over what the real agents already brought back: real archived posts and articles, with their
+    original fingerprints. Same page, same cards. Nothing is fetched, stored or billed, and no key is needed.
+    <a href="https://github.com/Dielldev/parse#web-demo-vs-the-full-pipeline">What runs live on your own machine →</a></p>{% endif %}
 </header>
 
 <!-- ============================================================ console -->
@@ -29,7 +34,8 @@
       <span class="sc-tab-name">{{ p.name }}</span>
       <span class="sc-tab-where">{{ p.where }}</span>
       <span class="sc-tab-st" data-acct="{{ p.kind }}">
-        {% if not p.login %}<i class="ok"></i>No login needed
+        {% if replay %}{% if p.kind in live_only %}<i class="warn"></i>Live only{% else %}<i class="ok"></i>Recorded run{% endif %}
+        {% elif not p.login %}<i class="ok"></i>No login needed
         {% elif acct and acct.connected %}<i class="ok"></i>Agent logged in
         {% else %}<i class="warn"></i>Log in once{% endif %}</span>
     </button>
@@ -38,7 +44,7 @@
       <span class="sc-tab-ic">{{ icon('web') }}</span>
       <span class="sc-tab-name">News sites</span>
       <span class="sc-tab-where">Outlets + official</span>
-      <span class="sc-tab-st"><i class="ok"></i>{{ news_ready }} live sites</span>
+      <span class="sc-tab-st"><i class="ok"></i>{{ news_ready }} {{ "archived sites" if replay else "live sites" }}</span>
     </button>
   </div>
 
@@ -77,7 +83,7 @@
         <span class="lbl">Keep up to</span>
         {% for n in [5, 10, 25] %}<button type="button" class="{{ 'on' if n == 10 }}" data-n="{{ n }}" role="radio" aria-checked="{{ 'true' if n == 10 else 'false' }}">{{ n }}</button>{% endfor %}
       </div>
-      <label class="sc-switch"><input type="checkbox" id="sc-headed" checked><span aria-hidden="true"></span>Show the browser on this screen</label>
+      {% if not replay %}<label class="sc-switch"><input type="checkbox" id="sc-headed" checked><span aria-hidden="true"></span>Show the browser on this screen</label>{% else %}<input type="checkbox" id="sc-headed" hidden>{% endif %}
       <button type="button" class="ag-dispatch" id="sc-send"><span id="sc-send-label">Send scout</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
     </div>
@@ -118,7 +124,7 @@
       <button type="button" class="ag-dispatch" id="dispatch"><span id="dispatch-label">Dispatch agents</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
     </div>
-    <p class="sc-how">One agent per site, in parallel: the site's search API or RSS feed, no browser. Every request passes the registry gate and robots.txt.</p>
+    <p class="sc-how">{% if replay %}Live, one agent per site in parallel asks the site's search API or RSS feed. Here each one reports what it already archived on your topic.{% else %}One agent per site, in parallel: the site's search API or RSS feed, no browser. Every request passes the registry gate and robots.txt.{% endif %}</p>
   </div>
 </section>
 
@@ -134,8 +140,14 @@
         <button type="button" class="sc-stop" id="sc-stop">Stop</button>
       </div>
       <div class="sc-screen">
-        <img id="sc-img" alt="Live view of the agent's browser">
-        <div class="sc-boot" id="sc-boot"><span class="sc-spin" aria-hidden="true"></span><span id="sc-boot-t">Opening the agent browser…</span></div>
+        <img id="sc-img" alt="Live view of the agent's browser"{{ ' hidden' if replay }}>
+        {% if replay %}<div class="sc-sim" id="sc-sim" aria-hidden="true">
+          <div class="sc-sim-h"><i></i><span id="sc-sim-where">Replay</span><em>RECORDED RUN</em></div>
+          <div class="sc-sim-lines"><i></i><i></i><i></i></div>
+          <div class="sc-sim-post" id="sc-sim-post">Waiting for the first post…</div>
+          <div class="sc-sim-lines"><i></i><i></i></div>
+        </div>{% endif %}
+        <div class="sc-boot" id="sc-boot"><span class="sc-spin" aria-hidden="true"></span><span id="sc-boot-t">{{ "Starting the replay…" if replay else "Opening the agent browser…" }}</span></div>
       </div>
       <ol class="sc-steps" id="sc-steps" aria-live="polite"></ol>
     </div>
@@ -197,7 +209,7 @@
 
 <!-- ============================================================ history -->
 <section class="ag-history">
-  <div class="sec"><span>Recent runs</span><span class="muted">Scouts, field agents and Ask Parse</span></div>
+  <div class="sec"><span>Recent runs</span><span class="muted">{{ "Recorded on the author's machine" if replay else "Scouts, field agents and Ask Parse" }}</span></div>
   <div class="panel scroll"><table id="history">
     <tr><th>When</th><th>Where</th><th>Topic</th><th>From</th><th class="n">Sources</th><th class="n">Kept</th><th>Status</th></tr>
     {% for r in runs %}
@@ -208,4 +220,4 @@
   </table></div>
 </section>
 {% endblock %}
-{% block scripts %}<script>window.AG_METHODS = {{ methods|tojson }}; window.SC = {{ {'scout': scout, 'accounts': accounts, 'busy': busy}|tojson }};</script><script src="/static/agents.js"></script>{% endblock %}
+{% block scripts %}<script nonce="{{ request.state.csp_nonce | default("") }}">window.AG_METHODS = {{ methods|tojson }}; window.SC = {{ {'scout': scout, 'accounts': accounts, 'busy': busy}|tojson }}; window.REPLAY = {{ 'true' if replay else 'false' }};</script><script src="/static/agents.js"></script>{% endblock %}

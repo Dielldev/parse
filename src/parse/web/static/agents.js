@@ -9,6 +9,29 @@
   const SC = window.SC || {scout: [], accounts: {}};
   const PLAT = Object.fromEntries(SC.scout.map(p => [p.kind, p]));
   const qp = new URLSearchParams(location.search);
+  const REPLAY = !!window.REPLAY;   // public demo: the same page over recorded runs, no key, no browser
+
+  // Read a newline-delimited JSON stream (the replay endpoint) and hand each event to `onEvent`.
+  async function streamReplay(body, onEvent, signal) {
+    const r = await fetch('/api/agents/replay', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body), signal});
+    if (!r.ok) {
+      let msg = r.status === 429 ? 'Too many replays in a minute. Wait a moment.' : r.status;
+      try { msg = (await r.json()).detail || msg; } catch (e) { /* plain text error */ }
+      throw new Error(msg);
+    }
+    const reader = r.body.getReader(), dec = new TextDecoder();
+    let buf = '';
+    for (;;) {
+      const {value, done} = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, {stream: true});
+      let i;
+      while ((i = buf.indexOf('\n')) >= 0) {
+        const line = buf.slice(0, i); buf = buf.slice(i + 1);
+        if (line.trim()) { try { onEvent(JSON.parse(line)); } catch (e) { /* skip a bad line */ } }
+      }
+    }
+  }
 
   let kind = 'telegram';
   let accounts = SC.accounts || {};
@@ -138,6 +161,7 @@
   $('#sc-send').addEventListener('click', async () => {
     const btn = $('#sc-send'); btn.disabled = true; btn.classList.add('busy'); $('#sc-err').hidden = true;
     try {
+      if (REPLAY) { await watchScout('replay'); return; }
       const r = await fetch('/api/scout/start', {method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({platform: kind, target: $('#sc-target').value.trim(), topic: $('#sc-topic').value.trim(),
                               limit: depth.sc, headed: $('#sc-headed').checked})});
@@ -195,14 +219,15 @@
   }
 
   let scoutPoll = null;
-  function watchScout(runId) {
+  async function watchScout(runId) {
     if (scoutPoll) clearTimeout(scoutPoll);
     const live = $('#sc-live'); live.hidden = false;
-    $('#sc-live-id').textContent = '/ ' + runId.slice(-8);
+    $('#sc-live-id').textContent = REPLAY ? '/ replay' : '/ ' + runId.slice(-8);
     $('#sc-posts').innerHTML = '<li class="sc-posts-empty">Posts show up here as the scout reads them.</li>';
     $('#sc-steps').innerHTML = ''; $('#sc-targets').innerHTML = ''; $('#sc-sum').hidden = true;
-    $('#sc-boot').hidden = false; $('#sc-boot-t').textContent = 'Opening the agent browser…';
-    $('#sc-ctl').className = 'sc-ctl'; $('#sc-ctl').innerHTML = '<i></i>Agent in control';
+    $('#sc-boot').hidden = false; $('#sc-boot-t').textContent = REPLAY ? 'Starting the replay…' : 'Opening the agent browser…';
+    if (REPLAY) { $('#sc-sim-post').textContent = 'Waiting for the first post…'; $('#sc-sim-where').textContent = 'Replay'; }
+    $('#sc-ctl').className = 'sc-ctl'; $('#sc-ctl').innerHTML = REPLAY ? '<i></i>Replaying' : '<i></i>Agent in control';
     $('#sc-stop').disabled = false; $('#sc-url').textContent = 'about:blank';
     const img = $('#sc-img'); img.removeAttribute('src');
     live.scrollIntoView({behavior: 'smooth', block: 'start'});
@@ -219,6 +244,7 @@
       const ol = $('#sc-steps'); ol.prepend(li);
       while (ol.children.length > 7) ol.lastChild.remove();
       if (ev.url) $('#sc-url').textContent = ev.url;
+      if (REPLAY) { if (ev.action !== 'launch') $('#sc-boot').hidden = true; if (ev.url) $('#sc-sim-where').textContent = ev.url.replace(/^https?:\/\//, ''); return; }
       if (!streaming && ev.action !== 'launch') {  // the browser is up: start the MJPEG mirror
         streaming = true; img.src = `/api/scout/runs/${encodeURIComponent(runId)}/live.mjpg`;
         img.onload = () => { $('#sc-boot').hidden = true; };
@@ -245,7 +271,7 @@
         const li = rows[ev.target];
         li.className = 'sc-target ' + ev.state;
         $('span:last-of-type', li).textContent = ev.state === 'visiting' ? 'reading…' : (ev.note || ev.state);
-        if (ev.state === 'login' && PLAT[st.platform]) {
+        if (ev.state === 'login' && PLAT[st.platform] && !REPLAY) {
           const b = document.createElement('button'); b.className = 'sc-ghost'; b.textContent = 'Log in once';
           b.addEventListener('click', () => { pick(st.platform); $('#console').scrollIntoView({behavior: 'smooth'}); setTimeout(() => $('#sc-window').click(), 400); });
           li.appendChild(b);
@@ -254,16 +280,17 @@
         st.read++; if (ev.matched) st.match++; if (ev.kept) st.kept++;
         $('.sc-posts-empty')?.remove();
         $('#sc-posts').insertAdjacentHTML('afterbegin', card(ev));
+        if (REPLAY) { const sim = $('#sc-sim-post'); sim.textContent = (ev.title ? ev.title + ' — ' : '') + String(ev.text || '').slice(0, 220); sim.classList.toggle('hit', !!ev.matched); }
         const ol = $('#sc-posts'); while (ol.children.length > 120) ol.lastChild.remove();
         draw();
       } else if (ev.t === 'note') {
         step({action: 'note', text: ev.text, at: ev.at});
       } else if (ev.t === 'end') {
         st.done = true; clearInterval(timer);
-        $('#sc-ctl').className = 'sc-ctl off'; $('#sc-ctl').innerHTML = `<i></i>${ev.status === 'stopped' ? 'Stopped' : 'Control returned'}`;
+        $('#sc-ctl').className = 'sc-ctl off'; $('#sc-ctl').innerHTML = `<i></i>${ev.status === 'stopped' ? 'Stopped' : (REPLAY ? 'Replay finished' : 'Control returned')}`;
         $('#sc-stop').disabled = true; $('#sc-boot').hidden = true;
         // keep the last frame on screen once the stream ends
-        setTimeout(() => { img.src = `/api/scout/runs/${encodeURIComponent(runId)}/frame.jpg?t=${Date.now()}`; }, 300);
+        if (!REPLAY) setTimeout(() => { img.src = `/api/scout/runs/${encodeURIComponent(runId)}/frame.jpg?t=${Date.now()}`; }, 300);
         summary(ev, st);
         loadHistory();
       }
@@ -280,8 +307,19 @@
       } catch (e) { /* keep trying */ }
       scoutPoll = setTimeout(poll, 400);
     }
+    draw();
+    if (REPLAY) {
+      const ac = new AbortController();
+      $('#sc-stop').onclick = () => { $('#sc-stop').disabled = true; ac.abort(); onEvent({t: 'end', status: 'stopped', replay: true, read: st.read, matched: st.match, kept: st.match, tags: [], forwarded: [], authors: []}); };
+      try {
+        await streamReplay({platform: kind, target: $('#sc-target').value.trim(), topic: $('#sc-topic').value.trim(), limit: depth.sc}, onEvent, ac.signal);
+      } catch (err) {
+        if (err.name !== 'AbortError') { st.done = true; clearInterval(timer); $('#sc-live').hidden = true; throw err; }
+      }
+      return;
+    }
     $('#sc-stop').onclick = async () => { $('#sc-stop').disabled = true; await fetch(`/api/scout/runs/${encodeURIComponent(runId)}/stop`, {method: 'POST'}); };
-    draw(); poll();
+    poll();
   }
   $('#sc-only').addEventListener('change', e => $('#sc-posts').classList.toggle('only', e.target.checked));
 
@@ -291,8 +329,10 @@
     const q = st.topic;
     box.innerHTML = `
       <div><h4>Result</h4>
-        <p><b>${ev.read} post${ev.read === 1 ? '' : 's'} read, ${ev.matched} matched, ${ev.kept} new archived.</b>
-        ${ev.kept ? 'Ask Parse can cite them now.' : (ev.matched ? 'The matches were already in the archive.' : 'Nothing matched this time.')}</p>
+        ${ev.replay ? `<p><b>${ev.read} post${ev.read === 1 ? '' : 's'} read, ${ev.matched} matched.</b>
+          ${ev.matched ? 'Every match is already in the archive with its SHA-256 fingerprint, so Ask Parse can cite it.' : 'Nothing in the recorded run matched.'}</p>` :
+        `<p><b>${ev.read} post${ev.read === 1 ? '' : 's'} read, ${ev.matched} matched, ${ev.kept} new archived.</b>
+        ${ev.kept ? 'Ask Parse can cite them now.' : (ev.matched ? 'The matches were already in the archive.' : 'Nothing matched this time.')}</p>`}
         ${q ? `<a class="ag-btn" href="/?q=${encodeURIComponent(q)}">Ask Parse about “${esc(q)}” →</a>` : `<a class="ag-btn" href="/signals?platform=${encodeURIComponent(st.platform)}">Open signals →</a>`}</div>
       <div><h4>Framing in what it kept</h4>
         ${ev.tags.length ? ev.tags.map(([t, n]) => `<div class="sc-bar"><span>${esc(t)}</span><i style="width:${Math.round(n / max * 100)}%"></i><em>${n}</em></div>`).join('')
@@ -322,6 +362,7 @@
     if (!sources.length) return;
     const btn = $('#dispatch'); btn.disabled = true; btn.classList.add('busy');
     try {
+      if (REPLAY) { await watch('replay', sources); return; }
       const r = await fetch('/api/agents/dispatch', {method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({kind: 'web', sources, topic: $('#topic').value.trim(), limit: depth.news})});
       if (!r.ok) throw new Error((await r.json()).detail || r.status);
@@ -330,10 +371,10 @@
     finally { btn.classList.remove('busy'); refreshNews(); }
   });
 
-  function watch(runId) {
+  async function watch(runId, sources = []) {
     if (polling) clearTimeout(polling);
     const live = $('#live'); live.hidden = false;
-    $('#live-id').textContent = '/ ' + runId.slice(-8);
+    $('#live-id').textContent = REPLAY ? '/ replay' : '/ ' + runId.slice(-8);
     $('#agents').innerHTML = ''; $('#finds').innerHTML = '<li class="ag-finds-empty">Findings appear here the moment an agent keeps one.</li>';
     $('#after').hidden = true; $('#finds-n').textContent = '';
     live.scrollIntoView({behavior: 'smooth', block: 'start'});
@@ -383,7 +424,11 @@
       } else if (ev.t === 'end') {
         st.done = true; clearInterval(timer);
         const q = st.topic, box = $('#after'); box.hidden = false;
-        box.innerHTML = `<p><b>${ev.kept ? `${ev.kept} new item${ev.kept === 1 ? '' : 's'} archived.` : 'Nothing new this time.'}</b>
+        box.innerHTML = ev.replay
+          ? `<p><b>${ev.kept ? `${ev.kept} archived item${ev.kept === 1 ? '' : 's'} found.` : 'Nothing in the archive on this topic.'}</b>
+          ${ev.kept ? 'Each one opens its archived record, and Ask Parse cites them.' : 'Try another topic, or pick more sites.'}</p>
+          ${q ? `<a class="ag-btn" href="/?q=${encodeURIComponent(q)}">Ask Parse about “${esc(q)}” →</a>` : `<a class="ag-btn" href="/signals">Open signals →</a>`}`
+          : `<p><b>${ev.kept ? `${ev.kept} new item${ev.kept === 1 ? '' : 's'} archived.` : 'Nothing new this time.'}</b>
           ${ev.kept ? 'They are already in the archive, so Ask Parse will use them.' : 'Everything these sources had on the topic was already in the archive, or nothing matched.'}</p>
           ${q ? `<a class="ag-btn" href="/?q=${encodeURIComponent(q)}">Ask Parse about “${esc(q)}” →</a>` : `<a class="ag-btn" href="/signals">Open signals →</a>`}`;
         loadHistory();
@@ -396,7 +441,14 @@
       } catch (e) { /* keep trying */ }
       polling = setTimeout(poll, 600);
     }
-    draw(); poll();
+    draw();
+    if (REPLAY) {
+      try {
+        await streamReplay({platform: 'web', sources, topic: $('#topic').value.trim(), limit: depth.news}, onEvent);
+      } catch (err) { st.done = true; clearInterval(timer); $('#live').hidden = true; throw err; }
+      return;
+    }
+    poll();
   }
 
   async function loadHistory() {
