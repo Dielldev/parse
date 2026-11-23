@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/media/main.png" width="100%" alt="Parse: counter-intelligence for the Kosovo threat landscape. Source registry, the Ask page, the Tracer map and the field scouts.">
+</p>
+
 # Parse
 
 **OSINT early warning for Kosovo.** Parse collects public reporting in Albanian, Serbian (Latin and Cyrillic), Russian and English,
@@ -7,12 +11,9 @@ against independent sources. Spread and truth are scored apart: a false story th
 ### [**Open the live demo → parse-osint.vercel.app**](https://parse-osint.vercel.app)
 
 <p align="center">
-  <video src="https://github.com/Dielldev/parse/raw/main/docs/media/parse-agentic-loop.mp4" poster="docs/media/parse-agentic-loop-poster.jpg"
-         width="840" controls muted playsinline>
-    <a href="docs/media/parse-agentic-loop.mp4"><img src="docs/media/parse-agentic-loop-poster.jpg" width="840" alt="Parse in 30 seconds: agents, signals, ask"></a>
-  </video>
+  <a href="docs/media/parse-agentic-loop.mp4"><img src="docs/media/parse-agentic-loop.gif" width="840" alt="Parse in 30 seconds: agents, signals, ask"></a>
   <br><sub>30 seconds: agents → signals → ask. Every number on screen comes from a real run
-  (<a href="docs/media/parse-agentic-loop.mp4">mp4, 23 MB</a>; made with <a href="video/agentic/README.md">video/agentic</a>).</sub>
+  (<a href="docs/media/parse-agentic-loop.mp4">full-quality mp4, 23 MB</a>; made with <a href="video/agentic/README.md">video/agentic</a>).</sub>
 </p>
 
 <p align="center">
