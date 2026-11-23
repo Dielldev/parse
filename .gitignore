@@ -10,3 +10,22 @@ data/*.jsonl
 # Browser scout: the agent browser keeps logins here. Never commit it.
 data/browser-profile/
 data/browser-accounts.json
+
+# Web demo: the raw SQLite is rebuilt from the gzipped snapshot (scripts/build_demo_db.py); only the .gz is committed
+demo/parse_demo.sqlite
+demo/*.part
+.vercel/
+
+# Local state and logs that do not belong in the repo
+.DS_Store
+data/logs/web.log
+data/spend_ledger.csv
+*.deckcraft
+
+# Video: keep the sources, not the renders, footage frames or 700 MB of capture. The 30 s film is in docs/media/.
+video/out/
+video/demo/out/archive_v1/
+video/agentic/footage/
+vidoes/
+.vercel
+.env*

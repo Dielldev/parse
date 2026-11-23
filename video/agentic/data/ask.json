@@ -1,0 +1,1830 @@
+{
+ "q": "What happened at the Ibar-Lepenac canal?",
+ "window": "canal_2024_11",
+ "fresh": true,
+ "events": [
+  {
+   "type": "step",
+   "id": "trigger",
+   "ms": 0.0,
+   "title": "Question",
+   "subtitle": "Chat trigger",
+   "icon": "bolt",
+   "status": "ok",
+   "summary": "What happened at the Ibar-Lepenac canal?",
+   "rows": [
+    [
+     "question",
+     "What happened at the Ibar-Lepenac canal?"
+    ],
+    [
+     "window",
+     "canal_2024_11"
+    ],
+    [
+     "language",
+     "all"
+    ]
+   ],
+   "explain": "Parse takes the question as typed, with the time window and language filters set in the composer. Nothing is sent anywhere outside this machine.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Rules and arithmetic only. No language model ran in this step."
+   },
+   "links": [
+    {
+     "label": "Window: canal_2024_11",
+     "href": "/signals?window=canal_2024_11"
+    }
+   ],
+   "_arrived_s": 0.009
+  },
+  {
+   "type": "step",
+   "id": "normalise",
+   "ms": 0.0,
+   "title": "Normalise",
+   "subtitle": "Fold scripts",
+   "icon": "type",
+   "status": "ok",
+   "summary": "3 terms · Latin + Cyrillic + diacritics",
+   "rows": [
+    [
+     "terms",
+     "ibar, lepenac, canal"
+    ],
+    [
+     "scripts",
+     "Latin, and Serbian Cyrillic via the transliterated text"
+    ],
+    [
+     "diacritics",
+     "c ↔ č ć, s ↔ š, z ↔ ž, e ↔ ë, dj ↔ đ"
+    ]
+   ],
+   "explain": "The question is cut into search terms. Accents are folded so “Zvečan”, “Zvecan” and “Звечан” all match, and filler words in three languages are dropped.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Rules and arithmetic only. No language model ran in this step."
+   },
+   "links": [
+    {
+     "label": "“ibar” in Signals",
+     "href": "/signals?q=ibar"
+    },
+    {
+     "label": "“lepenac” in Signals",
+     "href": "/signals?q=lepenac"
+    },
+    {
+     "label": "“canal” in Signals",
+     "href": "/signals?q=canal"
+    }
+   ],
+   "_arrived_s": 0.009
+  },
+  {
+   "type": "step",
+   "id": "agents",
+   "ms": 17266.9,
+   "title": "Field agents",
+   "subtitle": "46 live sources",
+   "icon": "send",
+   "status": "ok",
+   "summary": "13 new items from 8 sources",
+   "rows": [
+    [
+     "sent to",
+     "46 sources (site search API + RSS feeds)"
+    ],
+    [
+     "kept",
+     "13 new items, archived and searchable now"
+    ],
+    [
+     "outcome",
+     "done 40, error 6"
+    ],
+    [
+     "run",
+     "run_01M80HG7NRDNRHYQ0BRJ1HS09E"
+    ]
+   ],
+   "table": {
+    "cols": [
+     "Source",
+     "Method",
+     "Read",
+     "New"
+    ],
+    "rows": [
+     [
+      "KoSSev",
+      "wp-search",
+      6,
+      5
+     ],
+     [
+      "Istinomer",
+      "wp-search",
+      3,
+      2
+     ],
+     [
+      "Hibrid.info",
+      "wp-search",
+      2,
+      1
+     ],
+     [
+      "Prishtina Insight (BIRN)",
+      "wp-search",
+      2,
+      1
+     ],
+     [
+      "Radio KiM",
+      "wp-search",
+      1,
+      1
+     ],
+     [
+      "Insajderi",
+      "wp-search",
+      2,
+      1
+     ],
+     [
+      "Reporteri",
+      "wp-search",
+      1,
+      1
+     ],
+     [
+      "Standard (Novi Standard)",
+      "wp-search",
+      1,
+      1
+     ],
+     [
+      "Bota Sot",
+      "rss",
+      10,
+      0
+     ],
+     [
+      "Kosovo Police",
+      "rss",
+      10,
+      0
+     ],
+     [
+      "BalkanWeb (AL)",
+      "rss",
+      10,
+      0
+     ],
+     [
+      "Danas",
+      "rss",
+      50,
+      0
+     ],
+     [
+      "bne IntelliNews",
+      "rss",
+      7,
+      0
+     ],
+     [
+      "EULEX",
+      "rss",
+      15,
+      0
+     ],
+     [
+      "Albania Ministry of Defence",
+      "rss",
+      5,
+      0
+     ]
+    ]
+   },
+   "explain": "Field agents visit the live news and official sources in the registry, read their site search and RSS feeds for these words, and archive anything new before Parse searches.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Agents fetch pages over HTTP and match words. No model reads or rewrites them."
+   },
+   "items": [
+    {
+     "title": "KoSSev",
+     "sub": "wp-search · read 6",
+     "tag": "+5",
+     "href": "/signals?source=src_web_kossev"
+    },
+    {
+     "title": "Istinomer",
+     "sub": "wp-search · read 3",
+     "tag": "+2",
+     "href": "/signals?source=src_web_istinomer"
+    },
+    {
+     "title": "Hibrid.info",
+     "sub": "wp-search · read 2",
+     "tag": "+1",
+     "href": "/signals?source=src_web_hibrid"
+    },
+    {
+     "title": "Prishtina Insight (BIRN)",
+     "sub": "wp-search · read 2",
+     "tag": "+1",
+     "href": "/signals?source=src_web_prishtinainsight"
+    },
+    {
+     "title": "Radio KiM",
+     "sub": "wp-search · read 1",
+     "tag": "+1",
+     "href": "/signals?source=src_web_radiokim"
+    },
+    {
+     "title": "Insajderi",
+     "sub": "wp-search · read 2",
+     "tag": "+1",
+     "href": "/signals?source=src_web_insajderi"
+    },
+    {
+     "title": "Reporteri",
+     "sub": "wp-search · read 1",
+     "tag": "+1",
+     "href": "/signals?source=src_web_reporteri"
+    },
+    {
+     "title": "Standard (Novi Standard)",
+     "sub": "wp-search · read 1",
+     "tag": "+1",
+     "href": "/signals?source=src_web_standard"
+    }
+   ],
+   "links": [
+    {
+     "label": "Open this run on the Agents page",
+     "href": "/agents?topic=ibar+lepenac+canal"
+    }
+   ],
+   "run_id": "run_01M80HG7NRDNRHYQ0BRJ1HS09E",
+   "kept": 13,
+   "_arrived_s": 17.276
+  },
+  {
+   "type": "step",
+   "id": "registry",
+   "ms": 2.6,
+   "title": "Source registry",
+   "subtitle": "Allow-list",
+   "icon": "book",
+   "status": "ok",
+   "summary": "71 collected sources",
+   "rows": [
+    [
+     "Tier 0",
+     "10 · Official / primary"
+    ],
+    [
+     "Tier 1",
+     "35 · Established outlet"
+    ],
+    [
+     "Tier 2",
+     "5 · Specialist OSINT"
+    ],
+    [
+     "Tier 3",
+     "21 · Partisan or unverified"
+    ]
+   ],
+   "explain": "Parse only searches sources on its allow-list. Each source has a tier, from official and primary (Tier 0) to partisan or unverified (Tier 3), and the tier travels with every item it publishes.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "The registry is a hand-checked list. No model chose or rated these sources."
+   },
+   "items": [
+    {
+     "title": "Tier 0 · Official / primary",
+     "sub": "10 sources",
+     "tag": "T0",
+     "href": "/sources?tier=0"
+    },
+    {
+     "title": "Tier 1 · Established outlet",
+     "sub": "35 sources",
+     "tag": "T1",
+     "href": "/sources?tier=1"
+    },
+    {
+     "title": "Tier 2 · Specialist OSINT",
+     "sub": "5 sources",
+     "tag": "T2",
+     "href": "/sources?tier=2"
+    },
+    {
+     "title": "Tier 3 · Partisan or unverified",
+     "sub": "21 sources",
+     "tag": "T3",
+     "href": "/sources?tier=3"
+    }
+   ],
+   "links": [
+    {
+     "label": "Source registry",
+     "href": "/sources"
+    }
+   ],
+   "_arrived_s": 17.279
+  },
+  {
+   "type": "step",
+   "id": "search",
+   "ms": 229.9,
+   "title": "Search corpus",
+   "subtitle": "Postgres",
+   "icon": "database",
+   "status": "ok",
+   "summary": "486 of 33,285 signals match",
+   "rows": [
+    [
+     "scanned",
+     "33,285 signals"
+    ],
+    [
+     "matched",
+     "486"
+    ],
+    [
+     "ranked",
+     "486 most recent"
+    ],
+    [
+     "fields",
+     "title, original text, Latin transliteration, English translation"
+    ]
+   ],
+   "explain": "Every archived item is checked against the terms: title, original text, its Latin transliteration and, where one exists, its English translation. The count is exact; the newest matches go on to ranking.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Plain pattern matching in Postgres. None of the matched items has a machine translation, so no model output was searched."
+   },
+   "links": [
+    {
+     "label": "Open these matches in Signals",
+     "href": "/signals?q=ibar&window=canal_2024_11"
+    }
+   ],
+   "_arrived_s": 17.51
+  },
+  {
+   "type": "step",
+   "id": "sources",
+   "ms": 2.0,
+   "title": "Fetch from sources",
+   "subtitle": "24 sources",
+   "icon": "globe",
+   "status": "ok",
+   "summary": "24 sources returned matches",
+   "branches": [
+    {
+     "id": "src_web_kossev",
+     "name": "KoSSev",
+     "tier": 1,
+     "platform": "news",
+     "lang": "sr",
+     "count": 109,
+     "initials": "K"
+    },
+    {
+     "id": "src_web_kosovo_online",
+     "name": "Kosovo Online",
+     "tier": 3,
+     "platform": "news",
+     "lang": "sr/en/sq",
+     "count": 60,
+     "initials": "KO"
+    },
+    {
+     "id": "src_web_radiokim",
+     "name": "Radio KiM",
+     "tier": 1,
+     "platform": "news",
+     "lang": "sr",
+     "count": 54,
+     "initials": "RK"
+    },
+    {
+     "id": "src_web_n1",
+     "name": "N1 Srbija",
+     "tier": 1,
+     "platform": "news",
+     "lang": "sr",
+     "count": 39,
+     "initials": "NS"
+    },
+    {
+     "id": "src_web_in4s",
+     "name": "In4s",
+     "tier": 3,
+     "platform": "news",
+     "lang": "sr",
+     "count": 39,
+     "initials": "I"
+    }
+   ],
+   "table": {
+    "cols": [
+     "Source",
+     "Tier",
+     "Platform",
+     "Matches"
+    ],
+    "rows": [
+     [
+      "KoSSev",
+      "T1",
+      "news",
+      109
+     ],
+     [
+      "Kosovo Online",
+      "T3",
+      "news",
+      60
+     ],
+     [
+      "Radio KiM",
+      "T1",
+      "news",
+      54
+     ],
+     [
+      "N1 Srbija",
+      "T1",
+      "news",
+      39
+     ],
+     [
+      "In4s",
+      "T3",
+      "news",
+      39
+     ],
+     [
+      "Sputnik Srbija",
+      "T3",
+      "news",
+      33
+     ],
+     [
+      "Nova",
+      "T1",
+      "news",
+      26
+     ],
+     [
+      "RT Balkan",
+      "T3",
+      "news",
+      23
+     ],
+     [
+      "Kurir",
+      "T3",
+      "news",
+      20
+     ],
+     [
+      "RFE/RL Serbian",
+      "T1",
+      "news",
+      16
+     ],
+     [
+      "Blic",
+      "T1",
+      "news",
+      15
+     ],
+     [
+      "Vreme",
+      "T1",
+      "news",
+      13
+     ],
+     [
+      "Telegraf",
+      "T1",
+      "news",
+      10
+     ],
+     [
+      "Alo",
+      "T3",
+      "news",
+      6
+     ],
+     [
+      "Kosovo Police",
+      "T0",
+      "official",
+      5
+     ]
+    ]
+   },
+   "explain": "The matches are grouped by the outlet that published them, so you can see who is talking about this and how much.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Rules and arithmetic only. No language model ran in this step."
+   },
+   "items": [
+    {
+     "title": "KoSSev",
+     "sub": "news · sr",
+     "tag": "T1 · 109",
+     "href": "/signals?source=src_web_kossev&q=ibar"
+    },
+    {
+     "title": "Kosovo Online",
+     "sub": "news · sr/en/sq",
+     "tag": "T3 · 60",
+     "href": "/signals?source=src_web_kosovo_online&q=ibar"
+    },
+    {
+     "title": "Radio KiM",
+     "sub": "news · sr",
+     "tag": "T1 · 54",
+     "href": "/signals?source=src_web_radiokim&q=ibar"
+    },
+    {
+     "title": "N1 Srbija",
+     "sub": "news · sr",
+     "tag": "T1 · 39",
+     "href": "/signals?source=src_web_n1&q=ibar"
+    },
+    {
+     "title": "In4s",
+     "sub": "news · sr",
+     "tag": "T3 · 39",
+     "href": "/signals?source=src_web_in4s&q=ibar"
+    },
+    {
+     "title": "Sputnik Srbija",
+     "sub": "news · sr",
+     "tag": "T3 · 33",
+     "href": "/signals?source=src_web_sputnik&q=ibar"
+    },
+    {
+     "title": "Nova",
+     "sub": "news · sr",
+     "tag": "T1 · 26",
+     "href": "/signals?source=src_web_nova&q=ibar"
+    },
+    {
+     "title": "RT Balkan",
+     "sub": "news · sr",
+     "tag": "T3 · 23",
+     "href": "/signals?source=src_web_rtbalkan&q=ibar"
+    },
+    {
+     "title": "Kurir",
+     "sub": "news · sr",
+     "tag": "T3 · 20",
+     "href": "/signals?source=src_web_kurir&q=ibar"
+    },
+    {
+     "title": "RFE/RL Serbian",
+     "sub": "news · sr",
+     "tag": "T1 · 16",
+     "href": "/signals?source=src_web_slobodnaevropa&q=ibar"
+    },
+    {
+     "title": "Blic",
+     "sub": "news · sr",
+     "tag": "T1 · 15",
+     "href": "/signals?source=src_web_blic&q=ibar"
+    },
+    {
+     "title": "Vreme",
+     "sub": "news · sr",
+     "tag": "T1 · 13",
+     "href": "/signals?source=src_web_vreme&q=ibar"
+    }
+   ],
+   "links": [
+    {
+     "label": "Source registry",
+     "href": "/sources"
+    }
+   ],
+   "_arrived_s": 17.512
+  },
+  {
+   "type": "step",
+   "id": "rank",
+   "ms": 184.2,
+   "title": "Rank & pick sources",
+   "subtitle": "Term hits",
+   "icon": "sort",
+   "status": "ok",
+   "summary": "Picked 8 items from 5 of 24 sources: KoSSev, Kosovo Police, Sputnik Srbija, Istinomer…",
+   "rows": [
+    [
+     "scoring",
+     "3 × hits in title + hits in body (capped at 5)"
+    ],
+    [
+     "burst bonus",
+     "+2 for the window with most coverage (canal_2024_11)"
+    ],
+    [
+     "diversity",
+     "at most 2 items from any one source"
+    ],
+    [
+     "kept",
+     "8"
+    ],
+    [
+     "cut-off",
+     "18 pts: the lowest score that made the top 8"
+    ]
+   ],
+   "picks": {
+    "picked": [
+     {
+      "id": "src_web_kossev",
+      "name": "KoSSev",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 109,
+      "best": 25,
+      "href": "/signals?source=src_web_kossev",
+      "picked": 2,
+      "why": "Best item scored 25 pts; 2 of its 109 matches made the top 8, 12 more left out by the 2-per-source cap."
+     },
+     {
+      "id": "src_off_kosovopolice",
+      "name": "Kosovo Police",
+      "tier": 0,
+      "tier_name": "Official / primary",
+      "platform": "official",
+      "lang": "sq/sr/en",
+      "matched": 5,
+      "best": 23,
+      "href": "/signals?source=src_off_kosovopolice",
+      "picked": 2,
+      "why": "Best item scored 23 pts; 2 of its 5 matches made the top 8."
+     },
+     {
+      "id": "src_web_sputnik",
+      "name": "Sputnik Srbija",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 33,
+      "best": 18,
+      "href": "/signals?source=src_web_sputnik",
+      "picked": 2,
+      "why": "Best item scored 18 pts; 2 of its 33 matches made the top 8, 5 more left out by the 2-per-source cap."
+     },
+     {
+      "id": "src_web_istinomer",
+      "name": "Istinomer",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 3,
+      "best": 18,
+      "href": "/signals?source=src_web_istinomer",
+      "picked": 1,
+      "why": "Best item scored 18 pts; 1 of its 3 matches made the top 8."
+     },
+     {
+      "id": "src_web_nova",
+      "name": "Nova",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 26,
+      "best": 18,
+      "href": "/signals?source=src_web_nova",
+      "picked": 1,
+      "why": "Best item scored 18 pts; 1 of its 26 matches made the top 8, 2 more tied at the cut-off but the top 8 was already full."
+     }
+    ],
+    "skipped": [
+     {
+      "id": "src_web_rtbalkan",
+      "name": "RT Balkan",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 23,
+      "best": 18,
+      "href": "/signals?source=src_web_rtbalkan",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_kurir",
+      "name": "Kurir",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 20,
+      "best": 18,
+      "href": "/signals?source=src_web_kurir",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_slobodnaevropa",
+      "name": "RFE/RL Serbian",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 16,
+      "best": 18,
+      "href": "/signals?source=src_web_slobodnaevropa",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_blic",
+      "name": "Blic",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 15,
+      "best": 18,
+      "href": "/signals?source=src_web_blic",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_vreme",
+      "name": "Vreme",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 13,
+      "best": 18,
+      "href": "/signals?source=src_web_vreme",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_telegraf",
+      "name": "Telegraf",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 10,
+      "best": 18,
+      "href": "/signals?source=src_web_telegraf",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_n1",
+      "name": "N1 Srbija",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 39,
+      "best": 17,
+      "href": "/signals?source=src_web_n1",
+      "picked": 0,
+      "why": "Best item scored 17 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_kosovo_online",
+      "name": "Kosovo Online",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr/en/sq",
+      "matched": 60,
+      "best": 16,
+      "href": "/signals?source=src_web_kosovo_online",
+      "picked": 0,
+      "why": "Best item scored 16 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_in4s",
+      "name": "In4s",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 39,
+      "best": 16,
+      "href": "/signals?source=src_web_in4s",
+      "picked": 0,
+      "why": "Best item scored 16 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_radiokim",
+      "name": "Radio KiM",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 54,
+      "best": 15,
+      "href": "/signals?source=src_web_radiokim",
+      "picked": 0,
+      "why": "Best item scored 15 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_danas",
+      "name": "Danas",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 1,
+      "best": 12,
+      "href": "/signals?source=src_web_danas",
+      "picked": 0,
+      "why": "Best item scored 12 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_prishtinainsight",
+      "name": "Prishtina Insight (BIRN)",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "en",
+      "matched": 3,
+      "best": 11,
+      "href": "/signals?source=src_web_prishtinainsight",
+      "picked": 0,
+      "why": "Best item scored 11 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_intellinews",
+      "name": "bne IntelliNews",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "en",
+      "matched": 2,
+      "best": 11,
+      "href": "/signals?source=src_web_intellinews",
+      "picked": 0,
+      "why": "Best item scored 11 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_alo",
+      "name": "Alo",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 6,
+      "best": 6,
+      "href": "/signals?source=src_web_alo",
+      "picked": 0,
+      "why": "Best item scored 6 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_kallxo",
+      "name": "Kallxo (BIRN Kosovo)",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 4,
+      "best": 5,
+      "href": "/signals?source=src_web_kallxo",
+      "picked": 0,
+      "why": "Best item scored 5 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_reporteri",
+      "name": "Reporteri",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_reporteri",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_insajderi",
+      "name": "Insajderi",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_insajderi",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_klankosova",
+      "name": "Klan Kosova",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_klankosova",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_standard",
+      "name": "Standard (Novi Standard)",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 2,
+      "best": 2,
+      "href": "/signals?source=src_web_standard",
+      "picked": 0,
+      "why": "Best item scored 2 pts, below the cut-off of 18 pts."
+     }
+    ],
+    "cutoff": 18,
+    "considered": 24
+   },
+   "explain": "Each match gets points for the terms in its title (worth 3) and body (capped at 5), plus 2 if it sits in the window with the most coverage. The best items win, but no outlet may fill more than two places, so the answer draws on several sources. Each source below says why it was picked or left out.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "A fixed scoring formula, not a model. The same inputs always give the same order."
+   },
+   "items": [
+    {
+     "title": "Explosion at Ibar-Lepenac Canal: Kosovo Authorities Label Attack a ‘Criminal Terrorist Act,’ Blame Serbia; Serbian Officials Point to Kurti’s Regime",
+     "sub": "KoSSev · 30 Nov 2024",
+     "tag": "25 pts",
+     "href": "/signals/sig_01JDYA79J0PTMX45EV9YVGBED7"
+    },
+    {
+     "title": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked",
+     "sub": "Kosovo Police · 01 Dec 2024",
+     "tag": "23 pts",
+     "href": "/signals/sig_01JDZR8P0091T4967YCBADZ8R1"
+    },
+    {
+     "title": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac”",
+     "sub": "Kosovo Police · 01 Dec 2024",
+     "tag": "19 pts",
+     "href": "/signals/sig_01JDZR8P00V3NMJNR9RXF10BT1"
+    },
+    {
+     "title": "Gofus na sastanku sa Osmani osudio napad na kanal ‘Ibar–Lepenac’, poziva na istragu",
+     "sub": "KoSSev · 05 Dec 2024",
+     "tag": "18 pts",
+     "href": "/signals/sig_01JEC5H2W02XSQKN57NWCD1X7S"
+    },
+    {
+     "title": "Калас поздравила спремност на сарадњу у вези са нападом на канал Ибар-Лепенац",
+     "sub": "Sputnik Srbija · 03 Dec 2024",
+     "tag": "18 pts",
+     "href": "/signals/sig_01JE6QTKS0QSX3CSCQH9HSNGYX"
+    },
+    {
+     "title": "Šta sve do sada znamo o – eksploziji na kanalu Ibar-Lepenac na Kosovu?",
+     "sub": "Istinomer · 03 Dec 2024",
+     "tag": "18 pts",
+     "href": "/signals/sig_01JE6PBZK08T4K74NEDJPCXWV8"
+    },
+    {
+     "title": "Србину ког Приштина сумњичи за учешће у нападу на канал Ибар-Лепенац одређен притвор од месец дана",
+     "sub": "Sputnik Srbija · 03 Dec 2024",
+     "tag": "18 pts",
+     "href": "/signals/sig_01JE6BVXP0KXD1PQ9DD5B6HW9T"
+    },
+    {
+     "title": "Poslanici EP traže istragu o eksploziji na kanalu Ibar-Lepenac",
+     "sub": "Nova · 02 Dec 2024",
+     "tag": "18 pts",
+     "href": "/signals/sig_01JE4MWRQ0A6GF6880RZQR9X3P"
+    }
+   ],
+   "_arrived_s": 17.697
+  },
+  {
+   "type": "step",
+   "id": "evidence",
+   "ms": 2.6,
+   "title": "Evidence vault",
+   "subtitle": "SHA-256",
+   "icon": "lock",
+   "status": "ok",
+   "summary": "8/8 archived pages match their hash",
+   "rows": [
+    [
+     "checked",
+     "8"
+    ],
+    [
+     "intact",
+     "8"
+    ],
+    [
+     "store",
+     "write-once, served as plain text"
+    ]
+   ],
+   "explain": "When Parse collects a page it stores a copy and its SHA-256 fingerprint. Here it re-reads each copy behind the top items and checks the fingerprint, so you know the page has not changed since it was collected.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "A cryptographic hash check. No model is involved."
+   },
+   "items": [
+    {
+     "title": "Explosion at Ibar-Lepenac Canal: Kosovo Authorities Label Attack a ‘Criminal Terrorist Act,’ Blame Serbia; Serbian Officials Point to Kurti’s Regime",
+     "sub": "a3745abcdd6c795a…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/a3745abcdd6c795a7f963f68e6bcf126ef1aa3ed5a559a2fb93095f98d11533b/text"
+    },
+    {
+     "title": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked",
+     "sub": "1225c616f131cf66…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/1225c616f131cf66a177b60a345f825ef83b057624e51790806e8ec09f7fb332/text"
+    },
+    {
+     "title": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac”",
+     "sub": "f990476f2b49bd7e…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/f990476f2b49bd7ea9ee0904b3f0406ff6842c9fefce718f0baaabdc2f2d1095/text"
+    },
+    {
+     "title": "Gofus na sastanku sa Osmani osudio napad na kanal ‘Ibar–Lepenac’, poziva na istragu",
+     "sub": "1678c13fe9041342…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/1678c13fe90413422cb354386802242dc3f24dcc2a58bcad5168f8aaeb6d570c/text"
+    },
+    {
+     "title": "Калас поздравила спремност на сарадњу у вези са нападом на канал Ибар-Лепенац",
+     "sub": "b19f1f09940066b2…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/b19f1f09940066b2fd6a5dcd5c094dd7a1cabbf8fc4fb9a56fe140d937ec28fd/text"
+    },
+    {
+     "title": "Šta sve do sada znamo o – eksploziji na kanalu Ibar-Lepenac na Kosovu?",
+     "sub": "bbdf9ec4f11895d1…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/bbdf9ec4f11895d1ddf2c61e2e9eac758eec89191ecf138ef346d317f0d5cf77/text"
+    },
+    {
+     "title": "Србину ког Приштина сумњичи за учешће у нападу на канал Ибар-Лепенац одређен притвор од месец дана",
+     "sub": "2ac105c48b2a21a8…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/2ac105c48b2a21a86fb4c1b63a9de7847589b7c1e4b0a7a41abf505f909c0fe1/text"
+    },
+    {
+     "title": "Poslanici EP traže istragu o eksploziji na kanalu Ibar-Lepenac",
+     "sub": "da3421affffc273a…",
+     "tag": "intact",
+     "state": "ok",
+     "href": "/evidence/da3421affffc273ac3b3769ad295182bb605ffae4b3f7536808221fc4b285e32/text"
+    }
+   ],
+   "_arrived_s": 17.7
+  },
+  {
+   "type": "step",
+   "id": "classify",
+   "ms": 1.2,
+   "title": "Threat labels",
+   "subtitle": "Qwen classifier",
+   "icon": "spark",
+   "status": "ok",
+   "summary": "T3×8, T6×4, N2×4, N10×2",
+   "rows": [
+    [
+     "T3",
+     "8 of 8"
+    ],
+    [
+     "T6",
+     "4 of 8"
+    ],
+    [
+     "N2",
+     "4 of 8"
+    ],
+    [
+     "N10",
+     "2 of 8"
+    ],
+    [
+     "N11",
+     "1 of 8"
+    ],
+    [
+     "teacher-label · Qwen/Qwen3-8B",
+     "8 outputs"
+    ],
+    [
+     "verify-stance · Qwen/Qwen3-8B",
+     "1 outputs"
+    ],
+    [
+     "cost on record",
+     "$0.00314"
+    ]
+   ],
+   "explain": "Threat (T1-T10) and narrative (N1-N11) labels on the top items. A model wrote them earlier in the pipeline; Ask only reads them back, so check the cited items before you rely on a label.",
+   "ai": {
+    "state": "used",
+    "model": "Qwen/Qwen3-8B",
+    "what": "8 of 8 top items carry labels written by Qwen/Qwen3-8B. Ask read them; it did not call the model now."
+   },
+   "items": [
+    {
+     "title": "Explosion at Ibar-Lepenac Canal: Kosovo Authorities Label Attack a ‘Criminal Terrorist Act,’ Blame Serbia; Serbian Officials Point to Kurti’s Regime",
+     "sub": "KoSSev",
+     "tag": "T3 T6 N2 N11",
+     "href": "/signals/sig_01JDYA79J0PTMX45EV9YVGBED7"
+    },
+    {
+     "title": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked",
+     "sub": "Kosovo Police",
+     "tag": "T3",
+     "href": "/signals/sig_01JDZR8P0091T4967YCBADZ8R1"
+    },
+    {
+     "title": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac”",
+     "sub": "Kosovo Police",
+     "tag": "T3",
+     "href": "/signals/sig_01JDZR8P00V3NMJNR9RXF10BT1"
+    },
+    {
+     "title": "Gofus na sastanku sa Osmani osudio napad na kanal ‘Ibar–Lepenac’, poziva na istragu",
+     "sub": "KoSSev",
+     "tag": "T3 T6 N2 N10",
+     "href": "/signals/sig_01JEC5H2W02XSQKN57NWCD1X7S"
+    },
+    {
+     "title": "Калас поздравила спремност на сарадњу у вези са нападом на канал Ибар-Лепенац",
+     "sub": "Sputnik Srbija",
+     "tag": "T3",
+     "href": "/signals/sig_01JE6QTKS0QSX3CSCQH9HSNGYX"
+    },
+    {
+     "title": "Šta sve do sada znamo o – eksploziji na kanalu Ibar-Lepenac na Kosovu?",
+     "sub": "Istinomer",
+     "tag": "T3 T6 N2 N10",
+     "href": "/signals/sig_01JE6PBZK08T4K74NEDJPCXWV8"
+    },
+    {
+     "title": "Србину ког Приштина сумњичи за учешће у нападу на канал Ибар-Лепенац одређен притвор од месец дана",
+     "sub": "Sputnik Srbija",
+     "tag": "T3",
+     "href": "/signals/sig_01JE6BVXP0KXD1PQ9DD5B6HW9T"
+    },
+    {
+     "title": "Poslanici EP traže istragu o eksploziji na kanalu Ibar-Lepenac",
+     "sub": "Nova",
+     "tag": "T3 T6 N2",
+     "href": "/signals/sig_01JE4MWRQ0A6GF6880RZQR9X3P"
+    }
+   ],
+   "links": [
+    {
+     "label": "All labelled signals",
+     "href": "/signals?labelled=yes"
+    },
+    {
+     "label": "How labels feed the threat score",
+     "href": "/how-it-works"
+    },
+    {
+     "label": "Labelling progress",
+     "href": "/overview"
+    }
+   ],
+   "_arrived_s": 17.701
+  },
+  {
+   "type": "step",
+   "id": "spread",
+   "ms": 0.1,
+   "title": "Source spread",
+   "subtitle": "Independence",
+   "icon": "branch",
+   "status": "ok",
+   "summary": "24 outlets · best Tier 0",
+   "rows": [
+    [
+     "Tier 0",
+     "5 signals"
+    ],
+    [
+     "Tier 1",
+     "297 signals"
+    ],
+    [
+     "Tier 2",
+     "0 signals"
+    ],
+    [
+     "Tier 3",
+     "184 signals"
+    ],
+    [
+     "note",
+     "Outlets are counted, not verified claims. Verdicts come from the verifier stage."
+    ]
+   ],
+   "explain": "How many separate outlets carried the story, and the most trusted tier among them. Wide, high-tier coverage is a stronger signal than one partisan outlet repeating itself.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Rules and arithmetic only. No language model ran in this step."
+   },
+   "items": [
+    {
+     "title": "Tier 0 · Official / primary",
+     "sub": "5 ranked items",
+     "tag": "T0",
+     "href": "/sources?tier=0"
+    },
+    {
+     "title": "Tier 1 · Established outlet",
+     "sub": "297 ranked items",
+     "tag": "T1",
+     "href": "/sources?tier=1"
+    },
+    {
+     "title": "Tier 3 · Partisan or unverified",
+     "sub": "184 ranked items",
+     "tag": "T3",
+     "href": "/sources?tier=3"
+    }
+   ],
+   "links": [
+    {
+     "label": "Verdict rules (How it works)",
+     "href": "/how-it-works"
+    }
+   ],
+   "_arrived_s": 17.701
+  },
+  {
+   "type": "step",
+   "id": "brief",
+   "ms": 18.4,
+   "title": "Write brief",
+   "subtitle": "Deterministic",
+   "icon": "file",
+   "status": "ok",
+   "summary": "6 findings · 8 citations",
+   "rows": [
+    [
+     "method",
+     "Counts and dates from the matches; no language model wrote this answer."
+    ]
+   ],
+   "explain": "The answer is assembled from counts and dates in the matches: who reported first, the busiest day, the languages and the best source tier. Every line traces back to a cited item.",
+   "ai": {
+    "state": "none",
+    "model": null,
+    "what": "Written by fixed templates from the numbers above. No language model wrote this answer."
+   },
+   "items": [
+    {
+     "title": "Explosion at Ibar-Lepenac Canal: Kosovo Authorities Label Attack a ‘Criminal Terrorist Act,’ Blame Serbia; Serbian Officials Point to Kurti’s Regime",
+     "sub": "KoSSev · 30 Nov 2024",
+     "tag": "/1",
+     "href": "/signals/sig_01JDYA79J0PTMX45EV9YVGBED7"
+    },
+    {
+     "title": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked",
+     "sub": "Kosovo Police · 01 Dec 2024",
+     "tag": "/2",
+     "href": "/signals/sig_01JDZR8P0091T4967YCBADZ8R1"
+    },
+    {
+     "title": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac”",
+     "sub": "Kosovo Police · 01 Dec 2024",
+     "tag": "/3",
+     "href": "/signals/sig_01JDZR8P00V3NMJNR9RXF10BT1"
+    },
+    {
+     "title": "Gofus na sastanku sa Osmani osudio napad na kanal ‘Ibar–Lepenac’, poziva na istragu",
+     "sub": "KoSSev · 05 Dec 2024",
+     "tag": "/4",
+     "href": "/signals/sig_01JEC5H2W02XSQKN57NWCD1X7S"
+    },
+    {
+     "title": "Калас поздравила спремност на сарадњу у вези са нападом на канал Ибар-Лепенац",
+     "sub": "Sputnik Srbija · 03 Dec 2024",
+     "tag": "/5",
+     "href": "/signals/sig_01JE6QTKS0QSX3CSCQH9HSNGYX"
+    },
+    {
+     "title": "Šta sve do sada znamo o – eksploziji na kanalu Ibar-Lepenac na Kosovu?",
+     "sub": "Istinomer · 03 Dec 2024",
+     "tag": "/6",
+     "href": "/signals/sig_01JE6PBZK08T4K74NEDJPCXWV8"
+    },
+    {
+     "title": "Србину ког Приштина сумњичи за учешће у нападу на канал Ибар-Лепенац одређен притвор од месец дана",
+     "sub": "Sputnik Srbija · 03 Dec 2024",
+     "tag": "/7",
+     "href": "/signals/sig_01JE6BVXP0KXD1PQ9DD5B6HW9T"
+    },
+    {
+     "title": "Poslanici EP traže istragu o eksploziji na kanalu Ibar-Lepenac",
+     "sub": "Nova · 02 Dec 2024",
+     "tag": "/8",
+     "href": "/signals/sig_01JE4MWRQ0A6GF6880RZQR9X3P"
+    }
+   ],
+   "_arrived_s": 17.72
+  },
+  {
+   "type": "answer",
+   "headline": "486 signals from 24 sources mention ibar, lepenac, canal.",
+   "bullets": [
+    "Earliest mention: 25 Nov 2024 by KoSSev (Tier 1).",
+    "Busiest day: 30 Nov 2024 with 131 items.",
+    "Most coverage sits in the canal_2024_11 window (486 of 486 ranked items).",
+    "Languages: sr-Latn 341, sr-Cyrl 97, en 32, sq 16.",
+    "Picked 8 items from 5 of 24 matching sources: KoSSev (T1), Kosovo Police (T0), Sputnik Srbija (T3), Istinomer (T1), Nova (T1).",
+    "Highest-tier source: Tier 0 (Kosovo Police)."
+   ],
+   "citations": [
+    {
+     "n": 1,
+     "id": "sig_01JDYA79J0PTMX45EV9YVGBED7",
+     "title": "Explosion at Ibar-Lepenac Canal: Kosovo Authorities Label Attack a ‘Criminal Terrorist Act,’ Blame Serbia; Serbian Officials Point to Kurti’s Regime",
+     "source": "KoSSev",
+     "source_id": "src_web_kossev",
+     "tier": 1,
+     "date": "30 Nov 2024",
+     "lang": "en",
+     "window": "canal_2024_11",
+     "url": "https://kossev.info/explosion-at-ibar-lepenac-canal-kosovo-authorities-label-attack-a-criminal-terrorist-act-blame-serbia-serbian-officials-point-to-kurti-s-regime/",
+     "snippet": "FOTO: Ibar-Lepenac jutro posle diverzije/KoSSev In the evening hours of November 29, an explosive device detonated at the Ibar-Lepenac water canal in the vi…"
+    },
+    {
+     "n": 2,
+     "id": "sig_01JDZR8P0091T4967YCBADZ8R1",
+     "title": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked",
+     "source": "Kosovo Police",
+     "source_id": "src_off_kosovopolice",
+     "tier": 0,
+     "date": "01 Dec 2024",
+     "lang": "sq",
+     "window": "canal_2024_11",
+     "url": "https://www.kosovopolice.com/sulmohet-infrastruktura-kritike-e-kanalit-te-ujit-iber-lepenci-napad-na-kriticnu-infrastrukturu-kanala-za-vodu-ibar-lepenac-critical-infrastructure-of-the-iber-lepenci-water-canal-atta/",
+     "snippet": "Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” – Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” – Critical infrastructure of the “Ibër Lepenci” water canal attacked Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” Pr…"
+    },
+    {
+     "n": 3,
+     "id": "sig_01JDZR8P00V3NMJNR9RXF10BT1",
+     "title": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac”",
+     "source": "Kosovo Police",
+     "source_id": "src_off_kosovopolice",
+     "tier": 0,
+     "date": "01 Dec 2024",
+     "lang": "sq",
+     "window": "canal_2024_11",
+     "url": "https://www.kosovopolice.com/napad-na-kriticnu-infrastrukturu-kanala-za-vodu-ibar-lepenac/",
+     "snippet": "Napad na kritičnu infrastrukturu kanala za vodu “Ibar Lepenac” Sulmohet infrastruktura kritike e kanalit të ujit “Ibër Lepenci” Prishtinë, 29 nëntor 2024 Policia e Kosovës, rreth orës 19:00 ka siguru…"
+    },
+    {
+     "n": 4,
+     "id": "sig_01JEC5H2W02XSQKN57NWCD1X7S",
+     "title": "Gofus na sastanku sa Osmani osudio napad na kanal ‘Ibar–Lepenac’, poziva na istragu",
+     "source": "KoSSev",
+     "source_id": "src_web_kossev",
+     "tier": 1,
+     "date": "05 Dec 2024",
+     "lang": "sr-Latn",
+     "window": "canal_2024_11",
+     "url": "https://kossev.info/kosovo-online-najnovije-vesti-gofus-na-sastanku-sa-osmani-osudio-napad-na-kanal-ibar-lepenac-poziva-na-istragu/",
+     "snippet": "…sastala se danas sa pomoćnikom generalnog sekretara NATO-a Tomom Gofusom (Tom Goffus). Ovaj visoki zvaničnik je ovom prilikom osudio napad na kanal „Ibar–Lepenac“ u Zubinom Potoku, te pozvao na istragu, izvestila je portparolka ove misije, Farah Dakhlalah. Inače, Osmani boravi već dva dana u Brisel…"
+    },
+    {
+     "n": 5,
+     "id": "sig_01JE6QTKS0QSX3CSCQH9HSNGYX",
+     "title": "Калас поздравила спремност на сарадњу у вези са нападом на канал Ибар-Лепенац",
+     "source": "Sputnik Srbija",
+     "source_id": "src_web_sputnik",
+     "tier": 3,
+     "date": "03 Dec 2024",
+     "lang": "sr-Cyrl",
+     "window": "canal_2024_11",
+     "url": "https://sputnikportal.rs/20241203/kalas-pozdravila-spremnost-na-saradnju-u-vezi-sa-napadom-na-kanal-ibar-lepenac-1180189801.html",
+     "snippet": "Kalas pozdravila spremnost na saradnju u vezi sa napadom na kanal Ibar-Lepenac https://sputnikportal.rs/20241203/kalas-pozdravila-spremnost-na-saradnju-u-vezi-sa-napadom-na-kanal-ibar-lepenac-1180189801.html Kalas p…"
+    },
+    {
+     "n": 6,
+     "id": "sig_01JE6PBZK08T4K74NEDJPCXWV8",
+     "title": "Šta sve do sada znamo o – eksploziji na kanalu Ibar-Lepenac na Kosovu?",
+     "source": "Istinomer",
+     "source_id": "src_web_istinomer",
+     "tier": 1,
+     "date": "03 Dec 2024",
+     "lang": "sr-Latn",
+     "window": "canal_2024_11",
+     "url": "https://www.istinomer.rs/analize/sta-sve-do-sada-znamo-o-eksploziji-na-kanalu-ibar-lepenac-na-kosovu/",
+     "snippet": "…SSev preneo je u petak, 29. novembra, da je oko 19 časova, u selu Varage u opštini Zubin Potok „odjeknula snažna detonacija” i da curi voda iz kanala Ibar-Lepenac. Ubrzo su se oglasili i predsednica Kosova Vjosa Osmani, predsednik Vlade Aljbin Kurti, ministar unutrašnjih poslova Dželjaj Svečlja, ko…"
+    },
+    {
+     "n": 7,
+     "id": "sig_01JE6BVXP0KXD1PQ9DD5B6HW9T",
+     "title": "Србину ког Приштина сумњичи за учешће у нападу на канал Ибар-Лепенац одређен притвор од месец дана",
+     "source": "Sputnik Srbija",
+     "source_id": "src_web_sputnik",
+     "tier": 3,
+     "date": "03 Dec 2024",
+     "lang": "sr-Cyrl",
+     "window": "canal_2024_11",
+     "url": "https://sputnikportal.rs/20241203/srbinu-kog-pristina-sumnjici-za-ucesce-u-napadu-na-kanal-ibar-lepenac-odredjen-pritvor-od-mesec-dana-1180178557.html",
+     "snippet": "Srbinu kog Priština sumnjiči za učešće u napadu na kanal Ibar-Lepenac određen pritvor od mesec dana https://sputnikportal.rs/20241203/srbinu-kog-pristina-sumnjici-za-ucesce-u-napadu-na-kanal-ibar-lepenac-od…"
+    },
+    {
+     "n": 8,
+     "id": "sig_01JE4MWRQ0A6GF6880RZQR9X3P",
+     "title": "Poslanici EP traže istragu o eksploziji na kanalu Ibar-Lepenac",
+     "source": "Nova",
+     "source_id": "src_web_nova",
+     "tier": 1,
+     "date": "02 Dec 2024",
+     "lang": "sr-Latn",
+     "window": "canal_2024_11",
+     "url": "https://nova.rs/vesti/politika/poslanici-ep-traze-medjunarodnu-istragu-o-eksploziji-na-kanalu-ibar-lepenac/",
+     "snippet": "Kanal Ibar-Lepenac jutro posle eksplozije Foto:KoSSev Kanal Ibar-Lepenac jutro posle eksplozije Foto:KoSSev Kanal Ibar-Lepenac jutro posle eksplozije Foto:K…"
+    }
+   ],
+   "sources": {
+    "picked": [
+     {
+      "id": "src_web_kossev",
+      "name": "KoSSev",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 109,
+      "best": 25,
+      "href": "/signals?source=src_web_kossev",
+      "picked": 2,
+      "why": "Best item scored 25 pts; 2 of its 109 matches made the top 8, 12 more left out by the 2-per-source cap."
+     },
+     {
+      "id": "src_off_kosovopolice",
+      "name": "Kosovo Police",
+      "tier": 0,
+      "tier_name": "Official / primary",
+      "platform": "official",
+      "lang": "sq/sr/en",
+      "matched": 5,
+      "best": 23,
+      "href": "/signals?source=src_off_kosovopolice",
+      "picked": 2,
+      "why": "Best item scored 23 pts; 2 of its 5 matches made the top 8."
+     },
+     {
+      "id": "src_web_sputnik",
+      "name": "Sputnik Srbija",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 33,
+      "best": 18,
+      "href": "/signals?source=src_web_sputnik",
+      "picked": 2,
+      "why": "Best item scored 18 pts; 2 of its 33 matches made the top 8, 5 more left out by the 2-per-source cap."
+     },
+     {
+      "id": "src_web_istinomer",
+      "name": "Istinomer",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 3,
+      "best": 18,
+      "href": "/signals?source=src_web_istinomer",
+      "picked": 1,
+      "why": "Best item scored 18 pts; 1 of its 3 matches made the top 8."
+     },
+     {
+      "id": "src_web_nova",
+      "name": "Nova",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 26,
+      "best": 18,
+      "href": "/signals?source=src_web_nova",
+      "picked": 1,
+      "why": "Best item scored 18 pts; 1 of its 26 matches made the top 8, 2 more tied at the cut-off but the top 8 was already full."
+     }
+    ],
+    "skipped": [
+     {
+      "id": "src_web_rtbalkan",
+      "name": "RT Balkan",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 23,
+      "best": 18,
+      "href": "/signals?source=src_web_rtbalkan",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_kurir",
+      "name": "Kurir",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 20,
+      "best": 18,
+      "href": "/signals?source=src_web_kurir",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_slobodnaevropa",
+      "name": "RFE/RL Serbian",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 16,
+      "best": 18,
+      "href": "/signals?source=src_web_slobodnaevropa",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_blic",
+      "name": "Blic",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 15,
+      "best": 18,
+      "href": "/signals?source=src_web_blic",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_vreme",
+      "name": "Vreme",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 13,
+      "best": 18,
+      "href": "/signals?source=src_web_vreme",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_telegraf",
+      "name": "Telegraf",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 10,
+      "best": 18,
+      "href": "/signals?source=src_web_telegraf",
+      "picked": 0,
+      "why": "Tied with the cut-off at 18 pts; newer items from other sources came first."
+     },
+     {
+      "id": "src_web_n1",
+      "name": "N1 Srbija",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 39,
+      "best": 17,
+      "href": "/signals?source=src_web_n1",
+      "picked": 0,
+      "why": "Best item scored 17 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_kosovo_online",
+      "name": "Kosovo Online",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr/en/sq",
+      "matched": 60,
+      "best": 16,
+      "href": "/signals?source=src_web_kosovo_online",
+      "picked": 0,
+      "why": "Best item scored 16 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_in4s",
+      "name": "In4s",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 39,
+      "best": 16,
+      "href": "/signals?source=src_web_in4s",
+      "picked": 0,
+      "why": "Best item scored 16 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_radiokim",
+      "name": "Radio KiM",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 54,
+      "best": 15,
+      "href": "/signals?source=src_web_radiokim",
+      "picked": 0,
+      "why": "Best item scored 15 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_danas",
+      "name": "Danas",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 1,
+      "best": 12,
+      "href": "/signals?source=src_web_danas",
+      "picked": 0,
+      "why": "Best item scored 12 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_prishtinainsight",
+      "name": "Prishtina Insight (BIRN)",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "en",
+      "matched": 3,
+      "best": 11,
+      "href": "/signals?source=src_web_prishtinainsight",
+      "picked": 0,
+      "why": "Best item scored 11 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_intellinews",
+      "name": "bne IntelliNews",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "en",
+      "matched": 2,
+      "best": 11,
+      "href": "/signals?source=src_web_intellinews",
+      "picked": 0,
+      "why": "Best item scored 11 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_alo",
+      "name": "Alo",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 6,
+      "best": 6,
+      "href": "/signals?source=src_web_alo",
+      "picked": 0,
+      "why": "Best item scored 6 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_kallxo",
+      "name": "Kallxo (BIRN Kosovo)",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 4,
+      "best": 5,
+      "href": "/signals?source=src_web_kallxo",
+      "picked": 0,
+      "why": "Best item scored 5 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_reporteri",
+      "name": "Reporteri",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_reporteri",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_insajderi",
+      "name": "Insajderi",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_insajderi",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_klankosova",
+      "name": "Klan Kosova",
+      "tier": 1,
+      "tier_name": "Established outlet",
+      "platform": "news",
+      "lang": "sq",
+      "matched": 1,
+      "best": 3,
+      "href": "/signals?source=src_web_klankosova",
+      "picked": 0,
+      "why": "Best item scored 3 pts, below the cut-off of 18 pts."
+     },
+     {
+      "id": "src_web_standard",
+      "name": "Standard (Novi Standard)",
+      "tier": 3,
+      "tier_name": "Partisan or unverified",
+      "platform": "news",
+      "lang": "sr",
+      "matched": 2,
+      "best": 2,
+      "href": "/signals?source=src_web_standard",
+      "picked": 0,
+      "why": "Best item scored 2 pts, below the cut-off of 18 pts."
+     }
+    ],
+    "cutoff": 18,
+    "considered": 24
+   },
+   "agents": {
+    "topic": "ibar lepenac canal",
+    "sent": true,
+    "kept": 13
+   },
+   "ms": 17711,
+   "_arrived_s": 17.72
+  }
+ ]
+}

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import os
 import time
+from contextvars import ContextVar
 from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
 from typing import Literal
@@ -22,6 +23,7 @@ from parse import budget, detect, label_teacher
 from parse.db import session
 from parse.models import AuditLog, LlmOutput, Signal, Source
 from parse.normalise import translate as tr
+from parse.settings import DEMO
 
 # What each role in config/models.yaml does, in plain words, and where the web app runs it.
 ROLE_INFO = {
@@ -75,20 +77,38 @@ def check_rate(who: str) -> None:
         _recent[who] = calls
 
 
+# Demo: the visitor's own Featherless key for the request being served. Set by the web layer from the X-Featherless-Key
+# header, held only in this context for the life of the request, never stored, logged or shared between visitors.
+request_key: ContextVar[str | None] = ContextVar("request_key", default=None)
+
+
 def key_set() -> bool:
+    if DEMO:
+        return bool(request_key.get())
     return bool(os.environ.get("FEATHERLESS_API_KEY"))
 
 
 @lru_cache
-def client():
+def _shared_client():
     from parse.llm import Featherless
     return Featherless()   # one client for the whole app so its concurrency limit is shared
+
+
+def client():
+    if DEMO:
+        from parse.llm import Featherless, MissingApiKey
+        key = request_key.get()
+        if not key:
+            raise MissingApiKey("Add your Featherless API key (top right) to run the models.")
+        return Featherless(api_key=key)
+    return _shared_client()
 
 
 def explain(e: Exception) -> str:
     from parse.llm import MissingApiKey
     if isinstance(e, MissingApiKey):
-        return "No Featherless key: set FEATHERLESS_API_KEY in .env and restart the server."
+        return ("Add your Featherless API key (top right) to run the models." if DEMO
+                else "No Featherless key: set FEATHERLESS_API_KEY in .env and restart the server.")
     if isinstance(e, budget.BudgetExceeded):
         return f"Budget cap reached: {e}. Raise budget.total_usd in config/models.yaml to keep going."
     if isinstance(e, httpx.HTTPStatusError):
@@ -96,6 +116,8 @@ def explain(e: Exception) -> str:
             msg = e.response.json()["error"]["message"]
         except Exception:
             msg = e.response.text[:200]
+        if e.response.status_code in (401, 403):
+            return "Featherless rejected the key. Check it in the key panel (top right)."
         return f"Featherless answered {e.response.status_code}: {msg}"
     if isinstance(e, httpx.TimeoutException):
         return "Featherless did not answer in time."
@@ -107,6 +129,8 @@ def _unavailable(e: Exception) -> bool:
 
 
 def _store(stage: str, role: str, prompt_version: str, subject_id: str, output: dict, usage: dict) -> None:
+    if DEMO:   # nothing a visitor does is saved; each action returns its output inline
+        return
     with session() as s:
         s.add(LlmOutput(stage=stage, model=budget.model(role)["id"], prompt_version=prompt_version,
                         subject_id=subject_id, output=output, input_tokens=usage.get("in"),
@@ -128,17 +152,21 @@ def label_many(ids: list[str]) -> dict:
             LlmOutput.subject_id.in_(ids)))}
         todo = s.execute(select(Signal, Source).join(Source).where(
             Signal.signal_id.in_([i for i in ids if i not in done]))).all()
-    fl, usages, failed = client(), [], 0
+    import contextvars
+    fl, usages, failed, fresh = client(), [], 0, {}
+    ctxs = [contextvars.copy_context() for _ in todo]   # worker threads must see this request's model key
     with ThreadPoolExecutor(WORKERS) as ex:
-        for r in ex.map(lambda it: label_teacher.label_one(fl, *it), todo):
+        for it, r in zip(todo, ex.map(lambda a: a[0].run(label_teacher.label_one, fl, *a[1]), zip(ctxs, todo))):
             if r:
                 usages.append(r["usage"])
+                fresh[it[0].signal_id] = (list(r["label"].labels), list(r["label"].narratives))
             else:
                 failed += 1
     with session() as s:
         rows = s.execute(select(Signal.signal_id, Signal.labels, Signal.narratives).where(
             Signal.signal_id.in_(ids))).all()
-    return {"labels": {sid: (lab or [], nar or []) for sid, lab, nar in rows}, "new": len(todo) - failed,
+    labels = {sid: (lab or [], nar or []) for sid, lab, nar in rows} | fresh
+    return {"labels": labels, "new": len(todo) - failed,
             "cached": len(done), "failed": failed, "usage": _sum(usages)}
 
 
@@ -210,7 +238,7 @@ def run_label(signal_id: str) -> dict:
     if r is None:
         raise ModelError("The model did not return valid labels twice in a row. Try again.")
     lab = r["label"]
-    return {"model": budget.model("teacher")["id"], "usage": r["usage"],
+    return {"model": budget.model("teacher")["id"], "usage": r["usage"], "detail": {"label": lab.model_dump()},
             "summary": ("Threat-relevant" if lab.is_threat_relevant else "Not threat-relevant")
                        + (f" · {', '.join(lab.labels + lab.narratives)}" if lab.labels or lab.narratives else "")}
 
@@ -235,6 +263,7 @@ def run_detect(signal_id: str) -> dict:
            {"probabilities": probs, **({"note": note} if note else {})}, usage)
     top = sorted(probs.items(), key=lambda kv: -kv[1])[:4]
     return {"model": model, "usage": usage, "note": note,
+            "detail": {"probabilities": dict(sorted(probs.items(), key=lambda kv: -kv[1]))},
             "summary": ", ".join(f"{k} {v:.2f}" for k, v in top)}
 
 
@@ -242,6 +271,10 @@ def run_translate(signal_id: str) -> dict:
     sig = _signal(signal_id)
     if sig.lang == "en":
         raise ModelError("This post is already in English.")
+    if DEMO:   # nothing is saved in the demo: show the translation right here
+        en, usage = tr.translate_text(client(), sig.lang, sig.title, sig.text_original)
+        return {"model": budget.model("translation")["id"], "usage": usage, "detail": {"english": en},
+                "summary": "Translated to English"}
     usage = tr.translate_one(client(), sig.signal_id, sig.lang, sig.title, sig.text_original)
     return {"model": budget.model("translation")["id"], "usage": usage, "summary": "English text added below"}
 
@@ -291,6 +324,7 @@ def run_claim(signal_id: str, claim: str) -> dict:
     sig = _signal(signal_id)
     r = stance_text(claim, f"{sig.title or ''}\n\n{sig.text_en or sig.text_original or ''}", subject_id=signal_id)
     return {"model": r["model"], "usage": r["usage"], "note": r["note"],
+            "detail": {"claim": claim, "stance": r["stance"], "probabilities": r["probabilities"]},
             "summary": f"{r['stance']} ({r['confidence']:.2f})"}
 
 
@@ -320,6 +354,8 @@ def write_trace_brief(headline: str, facts: list[str], posts: list[dict]) -> dic
 
 
 def run_ocr(signal_id: str) -> dict:
+    if DEMO:   # fetching arbitrary image URLs from a public server is an SSRF risk; the full pipeline does it
+        raise ModelError("Reading images runs in the full pipeline, not in the web demo.")
     from parse.fetch import Fetcher
     sig = _signal(signal_id)
     img = next((m for m in (sig.media or []) if m.get("url")), None)

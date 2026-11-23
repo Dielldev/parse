@@ -1,14 +1,15 @@
 {% from "_kosovo.html" import stars %}<!doctype html>
-<html lang="en">
+<html lang="en"{% if demo %} data-demo{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}Parse{% endblock %} · PARSE</title>
-<script>try{var t=localStorage.getItem('parse-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script nonce="{{ request.state.csp_nonce | default("") }}">try{var t=localStorage.getItem('parse-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/static/parse.css">
+{% if demo %}<script src="/static/key.js"></script>{% endif %}
 <style>
   /* model menu: answer engine choice + what each model does */
   .model-pop { max-height: calc(100vh - 72px); overflow-y: auto; }
@@ -46,7 +47,7 @@
 <div class="classbar" role="note">
   <div class="wrap classbar-in">
     <span class="classbar-l">{{ stars("gold") }}<span><b>UNCLASSIFIED</b> // OSINT RESEARCH · Kosovo theatre · SQ · SR · EN</span></span>
-    <span class="classbar-r"><span class="live">LOCAL · READ-ONLY</span><span class="mono" id="prn"><b>PRN</b> --:--:--</span><span class="mono" id="utc">--:--:-- UTC</span></span>
+    <span class="classbar-r"><span class="live">{{ "PUBLIC DEMO · READ-ONLY" if demo else "LOCAL · READ-ONLY" }}</span><span class="mono" id="prn"><b>PRN</b> --:--:--</span><span class="mono" id="utc">--:--:-- UTC</span></span>
   </div>
 </div>
 
@@ -55,15 +56,53 @@
     <a class="brand" href="/" aria-label="PARSE home"><svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg><span>PARSE</span></a>
     <nav class="nav-links" aria-label="Main">
       <a href="/" class="{{ 'on' if active == 'ask' }}">Ask</a>
-      <a href="/watch" class="{{ 'on' if active == 'watch' }}">Watch</a>
+      {% if not demo %}<a href="/watch" class="{{ 'on' if active == 'watch' }}">Watch</a>{% endif %}
       <a href="/trace" class="{{ 'on' if active == 'trace' }}">Trace</a>
       <a href="/signals" class="{{ 'on' if active == 'signals' }}">Signals</a>
       <a href="/sources" class="{{ 'on' if active == 'sources' }}">Sources</a>
-      <a href="/agents" class="{{ 'on' if active == 'agents' }}">Agents</a>
+      {% if not demo %}<a href="/agents" class="{{ 'on' if active == 'agents' }}">Agents</a>{% endif %}
       <a href="/how-it-works" class="{{ 'on' if active == 'how' }}">Workflow</a>
       <a href="/overview" class="{{ 'on' if active == 'overview' }}">Overview</a>
     </nav>
     <div class="nav-r">
+      {% if demo %}
+      <div class="model" id="model">
+        <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="false">
+          <span class="dot" id="key-dot"></span><span class="model-name" id="key-label">Add your key</span><svg class="ic sm"><use href="#i-chev"/></svg>
+        </button>
+        <div class="model-pop" role="menu" id="key-pop">
+          <div class="pop-h">Your Featherless API key</div>
+          <div class="pop-row key-row">
+            <div>
+              <span class="pr-desc">Search, ranking, the tracer's graph and scoring run with no key. The model buttons (label, detect, translate, check a claim, and the tracer's claim check and brief) call open Qwen models on Featherless, billed to your own account.</span>
+              <label class="key-lbl" for="key-input">API key</label>
+              <input id="key-input" type="password" autocomplete="off" spellcheck="false" maxlength="200" placeholder="paste your Featherless key">
+              <div class="key-btns"><button type="button" id="key-save" class="mrun-btn">Save for this tab</button>
+                <button type="button" id="key-clear" class="mrun-btn" hidden>Remove</button></div>
+              <output id="key-msg" class="key-msg"></output>
+              <span class="pr-desc key-fine">Kept only in this tab (session storage) and sent over HTTPS with model requests, one request at a time. This site never stores or logs it. Closing the tab forgets it. Use a key with a low spend limit.
+                <a href="https://featherless.ai" target="_blank" rel="noopener noreferrer">Get a key at featherless.ai →</a></span>
+            </div>
+          </div>
+          <div class="pop-h">What each model does</div>
+          {% for m in model_list() %}{% if not m.local %}
+          <div class="pop-row model-row"><div><b>{{ m.name }}</b><span class="pr-desc">{{ m.does }}</span><span class="mono">{{ m.id }}</span></div></div>
+          {% endif %}{% endfor %}
+          <div class="pop-foot mono">Models are not hosted here: your key talks to Featherless through this site's API.
+            <a href="/how-it-works#models">How they fit together →</a></div>
+        </div>
+      </div>
+      <style>
+        .key-row input { width: 100%; font: inherit; font-size: 14px; padding: 8px; margin: 4px 0 8px; background: var(--bg); color: var(--text); border: 1px solid var(--line-2); }
+        .key-lbl { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 10px; }
+        .key-btns { display: flex; gap: 8px; }
+        .key-msg { display: block; min-height: 18px; margin-top: 6px; font-size: 12px; }
+        .key-msg.ok { color: var(--ok); } .key-msg.err { color: var(--bad, #c0392b); }
+        .key-fine { margin-top: 8px; }
+        .key-fine a { display: inline; }
+        #key-dot.on { background: var(--ok, #2e7d32); }
+      </style>
+      {% else %}
       <div class="model" id="model">
         <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="false">
           <span class="dot"></span><span class="model-name">Qwen models</span><span class="badge-free">paid</span><svg class="ic sm"><use href="#i-chev"/></svg>
@@ -89,6 +128,7 @@
             <a href="/how-it-works#models">How they fit together →</a></div>
         </div>
       </div>
+      {% endif %}
       <a class="btn-cta" href="/">New thread</a>
       <div class="sq-group">
         <form class="top-search" action="/signals" method="get" role="search">
@@ -103,9 +143,9 @@
     </div>
   </div>
   <div class="menu" id="menu">
-    <a href="/"><span>Ask</span><i>/01</i></a><a href="/watch"><span>Watch</span><i>/02</i></a>
+    <a href="/"><span>Ask</span><i>/01</i></a>{% if not demo %}<a href="/watch"><span>Watch</span><i>/02</i></a>{% endif %}
     <a href="/trace"><span>Trace</span><i>/03</i></a><a href="/signals"><span>Signals</span><i>/04</i></a>
-    <a href="/sources"><span>Sources</span><i>/05</i></a><a href="/agents"><span>Agents</span><i>/06</i></a>
+    <a href="/sources"><span>Sources</span><i>/05</i></a>{% if not demo %}<a href="/agents"><span>Agents</span><i>/06</i></a>{% endif %}
     <a href="/how-it-works"><span>Workflow</span><i>/07</i></a><a href="/overview"><span>Overview</span><i>/08</i></a>
   </div>
 </header>
@@ -123,14 +163,14 @@
       <hr>
       <div class="foot-btns"><a href="/signals">Signals</a><a href="/sources">Registry</a><a href="/overview">Status</a></div>
     </div>
-    <div class="foot-col"><h4>Platform</h4><a href="/">Ask Parse</a><a href="/watch">Watch</a><a href="/trace">Tracer</a><a href="/signals">Signals</a><a href="/sources">Source registry</a><a href="/how-it-works">Workflow</a><a href="/overview">Overview</a></div>
+    <div class="foot-col"><h4>Platform</h4><a href="/">Ask Parse</a>{% if not demo %}<a href="/watch">Watch</a>{% endif %}<a href="/trace">Tracer</a><a href="/signals">Signals</a><a href="/sources">Source registry</a><a href="/how-it-works">Workflow</a><a href="/overview">Overview</a></div>
     <div class="foot-col"><h4>Pipeline</h4><a href="/how-it-works">Collect</a><a href="/how-it-works">Archive</a><a href="/how-it-works">Normalise</a><a href="/how-it-works">Detect</a><a href="/trace">Trace</a><a href="/how-it-works">Score</a><a href="/how-it-works">Verify</a></div>
     <div class="foot-col"><h4>Theatre</h4><a href="/signals?window=banjska">Banjska</a><a href="/signals?window=canal_2024_11">Ibar–Lepenac canal</a><a href="/signals?q=Jarinje">Jarinje gate</a><a href="/signals?q=Mitrovica">Mitrovicë / Mitrovica</a><a href="/signals?window=gazimestan_2026">Gazimestan</a></div>
     <div class="foot-col"><h4>Doctrine</h4><span>Registry sources only</span><span>Evidence is write-once</span><span>Truth and spread scored apart</span><span>A human decides</span></div>
   </div>
 </footer>
 
-<script>
+<script nonce="{{ request.state.csp_nonce | default("") }}">
 (() => {
   const m = document.getElementById('model'), b = m.querySelector('.model-btn');
   b.addEventListener('click', e => { e.stopPropagation(); const o = m.classList.toggle('open'); b.setAttribute('aria-expanded', o); });
@@ -147,8 +187,8 @@
     r.addEventListener('click', pick);
     r.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
   });
-  showEngine(getEngine());
-  window.parseEngine = getEngine;
+  {% if not demo %}showEngine(getEngine());
+  window.parseEngine = getEngine;{% endif %}
   const nav = document.getElementById('nav'), mb = document.getElementById('menu-btn');
   mb.addEventListener('click', e => { e.stopPropagation(); const o = nav.classList.toggle('menu-open'); mb.setAttribute('aria-expanded', o); });
   document.addEventListener('click', e => {

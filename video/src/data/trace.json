@@ -1,0 +1,2209 @@
+{
+ "ms": 30048.1,
+ "tps": {
+  "tps": 53.7,
+  "factors": {
+   "reach": 0.0,
+   "severity": 1.0,
+   "velocity": 1.0,
+   "proximity": 1.0,
+   "coordination": 0.10355932203389831,
+   "offline_intent": 0.0
+  },
+  "priority": "P1",
+  "tripwires": [
+   "T3 + explosive/sabotage term + named critical-infrastructure site"
+  ],
+  "credibility": 0.95,
+  "explanation": "TPS 54 -> P1. Tripwire forced P1: T3 + explosive/sabotage term + named critical-infrastructure site. Main drivers: how serious the labels are (1.00, 44% of score), how fast it is spreading against its baseline (1.00, 35% of score), closeness to sensitive places or dates (1.00, 18% of score). Score lowered by credibility x0.95 (source tier / verification status)."
+ },
+ "usd": 0.000764,
+ "seed": {
+  "kind": "signal",
+  "story": "st084",
+  "terms": [
+   "shper",
+   "lepen",
+   "zubin",
+   "potok",
+   "iber",
+   "kanal"
+  ],
+  "watch": "wch_01M80E36E8QBSA6GDDJJP8KKDD",
+  "signal_id": "sig_01JDWQTJ4GGCBB4479VQ5C377D"
+ },
+ "type": "result",
+ "brief": {
+  "about": [
+   "lepenac",
+   "zubin",
+   "potok",
+   "online",
+   "kanala",
+   "shperthimi"
+  ],
+  "writer": "Qwen/Qwen3-8B from the facts above; attribution wording checked.",
+  "headline": "“Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac” · earliest observed at KoSSev on 29 Nov 2024, 19:05 UTC, then carried by 15 more outlet(s) over 2.0 days.",
+  "narrative": "A story about an explosion in Donje Varage and leaking water from the Ibar-Lepenac canal first appeared on KoSSev on 29 Nov 2024, 19:05 UTC, and was amplified by 15 other outlets over 2.0 days. The earliest observed source is KoSSev (Tier 1, established outlet), and the story crossed from sq to sr-Latn after 2.3 hours. It was amplified by KoSSev (reach 5), Reporteri (reach 4), Sputnik Srbija (reach 4), and Insajderi (reach 3). The story is CORROBORATED, with 6 independent origin groups at tier <= 2 supporting it.",
+  "what_we_know": [
+   "Earliest observed source: KoSSev (Tier 1, established outlet), 29 Nov 2024, 19:05 UTC. Confidence 0.55.",
+   "59 posts from 16 sources in sq 29, sr-Latn 27, sr-Cyrl 3; 39 independent origin group(s).",
+   "Spread: 8 copy, 6 link, 4 quote, 2 translate edges; it crossed from sq to sr-Latn after 2.3 hours.",
+   "Amplified by KoSSev (reach 5), Reporteri (reach 4), Sputnik Srbija (reach 4), Insajderi (reach 3).",
+   "Verdict: CORROBORATED. 6 independent origin groups at tier <= 2 support it.",
+   "Priority P1 (TPS 54). TPS 54 -> P1. Tripwire forced P1: T3 + explosive/sabotage term + named critical-infrastructure site. Main drivers: how serious the labels are (1.00, 44% of score), how fast it is spreading against its baseline (1.00, 35% of score), closeness to sensitive places or dates (1.00, 18% of score). Score lowered by credibility x0.95 (source tier / verification status)."
+  ],
+  "suggested_checks": [
+   "Look for a Tier-0 statement to confirm.",
+   "Open the origin post and confirm its timestamp: https://kossev.info/detonacija-u-donjim-varagama-curi-voda-iz-kanala-ibar-lepenac/"
+  ],
+  "what_we_dont_know": [
+   "Whether an earlier post exists outside the registry (X, Facebook, TikTok are Phase 2).",
+   "Any official (Tier 0) statement on it in the archive."
+  ]
+ },
+ "graph": {
+  "edges": [
+   {
+    "to": "sig_01JDW632YRBG4YGKZG69WNQRDE",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDR12H00QABRY95VD2HV0F9N",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDWF509RAV72KPJZMKS6H95A",
+    "sim": 0.858,
+    "via": "shared wording",
+    "from": "sig_01JDW632YRBG4YGKZG69WNQRDE",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE",
+    "sim": 0.667,
+    "via": "quoted passage",
+    "from": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "type": "quote"
+   },
+   {
+    "to": "sig_01JDWTJZ7R745S7604SETEY521",
+    "sim": 0.6,
+    "via": "shared wording",
+    "from": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWTP7QGPEWZH51WKG9PZYF4",
+    "sim": 0.482,
+    "via": "quoted passage",
+    "from": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "type": "quote"
+   },
+   {
+    "to": "sig_01JDWTY7K0BCR3K9PJCQNF90VA",
+    "sim": 0.774,
+    "via": "shared wording",
+    "from": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWWFVFG2P1YPSH0WZ7X204K",
+    "sim": 0.381,
+    "via": "shared wording",
+    "from": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWWT9F0XRHBGG0YR4HBVEH9",
+    "sim": 0.568,
+    "via": "shared wording",
+    "from": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWX78G87XGE2VQG7043GJG1",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDWXAC3RKZYXD7XY35HA3CF4",
+    "sim": 0.353,
+    "via": "shared wording",
+    "from": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWXEHX08Z2W1DW6RBQVEYNH",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDWTJZ7R745S7604SETEY521",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDWXGDF8AESPW70HRKNH3RKP",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDWXNSB8Z0J237NS1M160X87",
+    "sim": 0.409,
+    "via": "shared wording",
+    "from": "sig_01JDWXEHX08Z2W1DW6RBQVEYNH",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDWZ1NMRZSHKE5V5JYE2CJE7",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDX12HT8W0W8FWD6R3KA682H",
+    "sim": 0.86,
+    "via": "shared wording",
+    "from": "sig_01JDX11JJ8N1R48T3X6M6H7R6G",
+    "type": "copy"
+   },
+   {
+    "to": "sig_01JDX1J6SG7EXJBHPZDS4FZEB9",
+    "sim": 0.76,
+    "via": "sq→sr-Latn",
+    "from": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF",
+    "type": "translate"
+   },
+   {
+    "to": "sig_01JDX28XBG7SY6W5GFB423V54Q",
+    "sim": 1.0,
+    "via": "outgoing link",
+    "from": "sig_01JDWZ1NMRZSHKE5V5JYE2CJE7",
+    "type": "link"
+   },
+   {
+    "to": "sig_01JDX2B4MR71VEHBYHBG971CEN",
+    "sim": 0.778,
+    "via": "sr-Latn→sq",
+    "from": "sig_01JDX0ZA9RCCN4WFZ1PG08F3JY",
+    "type": "translate"
+   },
+   {
+    "to": "sig_01JDX2XJFRQTHV0631SS4XH97W",
+    "sim": 0.464,
+    "via": "quoted passage",
+    "from": "sig_01JDX28XBG7SY6W5GFB423V54Q",
+    "type": "quote"
+   },
+   {
+    "to": "sig_01JDTKF800BCKTPTTZTWRA0TZ7",
+    "sim": 0.598,
+    "via": "quoted passage",
+    "from": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "type": "quote",
+    "order_uncertain": true
+   }
+  ],
+  "nodes": [
+   {
+    "id": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "sim": 1.0,
+    "url": "https://reporteri.net/lajme/shperthim-ne-zubin-potok-demtohet-kanali-i-ujit-te-iber-lepencit/",
+    "lang": "sq",
+    "seed": true,
+    "tier": 3,
+    "when": "2024-11-29T19:54:34+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "probe": false,
+    "reach": 1,
+    "title": "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 1.0,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDWXGDF8AESPW70HRKNH3RKP",
+    "sim": 0.889,
+    "url": "https://reporteri.net/lajme/gjithcka-qe-dihet-deri-tani-per-shperthimin-qe-demtoi-kanalin-e-ujit-te-iber-lepencit/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T21:33:53+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "probe": false,
+    "reach": 0,
+    "title": "Gjithçka që dihet deri tani për shpërthimin që dëmtoi kanalin e ujit të Ibër-Lepencit",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.726,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDX28XBG7SY6W5GFB423V54Q",
+    "sim": 0.634,
+    "url": "https://kossev.info/ostecenje-kanala-ibar-lepenac-za-osmani-teroristicki-cin-sveclja-na-licu-mesta-kurti-se-vanredno-obraca-za-sad-i-uk-ozbiljan-incident/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:57:10+00:00",
+    "dated": true,
+    "depth": 2,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 1,
+    "title": "Oštećenje kanala Ibar-Lepenac: Za Kurti i Osmani teroristički čin, Svečlja na licu mesta, lanac međunarodnih reakcija",
+    "origin": false,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDWXAC3RKZYXD7XY35HA3CF4",
+    "sim": 0.953,
+    "url": "https://thegeopost.com/lajme/shperthim-i-fuqishem-ne-zubin-potok-demtohet-kanali-i-ujit-te-iber-lepencit/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T21:30:35+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthim i fuqishëm në Zubin Potok, dëmtohet kanali i ujit të Ibër-Lepencit - The Geopost",
+    "origin": false,
+    "source": "The Geopost",
+    "overlap": 0.564,
+    "platform": "news",
+    "source_id": "src_web_thegeopost"
+   },
+   {
+    "id": "sig_01JDX5VZ00448DBKYZPJF1RWF2",
+    "sim": 0.719,
+    "url": "https://www.kosovo-online.com/multimedija/video/video-eksplozija-u-zubinom-potoku-ostecen-kanal-ibar-lepenac-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00448DBKYZPJF1RWF2",
+    "probe": false,
+    "reach": 0,
+    "title": "(Video) Eksplozija u Zubinom Potoku, oštećen kanal Ibar-Lepenac - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+    "sim": 0.799,
+    "url": "https://insajderi.org/kanlet-e-ujesjellesit-dyshohet-se-u-gjuajten-me-dinamit-flet-kryeshefi-i-kompanise-rajonale-iber-lepenc/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:06:34+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+    "probe": false,
+    "reach": 0,
+    "title": "Kanalet e ujësjellësit dyshohet se u gjuajtën me dinamit – Flet kryeshefi i ”Ibër Lepenc”",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.35,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE",
+    "sim": 0.673,
+    "url": "https://www.in4s.net/eksplozija-u-zubinoom-potoku-ostecen-kanal-ibar-lepenac/",
+    "lang": "sr-Cyrl",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T19:51:16+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "probe": false,
+    "reach": 1,
+    "title": "Експлозија у Зубином Потоку, оштећен канал Ибар-Лепенац",
+    "origin": false,
+    "source": "In4s",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_in4s"
+   },
+   {
+    "id": "sig_01JDWZR1F06T8W7H88C1RXQQQ4",
+    "sim": 0.701,
+    "url": "https://insajderi.org/shperthimi-ne-iber-lepenc-kurti-therret-sot-konference-te-jashtezakonshme/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:13:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWZR1F06T8W7H88C1RXQQQ4",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthimi në “Ibër Lepenc”, Kurti thërret sot konferencë të jashtëzakonshme",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.207,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "sim": 0.647,
+    "url": "https://sputnikportal.rs/20241129/eksplozija-u-zubinom-potoku-ostecen-kanal-ibar-lepenac-1180049716.html",
+    "lang": "sr-Cyrl",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T19:47:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "probe": false,
+    "reach": 4,
+    "title": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+    "origin": false,
+    "source": "Sputnik Srbija",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_sputnik"
+   },
+   {
+    "id": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+    "sim": 0.831,
+    "url": "https://klankosova.tv/shperthimi-ne-zubin-potok-pamje-nga-vendi-i-ngjarjes-policia-prezente",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:57:15+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthimi në Zubin Potok: Pamje nga vendi i ngjarjes, policia prezente",
+    "origin": false,
+    "source": "Klan Kosova",
+    "overlap": 0.183,
+    "platform": "news",
+    "source_id": "src_web_klankosova"
+   },
+   {
+    "id": "sig_01JDWN11W834TY9CY4SFJQ85KA",
+    "sim": 0.572,
+    "url": "https://kossev.info/detonacija-u-donjim-varagama-curi-voda-iz-kanala-ibar-lepenac/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T19:05:41+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWN11W834TY9CY4SFJQ85KA",
+    "probe": false,
+    "reach": 0,
+    "title": "Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac",
+    "origin": true,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDX43Y10N4ZEJ0R5HX26NWA4",
+    "sim": 0.684,
+    "url": "https://reporteri.net/lajme/shperthimi-ne-iber-lepenc-kfor-i-amerikan-ne-vend-te-ngjarjes/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T23:29:24+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX43Y10N4ZEJ0R5HX26NWA4",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthimi në Ibër Lepenc, KFOR-i amerikan në vend të ngjarjes",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.176,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDWTP7QGPEWZH51WKG9PZYF4",
+    "sim": 0.714,
+    "url": "https://www.kurir.rs/vesti/srbi-na-kim/9511109/eksplozija-u-zubinom-potoku",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T20:44:38+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "probe": false,
+    "reach": 0,
+    "title": "EKSPLOZIJA U ZUBINOM POTOKU: Oštećen kanal Ibar-Lepenac (VIDEO)",
+    "origin": false,
+    "source": "Kurir",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kurir"
+   },
+   {
+    "id": "sig_01JDX1C9B0WMG50YY0PTT3XDVF",
+    "sim": 0.63,
+    "url": "https://insajderi.org/svecla-nuk-po-flasim-per-arme-te-vogla-kjo-patjeter-qe-vjen-nga-rezervat-e-eksplozivit-te-serbise/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:41:32+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX1C9B0WMG50YY0PTT3XDVF",
+    "probe": false,
+    "reach": 0,
+    "title": "Sveçla: Nuk po flasim për armë të vogla, kjo patjetër që vjen nga rezervat e eksplozivit të Serbisë",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.163,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "sim": 0.617,
+    "url": "https://kossev.info/prekinuto-vodosnabdevanje-nakon-ostecenja-kanala-ibar-lepenac-mujka-tvrdi-postavljen-dinamit/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:56:53+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 2,
+    "title": "Prekinuto vodosnabdevanje nakon oštećenja kanala Ibar-Lepenac, Mujka: Postavljen dinamit",
+    "origin": false,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDWXEHX08Z2W1DW6RBQVEYNH",
+    "sim": 0.835,
+    "url": "https://insajderi.org/prokuroria-jep-detaje-per-shperthimin-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T21:32:52+00:00",
+    "dated": true,
+    "depth": 2,
+    "group": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "probe": false,
+    "reach": 1,
+    "title": "Prokuroria jep detaje për shpërthimin në Zubin Potok",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.154,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWWFVFG2P1YPSH0WZ7X204K",
+    "sim": 0.634,
+    "url": "https://nova.rs/vesti/drustvo/prekinuto-vodosnabdevanje-nakon-ostecenja-kanala-ibar-lepenac/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T21:16:06+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 0,
+    "title": "Prekinuto vodosnabdevanje nakon oštećenja kanala Ibar-Lepenac",
+    "origin": false,
+    "source": "Nova",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_nova"
+   },
+   {
+    "id": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "sim": 0.775,
+    "url": "https://reporteri.net/lajme/pas-shperthimit-ne-zubin-potok-kru-mitrovica-kerkon-nga-qytetaret-te-sigurojne-rezerva-te-ujit-te-pijes/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T20:17:49+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "probe": false,
+    "reach": 2,
+    "title": "Pas shpërthimit në Zubin Potok, KRU “Mitrovica” kërkon nga qytetarët të sigurojnë rezerva të ujit të pijes",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.149,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDWZ7F6828HK9C54MGNZ2YYW",
+    "sim": 0.691,
+    "url": "https://insajderi.org/shperthimi-ne-iber-lepenc-mund-te-ndale-tcb-ne-dhe-termokosin/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:03:57+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWZ7F6828HK9C54MGNZ2YYW",
+    "probe": false,
+    "reach": 0,
+    "title": "“Shpërthimi në Ibër Lepenc mund të ndalë TCB-në dhe Termokosin”",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.145,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWWT9F0XRHBGG0YR4HBVEH9",
+    "sim": 0.671,
+    "url": "https://rt.rs/srbija-i-balkan/120026-kim-eksplozija-zubin-potok/",
+    "lang": "sr-Cyrl",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T21:21:48+00:00",
+    "dated": true,
+    "depth": 2,
+    "group": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "probe": false,
+    "reach": 0,
+    "title": "Експлозија у Зубином Потоку, оштећен канал Ибар-Лепенац",
+    "origin": false,
+    "source": "RT Balkan",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_rtbalkan"
+   },
+   {
+    "id": "sig_01JDX2F6H0AH7B43TV2158TA7M",
+    "sim": 0.757,
+    "url": "https://klankosova.tv/shperthimi-ne-iber-lepenc-pamje-nga-vendi-i-ngjarjes-video",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T23:00:36+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX2F6H0AH7B43TV2158TA7M",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthimi në Ibër Lepenc, pamje nga vendi i ngjarjes (VIDEO)",
+    "origin": false,
+    "source": "Klan Kosova",
+    "overlap": 0.131,
+    "platform": "news",
+    "source_id": "src_web_klankosova"
+   },
+   {
+    "id": "sig_01JDWX78G87XGE2VQG7043GJG1",
+    "sim": 0.628,
+    "url": "https://kossev.info/srpska-lista-osudila-unistenje-kanala-ibar-lepenc-u-zubinom-potoku/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T21:28:53+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 0,
+    "title": "Srpska lista osudila „uništenje“ kanala Ibar-Lepenac, zahteva istragu Kfora i Euleksa",
+    "origin": false,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDX11JJ8N1R48T3X6M6H7R6G",
+    "sim": 0.685,
+    "url": "https://reporteri.net/lajme/pasoja-te-renda-reagon-ambasadori-britanik-per-shperthimin-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T22:35:41+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX11JJ8N1R48T3X6M6H7R6G",
+    "probe": false,
+    "reach": 1,
+    "title": "“Pasoja të rënda”, reagon ambasadori britanik për shpërthimin në Zubin Potok",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.125,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDWZ1NMRZSHKE5V5JYE2CJE7",
+    "sim": 0.655,
+    "url": "https://kossev.info/srpski-narodni-pokret-osudio-ostecenje-kanala-ibar-lepenac-u-zubinom-potoku/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:00:47+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 1,
+    "title": "Srpski narodni pokret osudio oštećenje kanala Ibar-Lepenac u Zubinom Potoku",
+    "origin": false,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDX12HT8W0W8FWD6R3KA682H",
+    "sim": 0.694,
+    "url": "https://insajderi.org/ambasadori-britanik-reagon-per-sulmin-ne-kanalin-e-ujit-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:36:13+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDX11JJ8N1R48T3X6M6H7R6G",
+    "probe": false,
+    "reach": 0,
+    "title": "Ambasadori britanik reagon për sulmin në kanalin e ujit në Zubin Potok",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.133,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWZQ82GG8JAZVVQ04GEWBE8",
+    "sim": 0.692,
+    "url": "https://www.blic.rs/vesti/politika/u-zubinom-potoku-prekinuto-snabdevanje-vodom-za-pice-zbog-ostecenja-kanala-ibar/zkx1r2b",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:12:34+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWZQ82GG8JAZVVQ04GEWBE8",
+    "probe": false,
+    "reach": 0,
+    "title": "U Zubinom Potoku prekinuto snabdevanje vodom za piće zbog oštećenja kanala Ibar - Lepenac",
+    "origin": false,
+    "source": "Blic",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_blic"
+   },
+   {
+    "id": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+    "sim": 0.781,
+    "url": "https://insajderi.org/shperthim-i-fuqishem-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T19:21:29+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+    "probe": false,
+    "reach": 0,
+    "title": "Shpërthim i fuqishëm në Zubin Potok",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.394,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX0ZA9RCCN4WFZ1PG08F3JY",
+    "sim": 0.605,
+    "url": "https://www.slobodnaevropa.org/a/kosovo-eksplozija-zubin-potok-kanal/33220997.html",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:34:27+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX0ZA9RCCN4WFZ1PG08F3JY",
+    "probe": false,
+    "reach": 1,
+    "title": "Kurti optužuje Srbiju za eksploziju na severu Kosova u kojoj je oštećen kanal Ibar-Lepenac",
+    "origin": false,
+    "source": "RFE/RL Serbian",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_slobodnaevropa"
+   },
+   {
+    "id": "sig_01JDX1J6SG7EXJBHPZDS4FZEB9",
+    "sim": 0.66,
+    "url": "https://n1info.rs/vesti/ambasador-eu-osudjuje-eksploziju-u-kanalu-ibar-lepenac/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:44:46+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF",
+    "probe": false,
+    "reach": 0,
+    "title": "Ambasadori EU i SAD osuđuju eksploziju u kanalu Ibar Lepenac",
+    "origin": false,
+    "source": "N1 Srbija",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_n1"
+   },
+   {
+    "id": "sig_01JDX04YHRXREKB6FEYBVF5REN",
+    "sim": 0.717,
+    "url": "https://insajderi.org/hovenier-reagon-pas-sulmit-ndaj-kanalit-te-ujit-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:20:03+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX04YHRXREKB6FEYBVF5REN",
+    "probe": false,
+    "reach": 0,
+    "title": "Hovenier reagon pas sulmit ndaj kanalit të ujit në Zubin Potok",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.12,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX5VZ001R17S0DPNQWV443Z",
+    "sim": 0.582,
+    "url": "https://www.kosovo-online.com/vesti/politika/keljani-policijska-akcija-na-vise-lokacija-na-severu-kosova-u-tokukeljani-policijska",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ001R17S0DPNQWV443Z",
+    "probe": false,
+    "reach": 0,
+    "title": "Policijska akcija na više lokacija na severu Kosova u toku, uhapšeno više osoba - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX4FD70JHDKHR7Z7VPDZJVE",
+    "sim": 0.753,
+    "url": "https://kallxo.com/lajm/sulmi-ne-iber-lepenc-ministri-svecla-deklarohet-nga-vendi-i-ngjarjes/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T23:35:40+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX4FD70JHDKHR7Z7VPDZJVE",
+    "probe": false,
+    "reach": 0,
+    "title": "Sulmi në Ibër-Lepenc, ministri Sveçla deklarohet nga vendi i ngjarjes",
+    "origin": false,
+    "source": "Kallxo (BIRN Kosovo)",
+    "overlap": 0.111,
+    "platform": "news",
+    "source_id": "src_web_kallxo"
+   },
+   {
+    "id": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+    "sim": 0.778,
+    "url": "https://klankosova.tv/mujka-shperthimi-ne-kanalin-e-iber-lepencit-eshte-akt-terrorist-demton-edhe-kek-un5",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:38:23+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+    "probe": false,
+    "reach": 1,
+    "title": "Mujka: Shpërthimi në kanalin e \"Ibër Lepencit\" është akt terrorist, dëmton edhe KEK-un",
+    "origin": false,
+    "source": "Klan Kosova",
+    "overlap": 0.103,
+    "platform": "news",
+    "source_id": "src_web_klankosova"
+   },
+   {
+    "id": "sig_01JDX5VZ00VSZ2Q46M9JRAMRDK",
+    "sim": 0.651,
+    "url": "https://www.kosovo-online.com/vesti/politika/djuric-sa-kvintom-rec-o-sabotazi-pristina-iznela-neosnovane-optuzbe-na-racun-srbije",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00VSZ2Q46M9JRAMRDK",
+    "probe": false,
+    "reach": 0,
+    "title": "Đurić sa Kvintom: Reč o sabotaži, Priština iznela neosnovane optužbe na račun Srbije - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5VZ00ETWA6FD1K8QCWA4M",
+    "sim": 0.647,
+    "url": "https://www.kosovo-online.com/politika/unmik-zijade-ostro-osudjuje-sinocnji-napad-rizik-da-se-narusi-stabilnost-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00ETWA6FD1K8QCWA4M",
+    "probe": false,
+    "reach": 0,
+    "title": "Zijade: Duboko zabrinjavajući napad, imperativ transparentna istraga - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5VZ00WDM57GH39FXK7VMH",
+    "sim": 0.573,
+    "url": "https://www.kosovo-online.com/vesti/politika/na-mestu-eksplozije-pripadnici-kfora-euleksa-i-kosovske-policije-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00WDM57GH39FXK7VMH",
+    "probe": false,
+    "reach": 0,
+    "title": "Na mestu eksplozije pripadnici Kfora, Euleksa i Kosovske policije - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDWTJZ7R745S7604SETEY521",
+    "sim": 0.76,
+    "url": "https://insajderi.org/shperthimi-ne-zubin-potok-kru-mitrovica-del-me-nje-njoftim-te-rendesishem/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:42:51+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "probe": false,
+    "reach": 1,
+    "title": "Shpërthimi në Zubin Potok, KRU “Mitrovica” del me një njoftim të rëndësishëm",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.073,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX5VZ008W68RPAE7WZ4WC0M",
+    "sim": 0.562,
+    "url": "https://www.kosovo-online.com/vesti/politika/specijalci-kosovske-policije-patroliraju-ulicama-severne-mitrovice-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ008W68RPAE7WZ4WC0M",
+    "probe": false,
+    "reach": 0,
+    "title": "Specijalci Kosovske policije naoružani dugim cevima patroliraju ulicama Severne Mitrovice - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5MFQRMJVYN96SSRT60RT1",
+    "sim": 0.859,
+    "url": "https://reporteri.net/lajme/kryetari-i-zubin-potokut-jep-detaje-rreth-shperthimit-ne-veri-nje-shtepi-eshte-demtuar/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T23:55:55+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5MFQRMJVYN96SSRT60RT1",
+    "probe": false,
+    "reach": 0,
+    "title": "Kryetari i Zubin Potokut jep detaje rreth shpërthimit në veri: Një shtëpi është dëmtuar",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.068,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDTKF800BCKTPTTZTWRA0TZ7",
+    "sim": 0.645,
+    "url": "https://www.kosovo-online.com/vesti/politika/srpska-lista-osudila-unistenje-kanala-ibar-lepenac-29-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T23:59:00+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+    "probe": false,
+    "reach": 0,
+    "title": "Srpska lista osudila uništenje kanala Ibar-Lepenac - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDWTY7K0BCR3K9PJCQNF90VA",
+    "sim": 0.752,
+    "url": "https://reporteri.net/lajme/mujka-shperthimi-ne-kanalin-e-iber-lepencit-eshte-akt-terrorist-demton-edhe-kek-un/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T20:49:00+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+    "probe": false,
+    "reach": 0,
+    "title": "Mujka: Shpërthimi në kanalin e “Ibër Lepencit” është akt terrorist, dëmton edhe KEK-un",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.051,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDTKF800VA63CNMH1QQM5XY8",
+    "sim": 0.672,
+    "url": "https://www.kosovo-online.com/vesti/politika/nedeljkovic-iza-rusenja-kanala-ibar-lepenac-stoji-politika-vlasti-u-pristini-29-11",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDTKF800VA63CNMH1QQM5XY8",
+    "probe": false,
+    "reach": 0,
+    "title": "Nedeljković: Iza rušenja kanala Ibar - Lepenac stoji politika vlasti u Prištini - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDWVTPQ8WV5PGEAC4C2WYQRV",
+    "sim": 0.845,
+    "url": "https://insajderi.org/pamje-nga-vendi-ku-ndodhi-shperthimi-ne-zubin-potok/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T21:04:33+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWVTPQ8WV5PGEAC4C2WYQRV",
+    "probe": false,
+    "reach": 0,
+    "title": "Pamje nga vendi ku ndodhi shpërthimi në Zubin Potok",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.051,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDWF509RAV72KPJZMKS6H95A",
+    "sim": 0.58,
+    "url": "https://radiokim.net/vesti/drustvo/230290-ko-kome-i-u-koje-doba-dodeljuje-stanove-u-zubinom-potoku/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T17:22:59+00:00",
+    "dated": true,
+    "depth": 2,
+    "group": "sig_01JDR12H00QABRY95VD2HV0F9N",
+    "probe": false,
+    "reach": 0,
+    "title": "Ko, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+    "origin": false,
+    "source": "Radio KiM",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_radiokim"
+   },
+   {
+    "id": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+    "sim": 0.815,
+    "url": "https://insajderi.org/nje-shtepi-ka-deme-shperthim-i-fuqishem-ne-zubin-potok-zeqiri-jep-detaje/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:47:26+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+    "probe": false,
+    "reach": 0,
+    "title": "“Një shtëpi ka dëme …” shpërthim i fuqishëm në Zubin Potok, Zeqiri jep detaje",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.045,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX5VZ00CQ6KREEC03HF7XHN",
+    "sim": 0.592,
+    "url": "https://www.kosovo-online.com/multimedija/foto/foto-predstavnici-po-zubin-potok-obisli-porodice-dimovic-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00CQ6KREEC03HF7XHN",
+    "probe": false,
+    "reach": 0,
+    "title": "(Foto) Predstavnici PO Zubin Potok obišli porodice Dimović - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5VZ00G9FA6E96TPHQ835A",
+    "sim": 0.63,
+    "url": "https://www.kosovo-online.com/vesti/politika/kurti-steta-na-vodotoku-ibar-lepenac-u-velikoj-meri-sanirana-u-rekordnom-roku-30-11",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00G9FA6E96TPHQ835A",
+    "probe": false,
+    "reach": 0,
+    "title": "Kurti: Šteta na vodotoku Ibar-Lepenac u velikoj meri sanirana u rekordnom roku - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDW632YRBG4YGKZG69WNQRDE",
+    "sim": 0.594,
+    "url": "https://kossev.info/kosovo-online-najnovije-vesti-ko-to-kome-i-u-koje-doba-dodeljuje-stanove-u-zubinom-potoku/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T14:44:39+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDR12H00QABRY95VD2HV0F9N",
+    "probe": false,
+    "reach": 1,
+    "title": "Ko to, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+    "origin": false,
+    "source": "KoSSev",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kossev"
+   },
+   {
+    "id": "sig_01JDX0BAN0VP4S9QQ7QNQ95ZKP",
+    "sim": 0.78,
+    "url": "https://reporteri.net/lajme/ambasada-e-shba-se-denojme-fuqishem-sulmin-ne-kanalin-ujor-te-zubin-potokut-i-kemi-ofruar-qeverise-mbeshtetjen-tone/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T22:23:32+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX0BAN0VP4S9QQ7QNQ95ZKP",
+    "probe": false,
+    "reach": 0,
+    "title": "Ambasada e SHBA-së: Dënojmë fuqishëm sulmin në kanalin ujor të Zubin Potokut, i kemi ofruar Qeverisë mbështetjen tonë",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.017,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDX1JAPGZ45687H8FA3CTS1Z",
+    "sim": 0.712,
+    "url": "https://reporteri.net/lajme/svecla-per-shperthimin-ne-zubin-potok-akt-terrorist-eksplozivi-vjen-nga-stoqet-e-serbise/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T22:44:50+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX1JAPGZ45687H8FA3CTS1Z",
+    "probe": false,
+    "reach": 0,
+    "title": "Sveçla për shpërthimin në Zubin Potok: Akt terrorist, eksplozivi vjen nga stoqet e Serbisë",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.009,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   },
+   {
+    "id": "sig_01JDX2XJFRQTHV0631SS4XH97W",
+    "sim": 0.645,
+    "url": "https://nova.rs/vesti/drustvo/kurti-se-vanredno-obraca-zbog-ostecenja-kanala-ibar-lepenac/",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T23:08:27+00:00",
+    "dated": true,
+    "depth": 3,
+    "group": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+    "probe": false,
+    "reach": 0,
+    "title": "Kurti se vanredno obraća zbog oštećenja kanala Ibar-Lepenac",
+    "origin": false,
+    "source": "Nova",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_nova"
+   },
+   {
+    "id": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF",
+    "sim": 0.733,
+    "url": "https://insajderi.org/shperthimi-ne-zubin-potok-qe-la-pa-uje-banoret-partia-e-serbeve-te-kosoves-del-me-reagim/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T20:29:31+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF",
+    "probe": false,
+    "reach": 1,
+    "title": "Shperthimi në kanalin e “Iber Lepencit”, e dënon edhe politikani serb nga Veriu",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX5VZ00RP2QVMSA4ESX5PNN",
+    "sim": 0.564,
+    "url": "https://www.kosovo-online.com/vesti/politika/srpska-lista-zapaljiva-retorika-kurtija-bez-sprovedene-istrage-podstice-etnicku",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00RP2QVMSA4ESX5PNN",
+    "probe": false,
+    "reach": 0,
+    "title": "Srpska lista: Hapšenja u Leposaviću i Zubinom Potoku vid represije nad nedužnim građanima - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5VZ00K7G3CNB2YS0BQTD3",
+    "sim": 0.576,
+    "url": "https://www.kosovo-online.com/vesti/politika/djuric-srbija-najostrije-osudjuje-napad-na-ibarsko-lepenacki-kanal-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ00K7G3CNB2YS0BQTD3",
+    "probe": false,
+    "reach": 0,
+    "title": "Đurić: Srbija najoštrije osuđuje napad, optužbe Kurtija ukazuju na moguću umešanost njegovog režima - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX5VZ000EZRZ7B6X80PF17W",
+    "sim": 0.561,
+    "url": "https://www.kosovo-online.com/vesti/politika/ministarstvo-zdravlja-voda-iz-kanala-ibar-lepenac-nije-za-pice-30-11-2024",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-30T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX5VZ000EZRZ7B6X80PF17W",
+    "probe": false,
+    "reach": 0,
+    "title": "Ministarstvo zdravlja Kosova: Voda iz kanala Ibar-Lepenac nije za piće - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDX2B4MR71VEHBYHBG971CEN",
+    "sim": 0.716,
+    "url": "https://insajderi.org/kurti-paralajmeron-pasojat-se-cfare-do-ndodhe-nese-nuk-riparohet-demi-i-shkaktuar-nga-shperthimi/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:58:23+00:00",
+    "dated": true,
+    "depth": 1,
+    "group": "sig_01JDX0ZA9RCCN4WFZ1PG08F3JY",
+    "probe": false,
+    "reach": 0,
+    "title": "Kurti paralajmëron pasojat se çfarë do ndodhë nëse nuk riparohet dëmi i shkaktuar nga shpërthimi",
+    "origin": false,
+    "source": "Insajderi",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_insajderi"
+   },
+   {
+    "id": "sig_01JDX0FFF0EKF63ASMAMY3NB37",
+    "sim": 0.726,
+    "url": "https://klankosova.tv/ende-vazhdon-sanimi-i-kanalit-ne-iber-lepenc-mujka-primar-e-kemi-kek-un",
+    "lang": "sq",
+    "seed": false,
+    "tier": 1,
+    "when": "2024-11-29T22:25:48+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDX0FFF0EKF63ASMAMY3NB37",
+    "probe": false,
+    "reach": 0,
+    "title": "Ende vazhdon sanimi i kanalit në Ibër Lepenc, Mujka: Primar e kemi KEK-un",
+    "origin": false,
+    "source": "Klan Kosova",
+    "overlap": 0.021,
+    "platform": "news",
+    "source_id": "src_web_klankosova"
+   },
+   {
+    "id": "sig_01JDR12H00QABRY95VD2HV0F9N",
+    "sim": 0.625,
+    "url": "https://www.kosovo-online.com/vesti/politika/perovic-plasim-se-za-bezbperovic-kosovska-policija-me-privela-pod-optuzbom-da-sam",
+    "lang": "sr-Latn",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-28T23:59:00+00:00",
+    "dated": true,
+    "depth": 0,
+    "group": "sig_01JDR12H00QABRY95VD2HV0F9N",
+    "probe": false,
+    "reach": 2,
+    "title": "Perović: Privođenje zbog dodele stanova nastavak progona Srba od strane režima Aljbina Kurtija - Kosovo Online",
+    "origin": false,
+    "source": "Kosovo Online",
+    "overlap": 0.0,
+    "platform": "news",
+    "source_id": "src_web_kosovo_online"
+   },
+   {
+    "id": "sig_01JDWXNSB8Z0J237NS1M160X87",
+    "sim": 0.718,
+    "url": "https://reporteri.net/lajme/prokuroria-jep-detaje-per-shperthimin-ne-zubin-potok-po-punohet-ne-zbardhjen-e-rastit/",
+    "lang": "sq",
+    "seed": false,
+    "tier": 3,
+    "when": "2024-11-29T21:36:49+00:00",
+    "dated": true,
+    "depth": 3,
+    "group": "sig_01JDWS54E80J95TP6D2T4STBTW",
+    "probe": false,
+    "reach": 0,
+    "title": "Prokuroria jep detaje për shpërthimin në Zubin Potok: Po punohet në zbardhjen e rastit",
+    "origin": false,
+    "source": "Reporteri",
+    "overlap": 0.01,
+    "platform": "news",
+    "source_id": "src_web_reporteri"
+   }
+  ]
+ },
+ "steps": [
+  {
+   "n": 1,
+   "ai": {
+    "what": "No model.",
+    "state": "none"
+   },
+   "id": "seed",
+   "ms": 4.1,
+   "ocr": null,
+   "rows": [
+    [
+     "started from",
+     "a signal in the archive"
+    ],
+    [
+     "search words",
+     "shper, lepen, zubin, potok, iber, kanal"
+    ]
+   ],
+   "type": "step",
+   "title": "Seed",
+   "status": "ok",
+   "explain": "What we are tracing. A post from the archive, a link, a screenshot or pasted text. Parse picks the distinctive words (names, places) to search for.",
+   "summary": "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit"
+  },
+  {
+   "n": 2,
+   "ai": {
+    "what": "Meaning similarity from Qwen/Qwen3-Embedding-0.6B, run locally for free.",
+    "state": "used"
+   },
+   "id": "expand",
+   "ms": 309.3,
+   "rows": [
+    [
+     "word search",
+     "157 posts match 2+ of: shper, lepen, zubin, potok, iber, kanal"
+    ],
+    [
+     "window",
+     "±10 days around 29 Nov 2024, 19:54 UTC"
+    ],
+    [
+     "meaning search",
+     "0 more posts close in meaning, any language"
+    ],
+    [
+     "followed links",
+     "11 linked posts pulled in from the archive"
+    ],
+    [
+     "embeddings",
+     "121 stored, 0 computed now on this machine (Qwen/Qwen3-Embedding-0.6B)"
+    ],
+    [
+     "kept",
+     "59 posts with ≥12% shared wording, or meaning similarity ≥0.7 (≥0.56 in another language)"
+    ]
+   ],
+   "type": "step",
+   "title": "Expand backwards",
+   "status": "ok",
+   "explain": "Parse searches its archive for earlier and later posts about the same thing: the same distinctive words, links between posts, the same image, and close meaning across languages (local embeddings). Posts that are only loosely related are dropped.",
+   "summary": "59 posts in this story, from 157 archive matches"
+  },
+  {
+   "n": 3,
+   "ai": {
+    "what": "Set overlap and vector arithmetic. No language model.",
+    "state": "none"
+   },
+   "id": "graph",
+   "ms": 34.1,
+   "rows": [
+    [
+     "forward",
+     "0 · re-posted as a forward of the earlier post"
+    ],
+    [
+     "link",
+     "6 · links to the earlier post"
+    ],
+    [
+     "quote",
+     "4 · quotes a long passage of the earlier post"
+    ],
+    [
+     "copy",
+     "8 · repeats the earlier post's wording (or its image)"
+    ],
+    [
+     "translate",
+     "2 · says the same thing in another language"
+    ],
+    [
+     "origin groups",
+     "39: reposts of one original count once"
+    ]
+   ],
+   "type": "step",
+   "title": "Build the graph",
+   "status": "ok",
+   "explain": "Each post gets at most one parent: the earlier post it most clearly came from. A forward or a link beats shared wording; shared wording beats similar meaning. Posts with no parent start their own origin group.",
+   "summary": "20 edges · 39 independent origin groups"
+  },
+  {
+   "n": 4,
+   "ai": {
+    "what": "Earliest timestamp among roots. No model.",
+    "state": "none"
+   },
+   "id": "origin",
+   "ms": 0.8,
+   "rows": [
+    [
+     "post",
+     "Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac"
+    ],
+    [
+     "source",
+     "KoSSev · Tier 1 · news"
+    ],
+    [
+     "published",
+     "29 Nov 2024, 19:05 UTC"
+    ],
+    [
+     "confidence",
+     "0.55"
+    ],
+    [
+     "",
+     "−0.10 · nothing else in the trace copies, quotes or links to it"
+    ],
+    [
+     "",
+     "−0.15 · another independent post (Insajderi) appeared 16 min later"
+    ],
+    [
+     "",
+     "−0.10 · Parse only sees its registry; X, Facebook and TikTok are Phase 2, so an earlier post may exist outside the archive"
+    ]
+   ],
+   "type": "step",
+   "title": "Pick the origin",
+   "status": "ok",
+   "explain": "The origin is the earliest post with no parent in the graph. It is the earliest *observed* source, not proof of who started the story; the confidence says how far to trust it.",
+   "summary": "Earliest observed source: KoSSev · 29 Nov 2024, 19:05 UTC"
+  },
+  {
+   "n": 5,
+   "ai": {
+    "what": "Counting descendants in the graph. No model.",
+    "state": "none"
+   },
+   "id": "amplifiers",
+   "ms": 4.3,
+   "type": "step",
+   "table": {
+    "cols": [
+     "Source",
+     "Tier",
+     "Posts",
+     "Reach",
+     "Earlier traces"
+    ],
+    "rows": [
+     [
+      "KoSSev",
+      "T1",
+      5,
+      5,
+      65
+     ],
+     [
+      "Reporteri",
+      "T3",
+      10,
+      4,
+      77
+     ],
+     [
+      "Sputnik Srbija",
+      "T3",
+      1,
+      4,
+      36
+     ],
+     [
+      "Insajderi",
+      "T1",
+      13,
+      3,
+      45
+     ],
+     [
+      "Kosovo Online",
+      "T3",
+      14,
+      2,
+      25
+     ],
+     [
+      "Klan Kosova",
+      "T1",
+      4,
+      1,
+      24
+     ],
+     [
+      "In4s",
+      "T3",
+      1,
+      1,
+      40
+     ],
+     [
+      "RFE/RL Serbian",
+      "T1",
+      1,
+      1,
+      26
+     ],
+     [
+      "Nova",
+      "T1",
+      2,
+      0,
+      7
+     ],
+     [
+      "Radio KiM",
+      "T1",
+      1,
+      0,
+      33
+     ],
+     [
+      "Kurir",
+      "T3",
+      1,
+      0,
+      20
+     ],
+     [
+      "RT Balkan",
+      "T3",
+      1,
+      0,
+      8
+     ]
+    ]
+   },
+   "title": "Find the amplifiers",
+   "status": "ok",
+   "explain": "Downstream reach is how many later posts descend from a source's posts in the graph. 'Earlier traces' counts past traces where the same source passed a story on: sources that keep showing up there are how Parse learns the network.",
+   "summary": "Amplified by KoSSev, Reporteri, Sputnik Srbija"
+  },
+  {
+   "n": 6,
+   "ai": {
+    "what": "Reading links. No model.",
+    "state": "none"
+   },
+   "id": "discover",
+   "ms": 44.0,
+   "type": "step",
+   "table": {
+    "cols": [
+     "Upstream",
+     "Cited by",
+     "Queue"
+    ],
+    "rows": [
+     [
+      "https://indeksonline.net/",
+      2,
+      "already queued"
+     ],
+     [
+      "https://x.com/AivoOrav",
+      1,
+      "already queued"
+     ],
+     [
+      "https://x.com/USAmbKosovo",
+      1,
+      "already queued"
+     ],
+     [
+      "https://x.com/jonhargreaves67",
+      1,
+      "already queued"
+     ]
+    ]
+   },
+   "title": "Discover new sources",
+   "status": "ok",
+   "explain": "Posts in this story link to sites and channels that are not in the registry. They go to the discovery queue; Parse collects nothing from them until a person approves them.",
+   "summary": "0 new upstream sources for the discovery queue"
+  },
+  {
+   "n": 7,
+   "ai": {
+    "what": "Lookups. No model.",
+    "state": "none"
+   },
+   "id": "world",
+   "ms": 121.1,
+   "rows": [
+    [
+     "official in story",
+     "none"
+    ],
+    [
+     "official nearby",
+     "none"
+    ],
+    [
+     "trigger calendar",
+     "Albanian Flag Day / canal attack anniversary"
+    ]
+   ],
+   "type": "step",
+   "title": "Link to the real world",
+   "status": "ok",
+   "explain": "Parse connects the story to official (Tier 0) statements and to dates in the trigger calendar (anniversaries that have sparked trouble before).",
+   "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary"
+  },
+  {
+   "n": 8,
+   "ai": {
+    "what": "Statistics from the brief's Section 8. No model.",
+    "state": "none"
+   },
+   "id": "score",
+   "ms": 18.7,
+   "rows": [
+    [
+     "velocity_z",
+     "16 posts in the last hour, no baseline activity baseline; z=7.0 by Poisson (baseline mean 0.0/h over 4 comparable hours)."
+    ],
+    [
+     "independent_origins",
+     "39 independent origin group(s); reposts of the same original count once."
+    ],
+    [
+     "cross_platform",
+     "Seen on 1 platform(s) only."
+    ],
+    [
+     "coordination",
+     "3% near-duplicates within 10 min, 0% accounts under 30 days old, fan-out 3."
+    ],
+    [
+     "proximity",
+     "Sensitive: names Banjskë, Gazivode, Ibar-Lepenac, Ibër-Lepenc, KEK; falls in the trigger window for Albanian Flag Day / canal attack anniversary."
+    ],
+    [
+     "labels",
+     "T3"
+    ],
+    [
+     "tripwires",
+     "T3 + explosive/sabotage term + named critical-infrastructure site"
+    ]
+   ],
+   "type": "step",
+   "title": "Score significance",
+   "status": "ok",
+   "explain": "How big the story is, separately from whether it is true: speed against its own baseline, independent origins, platforms, signs of coordination, and sensitive places or dates.",
+   "summary": "39 origin groups · peak 16/h · Sensitive: names Banjskë, Gazivode, Ibar-Lepenac, Ibër-Lepen"
+  },
+  {
+   "n": 9,
+   "ai": {
+    "what": "Stance from Qwen/Qwen3-8B on 6 posts, $0.00036.",
+    "state": "used"
+   },
+   "id": "verify",
+   "ms": 21658.0,
+   "rows": [
+    [
+     "claim",
+     "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit."
+    ],
+    [
+     "[1] The Geopost (T1)",
+     "supports 1.00"
+    ],
+    [
+     "[2] Insajderi (T1)",
+     "supports 0.90"
+    ],
+    [
+     "[3] Klan Kosova (T1)",
+     "supports 0.90"
+    ],
+    [
+     "[4] Insajderi (T1)",
+     "supports 0.90"
+    ],
+    [
+     "[5] Insajderi (T1)",
+     "supports 0.90"
+    ],
+    [
+     "[6] Insajderi (T1)",
+     "supports 0.90"
+    ]
+   ],
+   "type": "step",
+   "title": "Check the claim",
+   "status": "ok",
+   "explain": "One post per independent origin group (best tier first) is compared with the claim. A model only says whether each post supports, contradicts or ignores it; the verdict comes from fixed rules (CONFIRMED needs Tier 0 inside its own scope; CORROBORATED needs two independent groups).",
+   "summary": "CORROBORATED · 6 independent origin groups at tier <= 2 support it."
+  },
+  {
+   "n": 10,
+   "ai": {
+    "what": "Qwen/Qwen3-8B from the facts above; attribution wording checked.",
+    "state": "used"
+   },
+   "id": "brief",
+   "ms": 7853.2,
+   "rows": [
+    [
+     "writer",
+     "Qwen/Qwen3-8B from the facts above; attribution wording checked."
+    ]
+   ],
+   "type": "step",
+   "title": "Write the brief",
+   "status": "ok",
+   "explain": "What this story is, where it was first seen, who carried it, and what is still unknown, in the brief's attribution wording: 'earliest observed source' and 'amplified by', never 'Serbia/Russia did X'.",
+   "summary": "“Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac” · earliest observed at KoSSev on 29 Nov 2024, 19:05 UTC, then carried by 15 more outlet(s) over 2.0 days."
+  }
+ ],
+ "labels": [
+  "T3"
+ ],
+ "origin": {
+  "url": "https://kossev.info/detonacija-u-donjim-varagama-curi-voda-iz-kanala-ibar-lepenac/",
+  "tier": 1,
+  "when": "2024-11-29T19:05:41+00:00",
+  "title": "Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac",
+  "method": "earliest_observed",
+  "source": "KoSSev",
+  "reasons": [
+   "−0.10 · nothing else in the trace copies, quotes or links to it",
+   "−0.15 · another independent post (Insajderi) appeared 16 min later",
+   "−0.10 · Parse only sees its registry; X, Facebook and TikTok are Phase 2, so an earlier post may exist outside the archive"
+  ],
+  "platform": "news",
+  "runner_up": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+  "signal_id": "sig_01JDWN11W834TY9CY4SFJQ85KA",
+  "confidence": 0.55
+ },
+ "trigger": "Albanian Flag Day / canal attack anniversary",
+ "verdict": {
+  "checks": [
+   {
+    "n": 1,
+    "tier": 1,
+    "when": "2024-11-29T21:30:35+00:00",
+    "group": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+    "model": "Qwen/Qwen3-8B",
+    "title": "Shpërthim i fuqishëm në Zubin Potok, dëmtohet kanali i ujit të Ibër-Lepencit - The Geopost",
+    "source": "The Geopost",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWXAC3RKZYXD7XY35HA3CF4",
+    "confidence": 1.0
+   },
+   {
+    "n": 2,
+    "tier": 1,
+    "when": "2024-11-29T21:04:33+00:00",
+    "group": "sig_01JDWVTPQ8WV5PGEAC4C2WYQRV",
+    "model": "Qwen/Qwen3-8B",
+    "title": "Pamje nga vendi ku ndodhi shpërthimi në Zubin Potok",
+    "source": "Insajderi",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWVTPQ8WV5PGEAC4C2WYQRV",
+    "confidence": 0.9
+   },
+   {
+    "n": 3,
+    "tier": 1,
+    "when": "2024-11-29T20:57:15+00:00",
+    "group": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+    "model": "Qwen/Qwen3-8B",
+    "title": "Shpërthimi në Zubin Potok: Pamje nga vendi i ngjarjes, policia prezente",
+    "source": "Klan Kosova",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+    "confidence": 0.9
+   },
+   {
+    "n": 4,
+    "tier": 1,
+    "when": "2024-11-29T20:47:26+00:00",
+    "group": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+    "model": "Qwen/Qwen3-8B",
+    "title": "“Një shtëpi ka dëme …” shpërthim i fuqishëm në Zubin Potok, Zeqiri jep detaje",
+    "source": "Insajderi",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+    "confidence": 0.9
+   },
+   {
+    "n": 5,
+    "tier": 1,
+    "when": "2024-11-29T20:06:34+00:00",
+    "group": "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+    "model": "Qwen/Qwen3-8B",
+    "title": "Kanalet e ujësjellësit dyshohet se u gjuajtën me dinamit – Flet kryeshefi i ”Ibër Lepenc”",
+    "source": "Insajderi",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+    "confidence": 0.9
+   },
+   {
+    "n": 6,
+    "tier": 1,
+    "when": "2024-11-29T19:21:29+00:00",
+    "group": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+    "model": "Qwen/Qwen3-8B",
+    "title": "Shpërthim i fuqishëm në Zubin Potok",
+    "source": "Insajderi",
+    "stance": "supports",
+    "in_scope": null,
+    "signal_id": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+    "confidence": 0.9
+   }
+  ],
+  "reason": "6 independent origin groups at tier <= 2 support it.",
+  "checked": true,
+  "verdict": "CORROBORATED",
+  "evidence_ids": [
+   "sig_01JDWXAC3RKZYXD7XY35HA3CF4",
+   "sig_01JDWVTPQ8WV5PGEAC4C2WYQRV",
+   "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+   "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+   "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+   "sig_01JDWNXZN8X4ZJEVDKSM19EBGE"
+  ],
+  "suggested_checks": [
+   "Look for a Tier-0 statement to confirm."
+  ]
+ },
+ "event_id": "evt_01M80E8FPPT2RHH2AR755VVKJ0",
+ "official": [],
+ "seed_path": [],
+ "seed_root": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+ "acceptance": {
+  "root": true,
+  "edges": 20,
+  "nodes": 59,
+  "passes": true
+ },
+ "amplifiers": [
+  {
+   "tier": 1,
+   "first": "2024-11-29T14:44:39+00:00",
+   "posts": 5,
+   "reach": 5,
+   "views": 0,
+   "source": "KoSSev",
+   "platform": "news",
+   "passed_on": 4,
+   "signal_id": "sig_01JDW632YRBG4YGKZG69WNQRDE",
+   "source_id": "src_web_kossev",
+   "seen_before": 65
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-29T19:54:34+00:00",
+   "posts": 10,
+   "reach": 4,
+   "views": 0,
+   "source": "Reporteri",
+   "platform": "news",
+   "passed_on": 3,
+   "signal_id": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+   "source_id": "src_web_reporteri",
+   "seen_before": 77
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-29T19:47:00+00:00",
+   "posts": 1,
+   "reach": 4,
+   "views": 0,
+   "source": "Sputnik Srbija",
+   "platform": "news",
+   "passed_on": 1,
+   "signal_id": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+   "source_id": "src_web_sputnik",
+   "seen_before": 36
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T19:21:29+00:00",
+   "posts": 13,
+   "reach": 3,
+   "views": 0,
+   "source": "Insajderi",
+   "platform": "news",
+   "passed_on": 3,
+   "signal_id": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+   "source_id": "src_web_insajderi",
+   "seen_before": 45
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-28T23:59:00+00:00",
+   "posts": 14,
+   "reach": 2,
+   "views": 0,
+   "source": "Kosovo Online",
+   "platform": "news",
+   "passed_on": 1,
+   "signal_id": "sig_01JDR12H00QABRY95VD2HV0F9N",
+   "source_id": "src_web_kosovo_online",
+   "seen_before": 25
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T20:38:23+00:00",
+   "posts": 4,
+   "reach": 1,
+   "views": 0,
+   "source": "Klan Kosova",
+   "platform": "news",
+   "passed_on": 1,
+   "signal_id": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+   "source_id": "src_web_klankosova",
+   "seen_before": 24
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-29T19:51:16+00:00",
+   "posts": 1,
+   "reach": 1,
+   "views": 0,
+   "source": "In4s",
+   "platform": "news",
+   "passed_on": 1,
+   "signal_id": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE",
+   "source_id": "src_web_in4s",
+   "seen_before": 40
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T22:34:27+00:00",
+   "posts": 1,
+   "reach": 1,
+   "views": 0,
+   "source": "RFE/RL Serbian",
+   "platform": "news",
+   "passed_on": 1,
+   "signal_id": "sig_01JDX0ZA9RCCN4WFZ1PG08F3JY",
+   "source_id": "src_web_slobodnaevropa",
+   "seen_before": 26
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T21:16:06+00:00",
+   "posts": 2,
+   "reach": 0,
+   "views": 0,
+   "source": "Nova",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWWFVFG2P1YPSH0WZ7X204K",
+   "source_id": "src_web_nova",
+   "seen_before": 7
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T17:22:59+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "Radio KiM",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWF509RAV72KPJZMKS6H95A",
+   "source_id": "src_web_radiokim",
+   "seen_before": 33
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-29T20:44:38+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "Kurir",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWTP7QGPEWZH51WKG9PZYF4",
+   "source_id": "src_web_kurir",
+   "seen_before": 20
+  },
+  {
+   "tier": 3,
+   "first": "2024-11-29T21:21:48+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "RT Balkan",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWWT9F0XRHBGG0YR4HBVEH9",
+   "source_id": "src_web_rtbalkan",
+   "seen_before": 8
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T21:30:35+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "The Geopost",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWXAC3RKZYXD7XY35HA3CF4",
+   "source_id": "src_web_thegeopost",
+   "seen_before": 0
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T22:12:34+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "Blic",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDWZQ82GG8JAZVVQ04GEWBE8",
+   "source_id": "src_web_blic",
+   "seen_before": 14
+  },
+  {
+   "tier": 1,
+   "first": "2024-11-29T22:44:46+00:00",
+   "posts": 1,
+   "reach": 0,
+   "views": 0,
+   "source": "N1 Srbija",
+   "platform": "news",
+   "passed_on": 0,
+   "signal_id": "sig_01JDX1J6SG7EXJBHPZDS4FZEB9",
+   "source_id": "src_web_n1",
+   "seen_before": 25
+  }
+ ],
+ "discovered": [
+  {
+   "new": false,
+   "url": "https://indeksonline.net/",
+   "cited_by": 2,
+   "signal_id": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW"
+  },
+  {
+   "new": false,
+   "url": "https://x.com/AivoOrav",
+   "cited_by": 1,
+   "signal_id": "sig_01JDX28XBG7SY6W5GFB423V54Q"
+  },
+  {
+   "new": false,
+   "url": "https://x.com/USAmbKosovo",
+   "cited_by": 1,
+   "signal_id": "sig_01JDX28XBG7SY6W5GFB423V54Q"
+  },
+  {
+   "new": false,
+   "url": "https://x.com/jonhargreaves67",
+   "cited_by": 1,
+   "signal_id": "sig_01JDX28XBG7SY6W5GFB423V54Q"
+  }
+ ],
+ "narratives": [],
+ "significance": {
+  "proximity": {
+   "note": "Sensitive: names Banjskë, Gazivode, Ibar-Lepenac, Ibër-Lepenc, KEK; falls in the trigger window for Albanian Flag Day / canal attack anniversary.",
+   "value": 1.0,
+   "normalised": 1.0
+  },
+  "velocity_z": {
+   "note": "16 posts in the last hour, no baseline activity baseline; z=7.0 by Poisson (baseline mean 0.0/h over 4 comparable hours).",
+   "value": 7.034483825301132,
+   "normalised": 1.0
+  },
+  "coordination": {
+   "note": "3% near-duplicates within 10 min, 0% accounts under 30 days old, fan-out 3.",
+   "value": 0.10355932203389831,
+   "normalised": 0.104
+  },
+  "cross_platform": {
+   "note": "Seen on 1 platform(s) only.",
+   "value": 1,
+   "normalised": 0.0
+  },
+  "independent_origins": {
+   "note": "39 independent origin group(s); reposts of the same original count once.",
+   "value": 39,
+   "normalised": 1.0
+  }
+ }
+}

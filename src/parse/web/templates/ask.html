@@ -70,7 +70,7 @@
                 {% for l in langs %}<option value="{{ l }}">{{ l }}</option>{% endfor %}</select>
               <svg class="ic sm"><use href="#i-chev"/></svg></span>
             <span class="spacer"></span>
-            <label class="toggle" title="Before answering, send agents to live news and official sources for newer reports"><input type="checkbox" id="fresh"> Field agents</label>
+            <label class="toggle" {{ "hidden" if demo }} title="Before answering, send agents to live news and official sources for newer reports"><input type="checkbox" id="fresh"> Field agents</label>
             <label class="toggle"><input type="checkbox" id="cite" checked> Citations</label>
             <button type="submit" class="send" id="send" aria-label="Ask"><svg class="ic"><use href="#i-up"/></svg></button>
           </div>

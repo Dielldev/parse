@@ -23,13 +23,27 @@ from parse.evidence import verify
 from parse.models import Evidence, LlmOutput, Signal, Source
 from parse.scoring import tps as tps_mod
 from parse.scoring.verdict import EvidenceItem, decide
-from parse.settings import CONFIG_DIR, ROOT, thresholds
+from parse.settings import CONFIG_DIR, DEMO, ROOT, thresholds
 from parse.web import ask as ask_mod
 
 HERE = Path(__file__).parent
-app = FastAPI(title="Parse")
+app = FastAPI(title="Parse", **({"docs_url": None, "redoc_url": None, "openapi_url": None} if DEMO else {}))
+if DEMO:   # the Vercel deployment: read-only snapshot, visitor-supplied model key, hardened headers
+    from parse.web.demo import DemoGuard, client_ip
+    app.add_middleware(DemoGuard)
 app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 templates = Jinja2Templates(directory=HERE / "templates")
+templates.env.globals["demo"] = DEMO
+
+
+def _who(request: Request) -> str:
+    """The visitor, for rate limits: the real client address behind Vercel's proxy, else the socket peer."""
+    peer = request.client.host if request.client else "?"
+    return client_ip({k.lower(): v for k, v in request.headers.items()}, peer) if DEMO else peer
+
+
+def _demo_off(what: str):
+    raise HTTPException(404, f"{what} runs in the full pipeline, not in the web demo.")
 
 TIER_NAMES = {0: "Official / primary", 1: "Established outlet", 2: "Specialist OSINT", 3: "Partisan or unverified"}
 LANGS = ["sq", "sr-Latn", "sr-Cyrl", "ru", "en"]
@@ -103,10 +117,12 @@ async def api_ask(request: Request):
     ai = body.get("ai")
     if ai is None:
         ai = request.cookies.get("parse_engine", "qwen") == "qwen"
+    if DEMO:
+        ai = False   # Ask is rules and arithmetic only here; models run from a signal page or the Tracer, with your key
     if ai:   # over the per-visitor limit: still answer, just without the billed model steps
         from parse.web import models_live as ml
         try:
-            ml.check_rate(request.client.host if request.client else "?")
+            ml.check_rate(_who(request))
         except ml.TooMany:
             ai = False
     kw = {"ai": bool(ai)} if "ai" in inspect.signature(ask_mod.run).parameters else {}
@@ -118,13 +134,16 @@ async def api_ask(request: Request):
 # ---------------------------------------------------------------- tracer (A12, brief Section 10)
 def _engine_ai(request: Request, body: dict) -> bool:
     """Same rule as Ask: the model menu's engine (cookie) unless the request says; rate-limited per visitor."""
-    ai = body.get("ai")
-    if ai is None:
-        ai = request.cookies.get("parse_engine", "qwen") == "qwen"
+    from parse.web import models_live as ml
+    if DEMO:   # models run only when the visitor has added their own key
+        ai = ml.key_set() and body.get("ai") is not False
+    else:
+        ai = body.get("ai")
+        if ai is None:
+            ai = request.cookies.get("parse_engine", "qwen") == "qwen"
     if ai:
-        from parse.web import models_live as ml
         try:
-            ml.check_rate(request.client.host if request.client else "?")
+            ml.check_rate(_who(request))
         except ml.TooMany:
             ai = False
     return bool(ai)
@@ -164,21 +183,24 @@ async def api_trace(request: Request):
     body = await request.json()
     if body.get("signal_id"):
         seed = {"kind": "signal", "signal_id": str(body["signal_id"]).strip()[:64]}
-    elif body.get("url"):
+    elif body.get("url") and not DEMO:
         seed = {"kind": "url", "url": str(body["url"]).strip()[:1000]}
-    elif body.get("image"):
+    elif body.get("image") and not DEMO:
         seed = {"kind": "image", "image": str(body["image"])}
     elif str(body.get("text", "")).strip():
         seed = {"kind": "text", "text": str(body["text"]).strip()[:6000]}
     else:
         raise HTTPException(400, "nothing to trace: send signal_id, url, text or image")
-    gen = tracer.run(seed, ai=_engine_ai(request, body), fresh=bool(body.get("fresh")))
+    gen = tracer.run(seed, ai=_engine_ai(request, body), fresh=bool(body.get("fresh")) and not DEMO,
+                     persist=not DEMO)
     return StreamingResponse((json.dumps(ev, default=str) + "\n" for ev in gen), media_type="application/x-ndjson")
 
 
 # ---------------------------------------------------------------- watch: the automation dashboard (A0)
 @app.get("/watch", response_class=HTMLResponse)
 def watch_page(request: Request):
+    if DEMO:
+        _demo_off("Watch")
     from parse import watch
     w = watch.windows()
     return templates.TemplateResponse(request, "watch.html", {
@@ -187,12 +209,16 @@ def watch_page(request: Request):
 
 @app.get("/api/watch/state")
 def api_watch_state():
+    if DEMO:
+        _demo_off('Watch')
     from parse import watch
     return watch.WATCHER.state()
 
 
 @app.get("/api/watch/accounts")
 def api_watch_accounts():
+    if DEMO:
+        _demo_off('Watch')
     from parse import watch
     st = watch.WATCHER.state()
     acc = watch.accounts()
@@ -204,6 +230,8 @@ def api_watch_accounts():
 
 @app.post("/api/watch/start")
 async def api_watch_start(request: Request):
+    if DEMO:
+        _demo_off("Watch")
     from datetime import datetime, timezone
 
     from parse import watch
@@ -231,6 +259,8 @@ async def api_watch_start(request: Request):
 
 @app.post("/api/watch/stop")
 def api_watch_stop():
+    if DEMO:
+        _demo_off('Watch')
     from parse import watch
     watch.WATCHER.stop()
     return watch.WATCHER.state()
@@ -334,7 +364,7 @@ def signal_detail(request: Request, signal_id: str):
         llm = list(s.scalars(select(LlmOutput).where(LlmOutput.subject_id == signal_id)
                              .order_by(LlmOutput.created_at)))
     hash_ok = None
-    if ev is not None:
+    if ev is not None and not DEMO:
         p = ROOT / ev.html_uri
         hash_ok = p.exists() and verify(p, ev.sha256)
     return templates.TemplateResponse(request, "signal.html", {
@@ -348,7 +378,7 @@ def api_signal_model(signal_id: str, action: str, request: Request, body: dict |
     if action not in ("label", "detect", "translate", "claim", "ocr"):
         raise HTTPException(404, "unknown model action")
     try:
-        ml.check_rate(request.client.host if request.client else "?")
+        ml.check_rate(_who(request))
     except ml.TooMany as e:
         raise HTTPException(429, str(e)) from e
     try:
@@ -360,6 +390,8 @@ def api_signal_model(signal_id: str, action: str, request: Request, body: dict |
 @app.get("/evidence/{sha}/{kind}")
 def evidence_file(sha: str, kind: str):
     """Archived content is always served as plain text, so archived pages never run in the browser."""
+    if DEMO:
+        _demo_off("The evidence vault (archived page copies)")
     if kind not in ("raw", "text") or len(sha) != 64:
         raise HTTPException(404)
     with session() as s:
@@ -431,6 +463,28 @@ def api_stats():
 
 
 # ---------------------------------------------------------------- field agents (/agents and /api/agents/*)
-from parse.web import agents as agents_mod  # noqa: E402
+if not DEMO:   # browser field agents need a long-running host and outbound network: not part of the web demo
+    from parse.web import agents as agents_mod  # noqa: E402
 
-app.include_router(agents_mod.router)
+    app.include_router(agents_mod.router)
+else:
+    @app.get("/agents", response_class=HTMLResponse)
+    def agents_off():
+        _demo_off("The field agents")
+
+
+    @app.post("/api/key/check")
+    def api_key_check(request: Request):
+        """Is this Featherless key accepted? One one-token call on the cheapest model; the key is never stored."""
+        from parse.web import models_live as ml
+        if not ml.key_set():
+            raise HTTPException(400, "No key received.")
+        try:
+            ml.check_rate(_who(request))
+        except ml.TooMany as e:
+            raise HTTPException(429, str(e)) from e
+        try:
+            ml.client().chat_text("translation", "key-check", "Reply with one word.", "ping", max_tokens=1)
+        except Exception as e:  # noqa: BLE001
+            raise HTTPException(400, ml.explain(e)) from e
+        return {"ok": True}

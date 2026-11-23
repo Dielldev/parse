@@ -16,9 +16,11 @@
   <div class="card"><div class="k">Archived evidence</div><div class="v">{{ "{:,}".format(n_evidence) }}</div>
     <div class="s">Raw pages, SHA-256, write-once</div></div>
   <div class="card"><div class="k">Teacher-labelled</div><div class="v">{{ n_labelled }}</div>
-    <div class="s">Waiting for the Featherless key</div></div>
-  <div class="card"><div class="k">Model spend</div><div class="v">${{ "%.2f"|format(spent) }}</div>
-    <div class="s">Cap ${{ "%.2f"|format(budget_cap) }} · Anthropic $0</div></div>
+    <div class="s">{{ "Recorded from the pipeline run" if demo else "Waiting for the Featherless key" }}</div></div>
+  {% if demo %}<div class="card"><div class="k">Model spend</div><div class="v">Your key</div>
+    <div class="s">Models run on your Featherless account · nothing is billed here</div></div>
+  {% else %}<div class="card"><div class="k">Model spend</div><div class="v">${{ "%.2f"|format(spent) }}</div>
+    <div class="s">Cap ${{ "%.2f"|format(budget_cap) }} · Anthropic $0</div></div>{% endif %}
 </div>
 
 {% set counts = {} %}{% for r in table %}{% set _ = counts.update({r.name: r.total}) %}{% endfor %}

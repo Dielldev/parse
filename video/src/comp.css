@@ -1,0 +1,154 @@
+/* Composition layer for the Parse showcase film (1920x1080).
+   Product screens keep the product's own classes and stylesheets; this file only frames, moves and captions them.
+   Every animated property is written by comp.js from the time t, so CSS animations and transitions are off. */
+*, *::before, *::after { animation: none !important; transition: none !important; }
+html, body { margin: 0; padding: 0; width: 1920px; height: 1080px; min-height: 0; overflow: hidden; display: block; background: #050a1c; }
+#frame { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #050a1c; isolation: isolate; }
+#scenes { position: absolute; inset: 0; }
+.sc { position: absolute; inset: 0; overflow: hidden; display: none; }
+
+/* ---------- camera rig + product screen */
+.rig { position: absolute; inset: 0; transform-origin: 960px 540px; }
+.screen { position: absolute; left: 0; top: 0; width: 1440px; transform-origin: 0 0; background: var(--bg); color: var(--text);
+  font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+.screen .nav { position: relative; top: 0; }
+.screen main.page { padding-top: 64px; padding-bottom: 80px; }
+.screen .ph h1.title { font-size: 50px; }            /* clamp(30px, 3.6vw, 50px) at the product's 1440 viewport */
+.screen .wt-main > aside { min-width: 0; }
+.sheet { position: absolute; inset: 0; background: #0d0e10; }
+
+/* ---------- navy hero backdrop (open + end), the product's .hero treatment */
+.navy { position: absolute; inset: 0; background: #050a1c; overflow: hidden; }
+.navy .smoke { position: absolute; inset: -20%; filter: blur(44px);
+  background:
+    radial-gradient(34% 40% at 70% 44%, rgba(150,175,235,.22), transparent 70%),
+    radial-gradient(40% 46% at 28% 38%, rgba(36,74,165,.85), transparent 72%),
+    radial-gradient(30% 34% at 62% 70%, rgba(36,74,165,.55), transparent 70%),
+    radial-gradient(60% 60% at 50% 105%, rgba(4,8,22,.95), transparent 70%); }
+.navy .vig { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(0,0,0,.65)); }
+.grain { position: absolute; inset: -64px; pointer-events: none; opacity: .2; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ---------- HUD corners + readout (the hero's .hud and .hero-foot, at film scale) */
+.hudc { position: absolute; inset: 92px 64px 92px; pointer-events: none; }
+.hudc i { position: absolute; width: 26px; height: 26px; border: 0 solid rgba(255,255,255,.5); }
+.hudc i:nth-child(1) { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+.hudc i:nth-child(2) { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+.hudc i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.hudc i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.readout { position: absolute; left: 64px; right: 64px; bottom: 40px; display: flex; justify-content: space-between;
+  font: 500 14px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.readout b { color: #fff; font-weight: 500; }
+
+/* ---------- classification strip at film scale */
+.cbar { position: absolute; left: 0; right: 0; top: 0; height: 48px; background: #060d24; color: #e9e9ec; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 64px; font: 500 14.5px/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; z-index: 3; }
+.cbar b { color: #fff; font-weight: 500; }
+.cbar .l { display: flex; align-items: center; gap: 16px; white-space: nowrap; }
+.cbar .stars { width: 80px; height: 19px; color: #d0a650; }
+.cbar .r { display: flex; gap: 28px; align-items: center; color: #a3abc4; white-space: nowrap; }
+.cbar .live::before { content: ""; display: inline-block; width: 8px; height: 8px; background: #d0a650; margin-right: 10px; vertical-align: 1px; }
+.cbar .clock b { font-variant-numeric: tabular-nums; }
+
+/* ---------- opening: post cards (the product's .cite card, standalone) */
+.pc { position: absolute; width: 400px; border: 1px solid #42464d; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); }
+.pc.cite { background: #17191c; padding: 18px 20px; }
+.pc .t { font-size: 18.5px; -webkit-line-clamp: 2; margin: 12px 0 4px; }
+.pc .top { font-size: 12px; }
+.pc .foot { background: none; border-top: 0; }
+.pc .foot .pill { font-size: 10.5px; }
+.pc .dot { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #fff; opacity: 0; }
+.travel { position: absolute; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #fff; }
+.bigmark { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+.bigmark path { fill: none; stroke: #fff; stroke-linecap: square; stroke-linejoin: miter; }
+
+/* ---------- kinetic type */
+.kw { display: inline-block; overflow: hidden; vertical-align: top; padding: .02em .02em .16em; margin: -.02em -.02em -.16em; }
+.kwi { display: inline-block; }
+.hook { position: absolute; left: 160px; top: 380px; width: 1600px; color: #fff; }
+.eyebrow-f { display: flex; align-items: center; gap: 16px; font: 500 17px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.72); }
+.eyebrow-f::before { content: ""; width: 36px; height: 1.5px; background: var(--rule, #4f7dff); transform-origin: 0 50%; transform: scaleX(var(--rx, 1)); }
+.hook .big { font: 300 150px/1.02 var(--sans); letter-spacing: -.05em; margin-top: 28px; white-space: nowrap; }
+.hook .big em { font-style: normal; color: #4f7dff; }
+
+/* ---------- PARSE lockup */
+.lockup { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 34px; color: #fff; white-space: nowrap; }
+.lockup .wm { display: flex; font: 600 118px/1 var(--sans); letter-spacing: .22em; margin-right: -.22em; }
+.lockup .wm span { display: inline-block; }
+.lockup .sub { position: absolute; left: 0; top: 168px; font: 500 19px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.7); white-space: nowrap; }
+.lockup .sub b { color: #fff; font-weight: 500; }
+
+/* ---------- callouts over product screens */
+.callout { position: absolute; background: #0d0e10; border: 1px solid rgba(255,255,255,.18); color: #f1f1f1; padding: 30px 36px 34px;
+  box-shadow: 0 40px 80px -40px rgba(0,0,0,.9); }
+.callout .lbl-f { font: 500 15px/1.4 var(--mono); letter-spacing: .11em; text-transform: uppercase; color: #a3a6ab; display: flex; gap: 14px; align-items: center; }
+.callout .lbl-f::before { content: ""; width: 28px; height: 1.5px; background: var(--rule, #ec6b6b); }
+.callout .num { font: 300 196px/.9 var(--sans); letter-spacing: -.06em; margin-top: 18px; font-variant-numeric: tabular-nums; }
+.callout .num small { font-size: 64px; letter-spacing: -.03em; margin-left: 14px; color: #a3a6ab; }
+.callout .line { font: 400 46px/1.1 var(--sans); letter-spacing: -.03em; margin-top: 14px; }
+.callout .line.s { font-size: 30px; color: #a3a6ab; margin-top: 10px; letter-spacing: -.02em; }
+.callout .tick { position: absolute; width: 14px; height: 14px; border: 0 solid #f1f1f1; }
+.callout .tick.a { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.callout .tick.b { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.callout .tick.c { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+.callout .tick.d { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+.leader { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; }
+.leader path { fill: none; stroke: #f1f1f1; stroke-width: 1.5; }
+.leader rect { fill: #f1f1f1; }
+
+/* lower-third caption band used on product screens */
+.cap { position: absolute; left: 96px; bottom: 84px; color: #fff; }
+.cap .big { font: 400 64px/1.04 var(--sans); letter-spacing: -.04em; white-space: nowrap; }
+.cap .eyebrow-f { margin-bottom: 18px; }
+.capbg { position: absolute; left: 0; right: 0; bottom: 0; height: 330px; background: #0d0e10; border-top: 1px solid #42464d; }
+
+/* highlight frame drawn around a product element */
+.hl { position: absolute; border: 2px solid #f1f1f1; pointer-events: none; }
+
+/* ---------- end card */
+.end-map { position: absolute; color: #e9edf7; }
+.end-map .kmap { width: 100%; height: auto; display: block; }
+.end-map .kmap .k-land { fill: url(#kdots2); }
+.end-copy { position: absolute; left: 150px; top: 250px; width: 980px; color: #fff; }
+.end-copy .stars { width: 150px; height: 34px; display: block; margin-bottom: 34px; }
+.end-copy .h { font: 400 118px/1.02 var(--sans); letter-spacing: -.045em; }
+.end-copy .roll { position: relative; display: block; height: 1.2em; overflow: hidden; }
+.end-copy .roll > span { position: absolute; left: 0; top: 0; white-space: nowrap; line-height: 1.2em; }
+.end-copy .intel { display: block; }
+.end-copy .meta { margin-top: 44px; display: grid; grid-template-columns: repeat(3, auto); width: fit-content; border: 1px solid rgba(255,255,255,.2); }
+.end-copy .meta div { padding: 14px 24px 16px; border-left: 1px solid rgba(255,255,255,.2); }
+.end-copy .meta div:first-child { border-left: 0; }
+.end-copy .meta span { display: block; font: 500 13px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.end-copy .meta b { display: block; font: 400 32px/1.2 var(--sans); letter-spacing: -.02em; color: #fff; margin-top: 6px; font-weight: 400; }
+
+/* ---------- cursor */
+#cursor { position: absolute; left: 0; top: 0; width: 34px; height: 41px; z-index: 50; pointer-events: none; display: none;
+  transform-origin: 4px 3px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.5)); }
+#cursor svg { width: 100%; height: 100%; display: block; }
+#cursor path { fill: #fff; stroke: #0d0e10; stroke-width: 1.5; stroke-linejoin: round; }
+
+/* states the film switches on product elements (hover / press), matching the product's own :hover rules */
+.f-press { opacity: .82 !important; }
+.tr-go.f-hover, .btn-hover { background: transparent !important; color: var(--text) !important; }
+.send.f-ready { background: #fff !important; color: #1e1f2b !important; border-color: #fff !important; }
+
+/* vertical hairline that leads a horizontal wipe */
+.sweep { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #f1f1f1; z-index: 6; pointer-events: none; }
+.hline { position: absolute; left: 0; right: 0; height: 2px; margin-top: -1px; background: #f1f1f1; z-index: 6; pointer-events: none; }
+
+/* product scenes own a solid backdrop, so nothing from the scene below shows round the screen */
+.sc-watch, .sc-trace { background: #0d0e10; }
+.sc-ask { background: #141619; }
+.scrim { position: absolute; inset: 0; background: #0b0c0e; display: none; }
+.cap-verify { left: 110px; top: 300px; bottom: auto; }
+.cap-verify .big { font-size: 74px; line-height: 1.04; }
+.co-rules { padding: 30px 32px 22px; }
+.co-rules table.rules { margin-top: 22px; font-size: 19px; line-height: 1.4; }
+.co-rules table.rules td { padding: 13px 10px 13px 0; border-bottom: 1px solid #26292e; vertical-align: top; }
+.co-rules table.rules tr:last-child td { border-bottom: 0; }
+.co-rules table.rules td:first-child { width: 220px; padding-left: 10px; }
+.co-rules .pill { font-size: 14px; padding: 4px 9px; }
+.co-origin .line { font-size: 54px; }
+.co-origin .line.s { font-size: 30px; }

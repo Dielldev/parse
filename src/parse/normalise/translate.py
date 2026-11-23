@@ -50,15 +50,20 @@ def estimate(rows) -> dict:
             "usd_developer_plan": round(budget.cost(ROLE, int(tin), int(tout)), 3), "usd_flat_rate_plan": 0.0}
 
 
-def translate_one(fl, sid, lang, title, text) -> dict:
-    """Translate and store one signal. Returns the usage ({"in", "out", "usd"}); English costs nothing."""
+def translate_text(fl, lang, title, text) -> tuple[str, dict]:
+    """Translate one post to English without storing anything. Returns (English text, usage)."""
     src = body(title, text)
     usage = {"in": 0, "out": 0, "usd": 0.0}
     if lang == "en":
-        en = src
-    else:
-        en, usage = fl.chat_text(ROLE, "translate", SYSTEM,
-                                 f"Source language: {LANG_NAMES.get(lang, 'unknown')}\n\n{src}", max_tokens=900)
+        return src.strip(), usage
+    en, usage = fl.chat_text(ROLE, "translate", SYSTEM,
+                             f"Source language: {LANG_NAMES.get(lang, 'unknown')}\n\n{src}", max_tokens=900)
+    return en.strip(), usage
+
+
+def translate_one(fl, sid, lang, title, text) -> dict:
+    """Translate and store one signal. Returns the usage ({"in", "out", "usd"}); English costs nothing."""
+    en, usage = translate_text(fl, lang, title, text)
     with session() as s:
         s.get(Signal, sid).text_en = en.strip()
         s.add(LlmOutput(stage="translate", model=budget.model(ROLE)["id"], prompt_version=PROMPT_VERSION,

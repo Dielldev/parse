@@ -16,6 +16,7 @@ import httpx
 from pydantic import BaseModel, ValidationError
 
 from parse import budget
+from parse.settings import DEMO
 
 
 class MissingApiKey(RuntimeError):
@@ -32,6 +33,8 @@ class RateLimiter:
         self._lock = threading.Lock()
 
     def wait(self) -> float:
+        if DEMO:   # never sleep inside a serverless request; the web layer rate-limits per visitor instead
+            return 0.0
         waited = 0.0
         while True:
             with self._lock:
@@ -53,20 +56,22 @@ def rate_limiter() -> RateLimiter:
 class Featherless:
     def __init__(self, api_key: str | None = None, transport: httpx.BaseTransport | None = None):
         cfg = budget.models_cfg()["featherless"]
-        key = api_key or os.environ.get("FEATHERLESS_API_KEY")
+        # Demo: only the visitor's own key, passed in per request. The server never has a key of its own.
+        key = api_key if DEMO else (api_key or os.environ.get("FEATHERLESS_API_KEY"))
         if not key:
-            raise MissingApiKey("Set FEATHERLESS_API_KEY in .env (never commit it).")
+            raise MissingApiKey("Add your Featherless API key (top right) to run the models.")
         self.client = httpx.Client(base_url=cfg["base_url"], timeout=cfg["timeout_s"], transport=transport,
                                    headers={"Authorization": f"Bearer {key}"})
         self._sem = threading.Semaphore(cfg["max_concurrency"])
 
     def _post(self, path: str, body: dict, tries: int = 4) -> dict:
+        tries = min(tries, 2) if DEMO else tries
         with self._sem:
             for attempt in range(tries):
                 rate_limiter().wait()
                 r = self.client.post(path, json=body)
                 if r.status_code in (429, 503) and attempt < tries - 1:  # concurrency limit / model warming up
-                    time.sleep(5 * (attempt + 1))
+                    time.sleep(2 * (attempt + 1) if DEMO else 5 * (attempt + 1))
                     continue
                 r.raise_for_status()
                 return r.json()

@@ -23,11 +23,12 @@ from urllib.parse import urlencode
 from sqlalchemy import func, or_, select
 
 from parse.db import session
+from parse.dbcompat import regex_match
 from parse.evidence import verify
 from parse import budget
 from parse.models import Evidence, LlmOutput, Signal, Source
 from parse.normalise.text import fold
-from parse.settings import ROOT
+from parse.settings import DEMO, ROOT
 
 TIER_NAMES = {0: "Official / primary", 1: "Established outlet", 2: "Specialist OSINT", 3: "Partisan or unverified"}
 MAX_TERMS = 6
@@ -203,7 +204,8 @@ def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterat
     yield step("trigger", t0, title="Question", subtitle="Chat trigger", icon="bolt", status="ok",
                summary=q, rows=[["question", q], ["window", window or "all"], ["language", lang or "all"]],
                explain="Parse takes the question as typed, with the time window and language filters set in the "
-                       "composer. Nothing is sent anywhere outside this machine.",
+                       "composer. " + ("It searches the bundled snapshot of the archive: no model is called and nothing "
+                                       "is stored." if DEMO else "Nothing is sent anywhere outside this machine."),
                ai=_ai("none", NO_MODEL),
                links=[{"label": f"Window: {window}", "href": _href("/signals", window=window)}] if window else [])
 
@@ -256,7 +258,7 @@ def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterat
         # 4. search
         t0 = time.perf_counter()
         cols = (Signal.title, Signal.text_original, Signal.text_latin, Signal.text_en)
-        cond = or_(*[c.op("~*")(term_regex(t)) for t in terms for c in cols])
+        cond = or_(*[regex_match(c, term_regex(t)) for t in terms for c in cols])
         base = select(Signal.signal_id).where(cond)
         if window:
             base = base.where(Signal.window == window)
@@ -272,7 +274,7 @@ def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterat
         ).all()
         n_en = sum(1 for r in rows if r[11])
         tr_model = _model_id("translation")
-        yield step("search", t0, title="Search corpus", subtitle="Postgres", icon="database",
+        yield step("search", t0, title="Search corpus", subtitle="SQLite snapshot" if DEMO else "Postgres", icon="database",
                    status="ok" if n_match else "empty",
                    summary=f"{n_match:,} of {n_total:,} signals match",
                    rows=[["scanned", f"{n_total:,} signals"], ["matched", f"{n_match:,}"],
@@ -361,17 +363,21 @@ def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterat
     ok, ev_items = 0, []
     for r in top:
         e, good = evs.get(r[7]), False
-        if e is not None:
+        if e is not None and DEMO:   # the page copies are not shipped; the hash recorded at collection time is
+            good = True
+            ok += 1
+        elif e is not None:
             p: Path = ROOT / e.html_uri
             good = bool(p.exists() and verify(p, e.sha256))
             ok += good
         ev_items.append({"title": r[1] or "(no title)", "sub": (r[7] or "no archive")[:16] + ("…" if r[7] else ""),
-                         "tag": "intact" if good else ("mismatch" if e is not None else "missing"),
+                         "tag": ("on record" if DEMO else "intact") if good else ("mismatch" if e is not None else "missing"),
                          "state": "ok" if good else "bad",
-                         "href": f"/evidence/{r[7]}/text" if e is not None and e.text_uri else f"/signals/{r[0]}"})
+                         "href": f"/evidence/{r[7]}/text" if e is not None and e.text_uri and not DEMO else f"/signals/{r[0]}"})
     yield step("evidence", t0, title="Evidence vault", subtitle="SHA-256", icon="lock",
                status="ok" if ok == len(top) else "warn",
-               summary=f"{ok}/{len(top)} archived pages match their hash",
+               summary=(f"{ok}/{len(top)} items carry a SHA-256 recorded at collection (page copies are not shipped in the demo)"
+                        if DEMO else f"{ok}/{len(top)} archived pages match their hash"),
                rows=[["checked", str(len(top))], ["intact", str(ok)], ["store", "write-once, served as plain text"]],
                explain="When Parse collects a page it stores a copy and its SHA-256 fingerprint. Here it re-reads "
                        "each copy behind the top items and checks the fingerprint, so you know the page has not "
@@ -413,7 +419,8 @@ def run(q: str, window: str = "", lang: str = "", fresh: bool = False) -> Iterat
         yield step("classify", t0, title="Threat labels", subtitle="Qwen classifier", icon="spark", status="skip",
                    summary="Not labelled yet · paid run, skipped",
                    rows=[["status", "None of these signals has labels in the database yet."],
-                         ["why skipped", "Classifier calls are billed on Featherless and need approval (--approve)."]],
+                         ["why skipped", "Open a signal and press Label with your own Featherless key to run it." if DEMO
+                          else "Classifier calls are billed on Featherless and need approval (--approve)."]],
                    explain="This is where a model would mark each item with threat and narrative labels. None of "
                            "the top items has been labelled yet, and Ask never starts a paid model run on its own.",
                    ai=_ai("available", "A model stage sits here but has not run on these items, so no model "

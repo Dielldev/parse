@@ -12,7 +12,7 @@ from functools import lru_cache
 
 import yaml
 
-from parse.settings import CONFIG_DIR, DATA_DIR
+from parse.settings import CONFIG_DIR, DATA_DIR, DEMO
 
 LEDGER = DATA_DIR / "spend_ledger.csv"
 FIELDS = ["timestamp", "stage", "model", "input_tokens", "output_tokens", "usd", "note"]
@@ -46,18 +46,22 @@ def cost(role: str, in_tok: int, out_tok: int) -> float:
 
 
 def spent() -> float:
-    if not LEDGER.exists():
+    if DEMO or not LEDGER.exists():   # demo: the visitor pays on their own key; nothing is recorded here
         return 0.0
     return sum(float(r["usd"]) for r in csv.DictReader(LEDGER.open()))
 
 
 def check(estimate_usd: float) -> None:
+    if DEMO:
+        return
     total = spent() + estimate_usd
     if total > total_budget():
         raise BudgetExceeded(f"would reach ${total:.2f}, over the ${total_budget():.2f} budget in config/models.yaml")
 
 
 def record(stage: str, model_id: str, in_tok: int, out_tok: int, usd: float, note: str = "") -> None:
+    if DEMO:
+        return
     with _lock:
         new = not LEDGER.exists()
         with LEDGER.open("a", newline="") as fh:

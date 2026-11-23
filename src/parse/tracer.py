@@ -34,13 +34,14 @@ from urllib.parse import urlparse
 from sqlalchemy import Integer, cast, func, or_, select
 
 from parse.db import session
+from parse.dbcompat import blob as sql_blob, regex_hit, regex_match, seconds_apart
 from parse.ids import new_id
 from parse.models import DiscoveryQueue, Event, EventEdge, EventSignal, Signal, Source
 from parse.normalise.text import fold
 from parse.scoring import significance as sig_mod
 from parse.scoring import tps as tps_mod
 from parse.scoring.verdict import EvidenceItem, decide
-from parse.settings import thresholds
+from parse.settings import DEMO, thresholds
 
 TIER_NAMES = {0: "Official / primary", 1: "Established outlet", 2: "Specialist OSINT", 3: "Partisan or unverified"}
 # Explicit evidence beats textual likeness: a forward or a link says where a post came from; a copy only suggests it.
@@ -492,14 +493,14 @@ def _search(s, terms: list[str], around: datetime | None, days: int, limit: int,
             until: datetime | None = None) -> list[tuple]:
     """Signals matching at least `need` of the terms, closest to `around` first (newest first without it)."""
     from parse.web.ask import term_regex
-    blob = func.concat_ws(" ", Signal.title, Signal.text_latin, Signal.text_original, Signal.text_en)
-    hits = sum((cast(blob.op("~*")(term_regex(t)), Integer) for t in terms), start=0)
+    blob = sql_blob(Signal.title, Signal.text_latin, Signal.text_original, Signal.text_en)
+    hits = sum((regex_hit(blob, term_regex(t)) for t in terms), start=0)
     q = select(Signal, Source, hits.label("hits")).join(Source).where(hits >= need)
     if until:   # replay: only what had been published by then
         q = q.where(Signal.published_at <= until)
     if around:
         q = q.where(Signal.published_at.between(around - timedelta(days=days), around + timedelta(days=days)))
-        q = q.order_by(hits.desc(), func.abs(func.extract("epoch", Signal.published_at - around)))
+        q = q.order_by(hits.desc(), seconds_apart(Signal.published_at, around))
     else:
         q = q.order_by(hits.desc(), Signal.published_at.desc().nulls_last())
     return s.execute(q.limit(limit)).all()
@@ -523,6 +524,8 @@ def diverse_cut(nodes: list[Node], k: int, seed: Node, key) -> list[Node]:
 def _nearest(s, vec: list[float], around: datetime | None, days: int, limit: int,
              until: datetime | None = None) -> list[tuple]:
     """Posts closest in meaning to the seed, in any language, among those Parse has already embedded."""
+    if DEMO:
+        return []
     q = select(Signal, Source, Signal.embedding.cosine_distance(vec).label("d")).join(Source).where(
         Signal.embedding.is_not(None))
     if until:
@@ -534,6 +537,8 @@ def _nearest(s, vec: list[float], around: datetime | None, days: int, limit: int
 
 def _embed(nodes: list[Node]) -> tuple[int, int, str | None]:
     """Fill vectors: reuse stored embeddings, compute the missing ones locally and store them. Returns (reused, new)."""
+    if DEMO:
+        raise TraceError("the web demo ships no embedding model")
     from parse import budget
     from parse.llm import embed_texts
     from parse.normalise.embed import MAX_CHARS
@@ -567,8 +572,8 @@ def _embed(nodes: list[Node]) -> tuple[int, int, str | None]:
 def _baseline(s, terms: list[str], start: datetime, weeks: int = 4) -> list[int]:
     """How many posts matched the same words in the same hour of the week, in each of the weeks before."""
     from parse.web.ask import term_regex
-    blob = func.concat_ws(" ", Signal.title, Signal.text_latin, Signal.text_original)
-    cond = or_(*[blob.op("~*")(term_regex(t)) for t in terms[:3]])
+    blob = sql_blob(Signal.title, Signal.text_latin, Signal.text_original)
+    cond = or_(*[regex_match(blob, term_regex(t)) for t in terms[:3]])
     out = []
     for w in range(1, weeks + 1):
         a = start - timedelta(weeks=w)
@@ -678,6 +683,9 @@ def _resolve_seed(seed: dict) -> tuple[Node | None, Signal | None, str, dict]:
     """Returns (probe node or None, seed signal or None, seed text, info about how the seed was read)."""
     kind = seed.get("kind")
     info: dict = {"kind": kind}
+    if DEMO and kind in ("url", "image"):
+        raise TraceError("The web demo traces archived posts and pasted text. Links and screenshots are fetched and "
+                         "read by the full pipeline, which does not run here.")
     if kind == "signal":
         with session() as s:
             row = s.execute(select(Signal, Source).join(Source).where(Signal.signal_id == seed.get("signal_id"))).first()
@@ -763,7 +771,7 @@ def run(seed: dict, ai: bool = False, fresh: bool = False, persist: bool = True,
         return
 
     # 1b. field agents: newer reports into the archive before tracing
-    if fresh:
+    if fresh and not DEMO:
         from parse.web.ask import _agents_step
         ag = _agents_step(terms[:4])
         ag["id"], ag["n"] = "agents", 1
@@ -1086,8 +1094,10 @@ def run(seed: dict, ai: bool = False, fresh: bool = False, persist: bool = True,
                 return ml.stance_text(claim, f"{n.title}\n\n{n.body[:3500]}", subject_id=n.id)
             except Exception as e:  # noqa: BLE001
                 return e
+        import contextvars
+        ctxs = [contextvars.copy_context() for _ in pool]   # worker threads must see this request's model key
         with ThreadPoolExecutor(ml.WORKERS) as ex:
-            answers = list(ex.map(one, pool))
+            answers = list(ex.map(lambda a: a[0].run(one, a[1]), zip(ctxs, pool)))
         for item, r in zip(checks, answers):
             if isinstance(r, Exception):
                 stance_note = ml.explain(r)
@@ -1103,12 +1113,12 @@ def run(seed: dict, ai: bool = False, fresh: bool = False, persist: bool = True,
         verdict = {"verdict": v.verdict, "reason": v.reason, "evidence_ids": v.evidence_ids,
                    "suggested_checks": v.suggested_checks, "checked": True}
     else:
-        why = stance_note or ("the answer engine is Parse Retrieval (no model calls)" if not ai
-                              else "FEATHERLESS_API_KEY is not set")
+        why = stance_note or (("no Featherless key added" if DEMO else "the answer engine is Parse Retrieval (no model calls)")
+                              if not ai else "FEATHERLESS_API_KEY is not set")
         verdict = {"verdict": "UNVERIFIED", "checked": False, "evidence_ids": [],
                    "reason": f"Stance not checked: {why}. Truth and spread are scored apart, so the trace stands.",
-                   "suggested_checks": ["Switch the answer engine to Qwen to check the claim against each independent "
-                                        "origin group, or read the cited posts below."]}
+                   "suggested_checks": [("Add your Featherless key (top right) to check the claim against each independent " if DEMO else "Switch the answer engine to Qwen to check the claim against each independent ")
+                                       + "origin group, or read the cited posts below."]}
     verdict["checks"] = checks
     usd = sum(u.get("usd", 0.0) for u in usage_all)
     yield step("verify", t0, n=9, title="Check the claim", status="ok" if verdict["checked"] else "skip",

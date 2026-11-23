@@ -1,0 +1,24 @@
+# Keep the deploy bundle to what the web demo needs (see vercel.json includeFiles).
+.git
+.venv
+.env
+.env.*
+.pytest_cache
+.DS_Store
+data
+video
+vidoes
+notebooks
+tests
+migrations
+docs
+scripts
+*.pptx
+*.deckcraft
+*.pdf
+*.png
+pyproject.toml
+uv.lock
+alembic.ini
+docker-compose.yml
+demo/parse_demo.sqlite

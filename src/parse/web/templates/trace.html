@@ -21,8 +21,8 @@
 <section class="tr-input panel" aria-label="What to trace">
   <div class="tr-tabs" role="tablist">
     <button type="button" role="tab" class="tr-tab on" data-kind="text" aria-selected="true">Text</button>
-    <button type="button" role="tab" class="tr-tab" data-kind="image" aria-selected="false">Screenshot</button>
-    <button type="button" role="tab" class="tr-tab" data-kind="url" aria-selected="false">Link</button>
+    <button type="button" role="tab" class="tr-tab" data-kind="image" aria-selected="false" {{ "hidden" if demo }}>Screenshot</button>
+    <button type="button" role="tab" class="tr-tab" data-kind="url" aria-selected="false" {{ "hidden" if demo }}>Link</button>
     <button type="button" role="tab" class="tr-tab" data-kind="signal" aria-selected="false">Signal ID</button>
   </div>
   <form id="tr-form" autocomplete="off">
@@ -48,7 +48,7 @@
       <input id="tr-signal" placeholder="sig_01J…" value="{{ prefill.signal or '' }}">
     </div>
     <div class="tr-row">
-      <label class="toggle" title="Before tracing, send agents to live news and official sources for newer reports"><input type="checkbox" id="tr-fresh"> Field agents first</label>
+      <label class="toggle" {{ "hidden" if demo }} title="Before tracing, send agents to live news and official sources for newer reports"><input type="checkbox" id="tr-fresh"> Field agents first</label>
       <span class="tr-engine mono" id="tr-engine"></span>
       <span class="spacer"></span>
       <button type="submit" class="tr-go" id="tr-go">Trace <svg class="ic sm"><use href="#i-arrow"/></svg></button>

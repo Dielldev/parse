@@ -187,7 +187,7 @@
   // Field agents: report what they brought back, or offer to send them for newer reports.
   function agentsBlock(a) {
     const g = a.agents;
-    if (!g || !g.topic) return '';
+    if (!g || !g.topic || document.documentElement.hasAttribute('data-demo')) return '';   // agents are not in the web demo
     const open = `<a class="ag-ask-link" href="/agents?topic=${encodeURIComponent(g.topic)}">Choose sources on the Agents page →</a>`;
     if (g.sent) return `<div class="ag-ask" style="--i:${a.bullets.length + 1}"><span class="ag-code m-wp-search">AGT</span>
       <p><b>${g.kept ? `Field agents brought back ${g.kept} new item${g.kept === 1 ? '' : 's'}` : 'Field agents found nothing newer'}</b>
@@ -687,7 +687,8 @@
           ${linksHTML([{label: t ? `Its items on “${t}”` : 'Its items', href: `/signals?source=${encodeURIComponent(b.id)}${t ? `&q=${encodeURIComponent(t)}` : ''}`},
                        {label: 'Everything from this source', href: `/signals?source=${encodeURIComponent(b.id)}`},
                        {label: `Tier ${b.tier} sources`, href: `/sources?tier=${b.tier}`},
-                       {label: 'Send agents for newer items', href: `/agents?topic=${encodeURIComponent(t || this.q)}`}])}`;
+                       ...(document.documentElement.hasAttribute('data-demo') ? [] :
+                         [{label: 'Send agents for newer items', href: `/agents?topic=${encodeURIComponent(t || this.q)}`}])])}`;
       }
       if (d.cite) {
         const c = d.cite;

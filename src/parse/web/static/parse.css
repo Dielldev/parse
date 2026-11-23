@@ -520,3 +520,6 @@ input[type=checkbox]:checked::after { content: ""; width: 6px; height: 6px; back
 /* links into the Tracer from Ask answers and signal pages */
 .trace-cta { margin: 14px 0 4px; font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .trace-cta a, a.trace-this { text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* the hidden attribute must beat component display rules (the demo hides pipeline-only controls) */
+[hidden] { display: none !important; }

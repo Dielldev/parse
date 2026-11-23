@@ -1,0 +1,4795 @@
+{
+ "running": true,
+ "mode": "replay",
+ "window": "canal_2024_11",
+ "ai": true,
+ "stage": "wait",
+ "stage_counts": {
+  "collect": 49,
+  "filter": 49,
+  "group": 35,
+  "trace": 3,
+  "alert": 1
+ },
+ "cycle": 3,
+ "clock": "2024-11-29T21:00:00+00:00",
+ "end": "2024-12-07T00:00:00+00:00",
+ "step_min": 180,
+ "interval": 200.0,
+ "started_at": "2026-11-22T01:52:10.904352+00:00",
+ "last_cycle_at": "2026-11-22T01:59:23.739820+00:00",
+ "next_cycle_at": "2026-11-22T02:02:10.918193+00:00",
+ "session": "wch_01M80F8A4RAMY6N5VXWGY1DGSC",
+ "finished": false,
+ "totals": {
+  "posts": 140,
+  "kosovo": 138,
+  "stories": 95,
+  "traced_stories": 9,
+  "traces": 9,
+  "alerts": 1
+ },
+ "stories": [
+  {
+   "id": "st082",
+   "event_id": "evt_01M80FN0CYNH9YE3C8VC3K1SFE",
+   "title": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+   "posts": 4,
+   "sources": 4,
+   "langs": {
+    "sr-Cyrl": 2,
+    "sr-Latn": 2
+   },
+   "first": "2024-11-29T19:47:00+00:00",
+   "last": "2024-11-29T20:56:53+00:00",
+   "accounts": [
+    "Sputnik Srbija",
+    "In4s",
+    "Kurir",
+    "KoSSev"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T19:47:00+00:00",
+     "lang": "sr-Cyrl",
+     "tier": 3,
+     "source": "Sputnik Srbija",
+     "title": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+     "id": "sig_01JDWQCPS02M7H1MS45EQJ3GFY"
+    },
+    {
+     "t": "2024-11-29T19:51:16+00:00",
+     "lang": "sr-Cyrl",
+     "tier": 3,
+     "source": "In4s",
+     "title": "Експлозија у Зубином Потоку, оштећен канал Ибар-Лепенац",
+     "id": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE"
+    },
+    {
+     "t": "2024-11-29T20:44:38+00:00",
+     "lang": "sr-Latn",
+     "tier": 3,
+     "source": "Kurir",
+     "title": "EKSPLOZIJA U ZUBINOM POTOKU: Oštećen kanal Ibar-Lepenac (VIDEO)",
+     "id": "sig_01JDWTP7QGPEWZH51WKG9PZYF4"
+    },
+    {
+     "t": "2024-11-29T20:56:53+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Prekinuto vodosnabdevanje nakon oštećenja kanala Ibar-Lepenac, Mujka: Postavljen dinamit",
+     "id": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 4,
+   "priority": "P1",
+   "tps": 53.5,
+   "verdict": "CORROBORATED",
+   "verdict_checked": true,
+   "origin": {
+    "source": "Sputnik Srbija",
+    "when": "2024-11-29T19:47:00+00:00",
+    "title": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+    "confidence": 0.65,
+    "tier": 3,
+    "signal_id": "sig_01JDWQCPS02M7H1MS45EQJ3GFY"
+   },
+   "amplifiers": [
+    "Reporteri"
+   ],
+   "graph_posts": 15,
+   "edges": 5,
+   "headline": "“Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје” · earliest observed at Sputnik Srbija on 29 Nov 2024, 19:47 UTC, then carried by 8 more outlet(s) over 36.5 hours.",
+   "narrative": "A story about a strong explosion in Zubin Potok, causing damage to the Ibar-Lepenac water canal and disrupting water supply and electricity in Gračanica spread online. It was first seen on Sputnik Srbija on 29 Nov 2024, 19:47 UTC, then carried by 8 more outlet(s) over 36.5 hours. The earliest observed source is Sputnik Srbija (Tier 3, partisan or unverified). It was amplified by Reporteri. Outlets reported an explosion in Varage, damage to the water canal, and disruption of water and electricity. Verdict: CORROBORATED. 6 independent origin groups at tier <= 2 support it.",
+   "acceptance": {
+    "root": true,
+    "nodes": 15,
+    "edges": 5,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+     "status": "ok",
+     "ms": 6.7,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "15 posts in this story, from 92 archive matches",
+     "status": "ok",
+     "ms": 264.4,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "5 edges · 10 independent origin groups",
+     "status": "ok",
+     "ms": 2.6,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Sputnik Srbija · 29 Nov 2024, 19:47 UTC",
+     "status": "ok",
+     "ms": 0.3,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by Reporteri",
+     "status": "ok",
+     "ms": 3.5,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "0 new upstream sources for the discovery queue",
+     "status": "ok",
+     "ms": 24.2,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 115.9,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "10 origin groups · peak 10/h · Sensitive: names Gazivode, Ibar-Lepenac, Ibër-Lepenc, KEK, M",
+     "status": "ok",
+     "ms": 8.3,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "CORROBORATED · 6 independent origin groups at tier <= 2 support it.",
+     "status": "ok",
+     "ms": 12500.6,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје” · earliest observed at Sputnik Srbija on 29 Nov 2024, 19:47 UTC, then carried by 8 mo",
+     "status": "ok",
+     "ms": 2748.9,
+     "n": 10
+    }
+   ],
+   "alert": {
+    "alert_id": "alr_01M80FNGTSFA2VNAFRFT6PBERZ",
+    "priority": "P1",
+    "at": "2024-11-29T21:00:00+00:00",
+    "minutes_after_first": 73,
+    "first_mainstream": {
+     "source": "KoSSev",
+     "t": "2024-11-29T20:56:53+00:00"
+    }
+   },
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T20:56:53+00:00"
+   }
+  },
+  {
+   "id": "st059",
+   "event_id": "evt_01M80FNGST1KMV7G748JEEZDHS",
+   "title": "Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi",
+   "posts": 3,
+   "sources": 3,
+   "langs": {
+    "sq": 3
+   },
+   "first": "2024-11-29T17:26:40+00:00",
+   "last": "2024-11-29T18:05:12+00:00",
+   "accounts": [
+    "Klan Kosova",
+    "Reporteri",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T17:26:40+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi",
+     "id": "sig_01JDWFBR40CVF1C284835QZAJ6"
+    },
+    {
+     "t": "2024-11-29T17:51:28+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Policia shton masat e sigurisë në nivel vendi, përmend “sulmet/incidentet serioze kriminale” ditëve të fundit në veri",
+     "id": "sig_01JDWGS580BCPD9C97HNGHQZ4S"
+    },
+    {
+     "t": "2024-11-29T18:05:12+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Policia rrit masat e sigurisë në tërë Kosovën, kjo është arsyeja",
+     "id": "sig_01JDWHJ9Y08WWJEG91B21EW20H"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 3,
+   "priority": "P3",
+   "tps": 37.9,
+   "verdict": "CORROBORATED",
+   "verdict_checked": true,
+   "origin": {
+    "source": "Klan Kosova",
+    "when": "2024-11-29T17:26:40+00:00",
+    "title": "Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi",
+    "confidence": 0.8,
+    "tier": 1,
+    "signal_id": "sig_01JDWFBR40CVF1C284835QZAJ6"
+   },
+   "amplifiers": [
+    "Kallxo (BIRN Kosovo)",
+    "Reporteri",
+    "Insajderi"
+   ],
+   "graph_posts": 9,
+   "edges": 4,
+   "headline": "“Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi” · earliest observed at Klan Kosova on 29 Nov 2024, 17:26 UTC, then carried by 7 more outlet(s) over 16.1 hours.",
+   "narrative": "The story is about the Kosovo Police increasing security measures across the country to ensure public safety and prevent incidents. It was first seen on Klan Kosova on 29 Nov 2024, 17:26 UTC, then amplified by 7 more outlets over 16.1 hours. The earliest observed source is Klan Kosova (Tier 1, established outlet). It was consistent with a known network, amplified by Kallxo (BIRN Kosovo), Reporteri, and Insajderi. Outlets reported that the police increased security measures in response to recent serious criminal incidents in the north, including attacks on police stations and other locations.",
+   "acceptance": {
+    "root": true,
+    "nodes": 9,
+    "edges": 4,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi",
+     "status": "ok",
+     "ms": 2.1,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "9 posts in this story, from 693 archive matches",
+     "status": "ok",
+     "ms": 550.9,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "4 edges · 5 independent origin groups",
+     "status": "ok",
+     "ms": 1.0,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Klan Kosova · 29 Nov 2024, 17:26 UTC",
+     "status": "ok",
+     "ms": 0.2,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by Kallxo (BIRN Kosovo), Reporteri, Insajderi",
+     "status": "ok",
+     "ms": 3.8,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "0 new upstream sources for the discovery queue",
+     "status": "ok",
+     "ms": 23.8,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 137.5,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "5 origin groups · peak 5/h · Sensitive: names Obilić, Zubin Potok, Zvecan, Zveçan, Zvečan",
+     "status": "ok",
+     "ms": 6.6,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "CORROBORATED · 4 independent origin groups at tier <= 2 support it.",
+     "status": "ok",
+     "ms": 7291.7,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi” · earliest observed at Klan Kosova on 29 Nov 2024, 17:26 UTC, then carried by 7 more o",
+     "status": "ok",
+     "ms": 8323.3,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Klan Kosova",
+    "t": "2024-11-29T17:26:40+00:00"
+   }
+  },
+  {
+   "id": "st001",
+   "event_id": "evt_01M80F8SWHFW4NCX8E43QMES8Q",
+   "title": "Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar”",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T12:01:33+00:00",
+   "last": "2024-11-29T13:58:31+00:00",
+   "accounts": [
+    "Reporteri",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:01:33+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar”",
+     "id": "sig_01JDVWREA8D8V34QQEH273QJ8S"
+    },
+    {
+     "t": "2024-11-29T13:58:31+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Suspendohen 6 policë, pretendohet se nuk reaguan kur persona të maskuar fshinë një grafit në Mitrovicë të Veriut",
+     "id": "sig_01JDW3EKTRZV0FZ6WPBKG8AJJK"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 2,
+   "priority": "P3",
+   "tps": 40.7,
+   "verdict": "UNVERIFIED",
+   "verdict_checked": false,
+   "origin": {
+    "source": "Reporteri",
+    "when": "2024-11-29T12:01:33+00:00",
+    "title": "Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar”",
+    "confidence": 0.7,
+    "tier": 3,
+    "signal_id": "sig_01JDVWREA8D8V34QQEH273QJ8S"
+   },
+   "amplifiers": [
+    "KoSSev",
+    "Kurir"
+   ],
+   "graph_posts": 13,
+   "edges": 8,
+   "headline": "“Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar” · earliest observed at Reporteri on 29 Nov 2024, 12:01 UTC, then carried by 8 more outlet(s) over 27.7 hours.",
+   "narrative": "This story is about mitrovici, murala, police, mitrovice. Its earliest observed source in the archive is Reporteri (29 Nov 2024, 12:01 UTC). From there it reached 12 more post(s), amplified by KoSSev, Kurir. The claim is unverified and the event scores P3.",
+   "acceptance": {
+    "root": true,
+    "nodes": 13,
+    "edges": 8,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar”",
+     "status": "ok",
+     "ms": 7.1,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "13 posts in this story, from 98 archive matches",
+     "status": "ok",
+     "ms": 286.5,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "8 edges · 5 independent origin groups",
+     "status": "ok",
+     "ms": 1.7,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Reporteri · 29 Nov 2024, 12:01 UTC",
+     "status": "ok",
+     "ms": 0.2,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by KoSSev, Kurir",
+     "status": "ok",
+     "ms": 3.2,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "Every linked source is already in the registry",
+     "status": "empty",
+     "ms": 27.2,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 134.8,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "5 origin groups · peak 6/h · Sensitive: names Mitrovica, Mitrovicë, Obilić, veriu; falls ",
+     "status": "ok",
+     "ms": 8.0,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "UNVERIFIED · Stance not checked: the answer engine is Parse Retrieval (no model calls). Truth and spread are scored apart, so the tra",
+     "status": "skip",
+     "ms": 1.0,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjohur fshinë grafitin në  sheshin“Car Lazar” · earliest observed at Reporteri on 29 Nov 2024, 12:01 UTC, then ca",
+     "status": "ok",
+     "ms": 0.3,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T13:58:31+00:00"
+   }
+  },
+  {
+   "id": "st014",
+   "event_id": "evt_01M80FG1GVH0K1PJP06SYNPQDG",
+   "title": "Kosovski MUP odlučio da prizna srpska dokumenta radi registracije u kosovski",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sr-Latn": 2
+   },
+   "first": "2024-11-29T13:06:04+00:00",
+   "last": "2024-11-29T17:01:23+00:00",
+   "accounts": [
+    "KoSSev",
+    "Telegraf"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:06:04+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Kosovski MUP odlučio da prizna srpska dokumenta radi registracije u kosovski",
+     "id": "sig_01JDW0EJK03M9M8X0PSP3E1T5M"
+    },
+    {
+     "t": "2024-11-29T17:01:23+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "Telegraf",
+     "title": "MUP tzv. Kosova odlučio da prizna srpska dokumenta radi registracije",
+     "id": "sig_01JDWDXENR9ESHJ4XB8HV4P1RF"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 2,
+   "priority": "P3",
+   "tps": 31.1,
+   "verdict": "UNVERIFIED",
+   "verdict_checked": false,
+   "origin": {
+    "source": "Insajderi",
+    "when": "2024-11-29T11:27:10+00:00",
+    "title": "MPB-ja merr vendimin, do të regjistrohen faktet e gjendjes civile",
+    "confidence": 0.8,
+    "tier": 1,
+    "signal_id": "sig_01JDVTSFNGH81FJSMPB15AKN9C"
+   },
+   "amplifiers": [
+    "Kallxo (BIRN Kosovo)",
+    "Radio KiM",
+    "KoSSev"
+   ],
+   "graph_posts": 7,
+   "edges": 4,
+   "headline": "“MPB-ja merr vendimin, do të regjistrohen faktet e gjendjes civile” · earliest observed at Insajderi on 29 Nov 2024, 11:27 UTC, then carried by 6 more outlet(s) over 12.5 hours.",
+   "narrative": "This story is about srpska, dokumenta, prizna, odlucio. Its earliest observed source in the archive is Insajderi (29 Nov 2024, 11:27 UTC). From there it reached 6 more post(s), amplified by Kallxo (BIRN Kosovo), Radio KiM, KoSSev. The claim is unverified and the event scores P3.",
+   "acceptance": {
+    "root": true,
+    "nodes": 7,
+    "edges": 4,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Kosovski MUP odlučio da prizna srpska dokumenta radi registracije u kosovski",
+     "status": "ok",
+     "ms": 7.5,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "7 posts in this story, from 189 archive matches",
+     "status": "ok",
+     "ms": 382.8,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "4 edges · 3 independent origin groups",
+     "status": "ok",
+     "ms": 0.6,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Insajderi · 29 Nov 2024, 11:27 UTC",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by Kallxo (BIRN Kosovo), Radio KiM, KoSSev",
+     "status": "ok",
+     "ms": 3.4,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "Every linked source is already in the registry",
+     "status": "empty",
+     "ms": 7.1,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 113.4,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "3 origin groups · peak 3/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 5.5,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "UNVERIFIED · Stance not checked: the answer engine is Parse Retrieval (no model calls). Truth and spread are scored apart, so the tra",
+     "status": "skip",
+     "ms": 1.0,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“MPB-ja merr vendimin, do të regjistrohen faktet e gjendjes civile” · earliest observed at Insajderi on 29 Nov 2024, 11:27 UTC, then carried by 6 more outlet(s) over 12.5 hours.",
+     "status": "ok",
+     "ms": 0.2,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T13:06:04+00:00"
+   }
+  },
+  {
+   "id": "st020",
+   "event_id": "evt_01M80F8SD4DZ87V0Q4DKSTK6V1",
+   "title": "PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti",
+   "posts": 4,
+   "sources": 3,
+   "langs": {
+    "sq": 4
+   },
+   "first": "2024-11-29T13:24:30+00:00",
+   "last": "2024-11-29T15:06:26+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)",
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:24:30+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti",
+     "id": "sig_01JDW1GANGM3THPFWJMRZ4990K"
+    },
+    {
+     "t": "2024-11-29T13:46:09+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "PDK-ja njofton se do ta padisë për shpifje deputeten e VV-së: Sanksionet Kosovës ia ka sjellë vetë Kurti",
+     "id": "sig_01JDW2QZ78TDKBXWHBG3FH9MG1"
+    },
+    {
+     "t": "2024-11-29T14:13:35+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "PDK paralajmëron “padi për shpifje” ndaj deputetes së LVV-së, Arbëreshë Kryeziu-Hyseni",
+     "id": "sig_01JDW4A6MRJABJ87J23EG05QVN"
+    },
+    {
+     "t": "2024-11-29T15:06:26+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Paralajmërimi për padi, deputetja Kryeziu-Hyseni i reagon Çitakut",
+     "id": "sig_01JDW7AZAGKJ8HKNG4DWC5SXFC"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 3,
+   "priority": "P4",
+   "tps": 14.8,
+   "verdict": "DISPUTED",
+   "verdict_checked": true,
+   "origin": {
+    "source": "Insajderi",
+    "when": "2024-11-29T13:24:30+00:00",
+    "title": "PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti",
+    "confidence": 0.55,
+    "tier": 1,
+    "signal_id": "sig_01JDW1GANGM3THPFWJMRZ4990K"
+   },
+   "amplifiers": [
+    "Reporteri"
+   ],
+   "graph_posts": 10,
+   "edges": 2,
+   "headline": "“PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti” · earliest observed at Insajderi on 29 Nov 2024, 13:24 UTC, then carried by 4 more outlet(s) over 2.1 days.",
+   "narrative": "The story is about the PDK announcing a complaint against a VV deputy, Arbëreshë Kryeziu-Hyseni, for alleged interference in the EU sanctions against Kosovo. It was first seen on Insajderi on 29 Nov 2024, 13:24 UTC, then carried by 4 more outlet(s) over 2.1 days. The earliest observed source is Insajderi (Tier 1, established outlet). It was amplified by Reporteri. Verdict: DISPUTED. 2 supporting and 1 contradicting item(s).",
+   "acceptance": {
+    "root": true,
+    "nodes": 10,
+    "edges": 2,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti",
+     "status": "ok",
+     "ms": 5.5,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "10 posts in this story, from 136 archive matches",
+     "status": "ok",
+     "ms": 273.8,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "2 edges · 8 independent origin groups",
+     "status": "ok",
+     "ms": 0.6,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Insajderi · 29 Nov 2024, 13:24 UTC",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by Reporteri",
+     "status": "ok",
+     "ms": 3.0,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "0 new upstream sources for the discovery queue",
+     "status": "ok",
+     "ms": 6.2,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 132.2,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "8 origin groups · peak 3/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 8.1,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "DISPUTED · 2 supporting and 1 contradicting item(s).",
+     "status": "ok",
+     "ms": 12468.0,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkuese i solli Kurti” · earliest observed at Insajderi on 29 Nov 2024, 13:24 UTC, then carried by 4 more outlet(s)",
+     "status": "ok",
+     "ms": 2582.6,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T13:24:30+00:00"
+   }
+  },
+  {
+   "id": "st032",
+   "event_id": "evt_01M80FFHWSJ3MG2F6E2VRJ35AW",
+   "title": "Tajvani heq regjimin e vizave për kosovarët – detajet",
+   "posts": 4,
+   "sources": 4,
+   "langs": {
+    "sq": 4
+   },
+   "first": "2024-11-29T14:18:10+00:00",
+   "last": "2024-11-29T16:13:05+00:00",
+   "accounts": [
+    "Insajderi",
+    "Kallxo (BIRN Kosovo)",
+    "Reporteri",
+    "Klan Kosova"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:18:10+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Tajvani heq regjimin e vizave për kosovarët – detajet",
+     "id": "sig_01JDW4JK6G75K1GKFCK39ZFP8Q"
+    },
+    {
+     "t": "2024-11-29T14:41:40+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Kosovarët mund të udhëtojnë pa viza në Tajvan nga 1 dhjetori",
+     "id": "sig_01JDW5XM50JZ879F4K9MA2JB0F"
+    },
+    {
+     "t": "2024-11-29T15:03:22+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Tajvani heq vizat për shtetasit e Kosovës",
+     "id": "sig_01JDW75BMGXF7T6AJKF3V3J2CJ"
+    },
+    {
+     "t": "2024-11-29T16:13:05+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Nga 1 dhjetori, kosovarët do të mund të udhëtojnë pa viza drejt Tajvanit - thotë MPJ-ja",
+     "id": "sig_01JDWB50K89DY9N7Z4ZP4D2V5V"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 4,
+   "priority": "P4",
+   "tps": 27.2,
+   "verdict": "DISPUTED",
+   "verdict_checked": true,
+   "origin": {
+    "source": "Insajderi",
+    "when": "2024-11-29T14:18:10+00:00",
+    "title": "Tajvani heq regjimin e vizave për kosovarët – detajet",
+    "confidence": 0.8,
+    "tier": 1,
+    "signal_id": "sig_01JDW4JK6G75K1GKFCK39ZFP8Q"
+   },
+   "amplifiers": [
+    "KoSSev",
+    "Radio KiM",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "graph_posts": 11,
+   "edges": 6,
+   "headline": "“Tajvani heq regjimin e vizave për kosovarët – detajet” · earliest observed at Insajderi on 29 Nov 2024, 14:18 UTC, then carried by 8 more outlet(s) over 14.6 hours.",
+   "narrative": "The story is about Tajvan lifting visa restrictions for Kosovar citizens. It was first seen on Insajderi on 29 Nov 2024, 14:18 UTC, and was amplified by 8 other outlets over 14.6 hours. The earliest observed source is Insajderi (Tier 1, established outlet). The story was amplified by KoSSev, Radio KiM, and Kallxo (BIRN Kosovo). The verdict is DISPUTED with 2 supporting and 1 contradicting item(s).",
+   "acceptance": {
+    "root": true,
+    "nodes": 11,
+    "edges": 6,
+    "passes": true
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Tajvani heq regjimin e vizave për kosovarët – detajet",
+     "status": "ok",
+     "ms": 6.0,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "11 posts in this story, from 438 archive matches",
+     "status": "ok",
+     "ms": 483.4,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "6 edges · 5 independent origin groups",
+     "status": "ok",
+     "ms": 1.2,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Insajderi · 29 Nov 2024, 14:18 UTC",
+     "status": "ok",
+     "ms": 0.2,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by KoSSev, Radio KiM, Kallxo (BIRN Kosovo)",
+     "status": "ok",
+     "ms": 3.9,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "0 new upstream sources for the discovery queue",
+     "status": "ok",
+     "ms": 14.6,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 133.4,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "5 origin groups · peak 3/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 7.8,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "DISPUTED · 2 supporting and 1 contradicting item(s).",
+     "status": "ok",
+     "ms": 34047.1,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Tajvani heq regjimin e vizave për kosovarët – detajet” · earliest observed at Insajderi on 29 Nov 2024, 14:18 UTC, then carried by 8 more outlet(s) over 14.6 hours.",
+     "status": "ok",
+     "ms": 2398.8,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:18:10+00:00"
+   }
+  },
+  {
+   "id": "st005",
+   "event_id": "evt_01M80F8T4XVY92DXMW13JQQ2HC",
+   "title": "Vetura ra poshtë rrugës 32 metra, mësohen detajet e vdekjes së 22 vjeçares nga aksidenti sot në Kaçanik",
+   "posts": 3,
+   "sources": 3,
+   "langs": {
+    "sq": 3
+   },
+   "first": "2024-11-29T12:14:54+00:00",
+   "last": "2024-11-29T16:00:19+00:00",
+   "accounts": [
+    "Reporteri",
+    "Klan Kosova",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:14:54+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Vetura ra poshtë rrugës 32 metra, mësohen detajet e vdekjes së 22 vjeçares nga aksidenti sot në Kaçanik",
+     "id": "sig_01JDVXGWHGXQM7QQ4EVQQWV8GB"
+    },
+    {
+     "t": "2024-11-29T12:37:31+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Policia jep detaje për aksidentin me fatalitet në Kaçanik",
+     "id": "sig_01JDVYT9QRHWJ2499YS3JCY4WS"
+    },
+    {
+     "t": "2024-11-29T16:00:19+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Vetura ra në humnerë disa metra – kjo është 22 vjeçarja që humbi jetën në rrugën Han i Elezit-Kaçanik",
+     "id": "sig_01JDWADMHRSDNTK4H4DMG19GTF"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 2,
+   "priority": "P4",
+   "tps": 14.2,
+   "verdict": "UNVERIFIED",
+   "verdict_checked": false,
+   "origin": {
+    "source": "Reporteri",
+    "when": "2024-11-29T08:28:04+00:00",
+    "title": "Vetura bie në humnerë në magjistralen Kaçanik-Hani i Elezit, vdes një person",
+    "confidence": 0.7,
+    "tier": 3,
+    "signal_id": "sig_01JDVGHHH0TK1KJJAFD1C2NQWW"
+   },
+   "amplifiers": [
+    "Reporteri"
+   ],
+   "graph_posts": 4,
+   "edges": 1,
+   "headline": "“Vetura bie në humnerë në magjistralen Kaçanik-Hani i Elezit, vdes një person” · earliest observed at Reporteri on 29 Nov 2024, 08:28 UTC, then carried by 1 more outlet(s) over 4.8 hours.",
+   "narrative": "This story is about vetura, kacanik. Its earliest observed source in the archive is Reporteri (29 Nov 2024, 08:28 UTC). From there it reached 3 more post(s), amplified by Reporteri. The claim is unverified and the event scores P4.",
+   "acceptance": {
+    "root": true,
+    "nodes": 4,
+    "edges": 1,
+    "passes": false
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Vetura ra poshtë rrugës 32 metra, mësohen detajet e vdekjes së 22 vjeçares nga aksidenti sot në Kaçanik",
+     "status": "ok",
+     "ms": 2.2,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "4 posts in this story, from 49 archive matches",
+     "status": "ok",
+     "ms": 167.2,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "1 edges · 3 independent origin groups",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Reporteri · 29 Nov 2024, 08:28 UTC",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "Amplified by Reporteri",
+     "status": "ok",
+     "ms": 2.5,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "Every linked source is already in the registry",
+     "status": "empty",
+     "ms": 1.9,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 83.0,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "3 origin groups · peak 2/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 3.9,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "UNVERIFIED · Stance not checked: the answer engine is Parse Retrieval (no model calls). Truth and spread are scored apart, so the tra",
+     "status": "skip",
+     "ms": 1.0,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Vetura bie në humnerë në magjistralen Kaçanik-Hani i Elezit, vdes një person” · earliest observed at Reporteri on 29 Nov 2024, 08:28 UTC, then carried by 1 more outlet(s) over 4.8",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Klan Kosova",
+    "t": "2024-11-29T12:37:31+00:00"
+   }
+  },
+  {
+   "id": "st028",
+   "event_id": "evt_01M80FG0ZWAM0RZVV0R2D7PVEV",
+   "title": "Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve",
+   "posts": 3,
+   "sources": 3,
+   "langs": {
+    "sq": 3
+   },
+   "first": "2024-11-29T14:06:05+00:00",
+   "last": "2024-11-29T15:10:32+00:00",
+   "accounts": [
+    "Insajderi",
+    "Kallxo (BIRN Kosovo)",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:06:05+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve",
+     "id": "sig_01JDW3WF684E2XH4HPFJB2GQSK"
+    },
+    {
+     "t": "2024-11-29T14:59:21+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "U.D. Kryeprokurori i Shtetit thotë se mos ndarja e buxhetit për prokurorë dhe staf shtesë do të sjellë pamundësinë e mba",
+     "id": "sig_01JDW6Y098ZA71KFMKHS07J6DD"
+    },
+    {
+     "t": "2024-11-29T15:10:32+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "U.d i Kryeprokurorit ankohet se s’iu aprovua buxheti për shtimin e numrit të prokurorëve dhe stafit",
+     "id": "sig_01JDW7JFJ0YF13RDBRXKBFQTAN"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 3,
+   "priority": "P4",
+   "tps": 14.2,
+   "verdict": "CORROBORATED",
+   "verdict_checked": true,
+   "origin": {
+    "source": "Insajderi",
+    "when": "2024-11-29T14:06:05+00:00",
+    "title": "Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve",
+    "confidence": 0.8,
+    "tier": 1,
+    "signal_id": "sig_01JDW3WF684E2XH4HPFJB2GQSK"
+   },
+   "amplifiers": [],
+   "graph_posts": 3,
+   "edges": 1,
+   "headline": "“Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve” · earliest observed at Insajderi on 29 Nov 2024, 14:06 UTC, then carried by 2 more outlet(s) over 1.1 hours.",
+   "narrative": "The story claims that the Kurti government is withholding funds to increase the number of prosecutors. It was first seen on Insajderi on 29 Nov 2024, 14:06 UTC, and was amplified by two other outlets within 1.1 hours [1]. The earliest observed source is Insajderi, and the spread involved 1 copy edges. Outlets reported that the head of the State Prosecution, Besim Kelmendi, criticized the government and parliament for not approving the budget for additional prosecutors and staff [1]. The story is corroborated by 2 independent origin groups at tier <= 2.",
+   "acceptance": {
+    "root": true,
+    "nodes": 3,
+    "edges": 1,
+    "passes": false
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve",
+     "status": "ok",
+     "ms": 7.2,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "3 posts in this story, from 274 archive matches",
+     "status": "ok",
+     "ms": 385.3,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "1 edges · 2 independent origin groups",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Insajderi · 29 Nov 2024, 14:06 UTC",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "No source passed the story on inside the archive",
+     "status": "ok",
+     "ms": 3.2,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "Every linked source is already in the registry",
+     "status": "empty",
+     "ms": 6.2,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 93.8,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "2 origin groups · peak 2/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 5.8,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "CORROBORATED · 2 independent origin groups at tier <= 2 support it.",
+     "status": "ok",
+     "ms": 7053.6,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar numrin e prokurorëve” · earliest observed at Insajderi on 29 Nov 2024, 14:06 UTC, then carried by 2 more out",
+     "status": "ok",
+     "ms": 7862.5,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:06:05+00:00"
+   }
+  },
+  {
+   "id": "st036",
+   "event_id": "evt_01M80FN0TXNSVRG95FWRCTN2V7",
+   "title": "Presidentja Osmani kremton Festën e Falënderimeve me ushtarët në Bondsteel",
+   "posts": 3,
+   "sources": 2,
+   "langs": {
+    "sq": 3
+   },
+   "first": "2024-11-29T14:28:27+00:00",
+   "last": "2024-11-29T18:29:43+00:00",
+   "accounts": [
+    "Reporteri",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:28:27+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Presidentja Osmani kremton Festën e Falënderimeve me ushtarët në Bondsteel",
+     "id": "sig_01JDW55DQRHECGYCH23F6DKKE1"
+    },
+    {
+     "t": "2024-11-29T14:56:04+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Osmani në Boondsteel për Festën e Falënderimeve, shpreh mirënjohje për ushtarët amerikanë",
+     "id": "sig_01JDW6QZX08FRK7N5ZP8791EJH"
+    },
+    {
+     "t": "2024-11-29T18:29:43+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Maqedonci falënderon ushtarët amerikanë për punën e tyre për mbrojtjen dhe sigurinë në Kosovë",
+     "id": "sig_01JDWJZ6ERP63R8VH2NWE1ES09"
+    }
+   ],
+   "traced": true,
+   "traces": 1,
+   "traced_posts": 3,
+   "priority": "P4",
+   "tps": 13.7,
+   "verdict": "UNVERIFIED",
+   "verdict_checked": false,
+   "origin": {
+    "source": "Reporteri",
+    "when": "2024-11-29T11:35:34+00:00",
+    "title": "Hovenier: Falënderues për ushtarët amerikanë që shërbejnë në Kosovë",
+    "confidence": 0.7,
+    "tier": 3,
+    "signal_id": "sig_01JDVV8VVG5BHJWQS1BVHNNG6G"
+   },
+   "amplifiers": [],
+   "graph_posts": 4,
+   "edges": 0,
+   "headline": "“Hovenier: Falënderues për ushtarët amerikanë që shërbejnë në Kosovë” · earliest observed at Reporteri on 29 Nov 2024, 11:35 UTC, then carried by 1 more outlet(s) over 6.9 hours.",
+   "narrative": "This story is about ushtaret, amerikane, falenderimeve, osmani. Its earliest observed source in the archive is Reporteri (29 Nov 2024, 11:35 UTC). From there it reached 3 more post(s). The claim is unverified and the event scores P4.",
+   "acceptance": {
+    "root": true,
+    "nodes": 4,
+    "edges": 0,
+    "passes": false
+   },
+   "steps": [
+    {
+     "id": "seed",
+     "title": "Seed",
+     "summary": "Presidentja Osmani kremton Festën e Falënderimeve me ushtarët në Bondsteel",
+     "status": "ok",
+     "ms": 9.5,
+     "n": 1
+    },
+    {
+     "id": "expand",
+     "title": "Expand backwards",
+     "summary": "4 posts in this story, from 174 archive matches",
+     "status": "ok",
+     "ms": 298.9,
+     "n": 2
+    },
+    {
+     "id": "graph",
+     "title": "Build the graph",
+     "summary": "0 edges · 4 independent origin groups",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 3
+    },
+    {
+     "id": "origin",
+     "title": "Pick the origin",
+     "summary": "Earliest observed source: Reporteri · 29 Nov 2024, 11:35 UTC",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 4
+    },
+    {
+     "id": "amplifiers",
+     "title": "Find the amplifiers",
+     "summary": "No source passed the story on inside the archive",
+     "status": "ok",
+     "ms": 3.0,
+     "n": 5
+    },
+    {
+     "id": "discover",
+     "title": "Discover new sources",
+     "summary": "Every linked source is already in the registry",
+     "status": "empty",
+     "ms": 8.9,
+     "n": 6
+    },
+    {
+     "id": "world",
+     "title": "Link to the real world",
+     "summary": "0 official posts in the story, 0 nearby · trigger date: Albanian Flag Day / canal attack anniversary",
+     "status": "ok",
+     "ms": 96.6,
+     "n": 7
+    },
+    {
+     "id": "score",
+     "title": "Score significance",
+     "summary": "4 origin groups · peak 2/h · Sensitive: falls in the trigger window for Albanian Flag Day",
+     "status": "ok",
+     "ms": 3.6,
+     "n": 8
+    },
+    {
+     "id": "verify",
+     "title": "Check the claim",
+     "summary": "UNVERIFIED · Stance not checked: the answer engine is Parse Retrieval (no model calls). Truth and spread are scored apart, so the tra",
+     "status": "skip",
+     "ms": 0.9,
+     "n": 9
+    },
+    {
+     "id": "brief",
+     "title": "Write the brief",
+     "summary": "“Hovenier: Falënderues për ushtarët amerikanë që shërbejnë në Kosovë” · earliest observed at Reporteri on 29 Nov 2024, 11:35 UTC, then carried by 1 more outlet(s) over 6.9 hours.",
+     "status": "ok",
+     "ms": 0.1,
+     "n": 10
+    }
+   ],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T14:28:27+00:00"
+   }
+  },
+  {
+   "id": "st067",
+   "event_id": null,
+   "title": "Kosovska policija povećala mjere sigurnosti širom zemlje",
+   "posts": 3,
+   "sources": 3,
+   "langs": {
+    "sr-Latn": 3
+   },
+   "first": "2024-11-29T18:30:30+00:00",
+   "last": "2024-11-29T19:27:15+00:00",
+   "accounts": [
+    "RFE/RL Serbian",
+    "KoSSev",
+    "Radio KiM"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T18:30:30+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "RFE/RL Serbian",
+     "title": "Kosovska policija povećala mjere sigurnosti širom zemlje",
+     "id": "sig_01JDWK0MBGZPG7Q0BZEQAJZDP9"
+    },
+    {
+     "t": "2024-11-29T18:30:52+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "KP pojačala mere: Više policije na terenu i punktova u kritičnim zonama, uključujući Sever",
+     "id": "sig_01JDWK19V0BG6DMDAJTCCP06JN"
+    },
+    {
+     "t": "2024-11-29T19:27:15+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "Radio KiM",
+     "title": "Kosovska policija pojačala mere bezbednosti",
+     "id": "sig_01JDWP8HHRNKWT6Q7HCQ28QVGT"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "RFE/RL Serbian",
+    "t": "2024-11-29T18:30:30+00:00"
+   }
+  },
+  {
+   "id": "st084",
+   "event_id": null,
+   "title": "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+   "posts": 3,
+   "sources": 3,
+   "langs": {
+    "sq": 3
+   },
+   "first": "2024-11-29T19:54:34+00:00",
+   "last": "2024-11-29T20:57:15+00:00",
+   "accounts": [
+    "Reporteri",
+    "Insajderi",
+    "Klan Kosova"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T19:54:34+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+     "id": "sig_01JDWQTJ4GGCBB4479VQ5C377D"
+    },
+    {
+     "t": "2024-11-29T20:47:26+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "“Një shtëpi ka dëme …” shpërthim i fuqishëm në Zubin Potok, Zeqiri jep detaje",
+     "id": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW"
+    },
+    {
+     "t": "2024-11-29T20:57:15+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Shpërthimi në Zubin Potok: Pamje nga vendi i ngjarjes, policia prezente",
+     "id": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T20:47:26+00:00"
+   }
+  },
+  {
+   "id": "st008",
+   "event_id": null,
+   "title": "Dok traje istraga, Svečlja za sinoćnu eksploziju u Zvečanu optužuje kriminalne grupe u režiji Beograda",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sr-Latn": 2
+   },
+   "first": "2024-11-29T12:24:13+00:00",
+   "last": "2024-11-29T14:36:38+00:00",
+   "accounts": [
+    "KoSSev",
+    "Kurir"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:24:13+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Dok traje istraga, Svečlja za sinoćnu eksploziju u Zvečanu optužuje kriminalne grupe u režiji Beograda",
+     "id": "sig_01JDVY1YE8FZBXVJJBYTRHGBAY"
+    },
+    {
+     "t": "2024-11-29T14:36:38+00:00",
+     "lang": "sr-Latn",
+     "tier": 3,
+     "source": "Kurir",
+     "title": "JOŠ SE ZNA KO JE BACIO EKSPLOZIV NA ZGRADU OPŠTINE ZVEČAN: Gradonačelnik tvrdi da je delo terorističke grupe, policija n",
+     "id": "sig_01JDW5MD7GEE04DCA4TXHFBHPH"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T12:24:13+00:00"
+   }
+  },
+  {
+   "id": "st016",
+   "event_id": null,
+   "title": "Vrasja e kosovarit në Florida, reagon motra e tij: Pajtimin e vrau gruaja",
+   "posts": 2,
+   "sources": 1,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T13:14:08+00:00",
+   "last": "2024-11-29T17:15:27+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:14:08+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Vrasja e kosovarit në Florida, reagon motra e tij: Pajtimin e vrau gruaja",
+     "id": "sig_01JDW0XB80Q9R8TPBFR098MD1W"
+    },
+    {
+     "t": "2024-11-29T17:15:27+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "“Gruaja e qëlloi burrin disa herë”, policia amerikane jep detaje për çiftin kosovar që u gjetën të vdekur",
+     "id": "sig_01JDWEQ6WRW649FBWHVWHWRVQ1"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T13:14:08+00:00"
+   }
+  },
+  {
+   "id": "st018",
+   "event_id": null,
+   "title": "Arrestohen tre persona në Pejë, policia thotë se janё recidivistë",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T13:20:47+00:00",
+   "last": "2024-11-29T13:50:48+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:20:47+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Arrestohen tre persona në Pejë, policia thotë se janё recidivistë",
+     "id": "sig_01JDW19GWR69QRN4E0YBB151EY"
+    },
+    {
+     "t": "2024-11-29T13:50:48+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Arrestohen tre persona në Pejë, policia thotë se janё recidivistë",
+     "id": "sig_01JDW30FP0KVJG01VNB4PJ29R8"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T13:20:47+00:00"
+   }
+  },
+  {
+   "id": "st021",
+   "event_id": null,
+   "title": "Pacolli i LDK-së publikon pamje: Njeriu i pushtetit mori grant 100 mijë euro nga Ministria e Pecit dy vite më parë, toka s’u punua",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T13:38:54+00:00",
+   "last": "2024-11-29T14:57:54+00:00",
+   "accounts": [
+    "Reporteri",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:38:54+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Pacolli i LDK-së publikon pamje: Njeriu i pushtetit mori grant 100 mijë euro nga Ministria e Pecit dy vite më parë, toka",
+     "id": "sig_01JDW2APDGSNYS28DZ7RKYK7YY"
+    },
+    {
+     "t": "2024-11-29T14:57:54+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Aktivisti i LDK-së e publikon një video, ngre dyshime se njeriu i VV-së mori 100 mijë euro grant e nuk punoi asgjë",
+     "id": "sig_01JDW6VBAGZTXS7R5E2J9Q0Z07"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:57:54+00:00"
+   }
+  },
+  {
+   "id": "st024",
+   "event_id": null,
+   "title": "Policia kërkon ndihmë në lokalizimin e një gruaje në Pejë, dyshohet se ka kryer vjedhje",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T13:48:13+00:00",
+   "last": "2024-11-29T15:09:43+00:00",
+   "accounts": [
+    "Insajderi",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:48:13+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Policia kërkon ndihmë në lokalizimin e një gruaje në Pejë, dyshohet se ka kryer vjedhje",
+     "id": "sig_01JDW2VRA8EZNNDEB6JGQVAMVK"
+    },
+    {
+     "t": "2024-11-29T15:09:43+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Policia në Pejë kërkon ndihmën e qytetarëve për të lokalizuar një grua të dyshuar për vjedhje – FOTO",
+     "id": "sig_01JDW7GZPR39R6YA3AMBV7SX35"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T13:48:13+00:00"
+   }
+  },
+  {
+   "id": "st025",
+   "event_id": null,
+   "title": "Çikat e Kosovës “shkatërrojnë” Estoninë në “Fadil Vokrri”",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T13:57:11+00:00",
+   "last": "2024-11-29T14:52:26+00:00",
+   "accounts": [
+    "Insajderi",
+    "Klan Kosova"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:57:11+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Çikat e Kosovës “shkatërrojnë” Estoninë në “Fadil Vokrri”",
+     "id": "sig_01JDW3C5PRW83A0F0BYZF2F44M"
+    },
+    {
+     "t": "2024-11-29T14:52:26+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Çikat e Kosovës shkëlqejnë ndaj Estonisë, \"Dardanet\" fitojnë 8-0",
+     "id": "sig_01JDW6HB0G9BC0B9KHDQBVH8T2"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T13:57:11+00:00"
+   }
+  },
+  {
+   "id": "st034",
+   "event_id": null,
+   "title": "Hoti: Serbia nuk do zbatim të deklaratës për të zhdukurit",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T14:24:36+00:00",
+   "last": "2024-11-29T15:19:06+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:24:36+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Hoti: Serbia nuk do zbatim të deklaratës për të zhdukurit",
+     "id": "sig_01JDW4YC50NWCEX57S3TT7JFCD"
+    },
+    {
+     "t": "2024-11-29T15:19:06+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Hoti: Serbia nuk dëshiron zbatimin e deklaratës për të zhdukurit",
+     "id": "sig_01JDW825GG6PDS9PPR43YQTKD1"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:24:36+00:00"
+   }
+  },
+  {
+   "id": "st039",
+   "event_id": null,
+   "title": "Ko to, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sr-Latn": 2
+   },
+   "first": "2024-11-29T14:44:39+00:00",
+   "last": "2024-11-29T17:22:59+00:00",
+   "accounts": [
+    "KoSSev",
+    "Radio KiM"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:44:39+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Ko to, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+     "id": "sig_01JDW632YRBG4YGKZG69WNQRDE"
+    },
+    {
+     "t": "2024-11-29T17:22:59+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "Radio KiM",
+     "title": "Ko, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+     "id": "sig_01JDWF509RAV72KPJZMKS6H95A"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T14:44:39+00:00"
+   }
+  },
+  {
+   "id": "st047",
+   "event_id": null,
+   "title": "Haradinaj në përvjetorin e pafajësisë së tij, beson në lirimin e bashkëluftëtarëve që po gjykohen në Hagë",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T15:35:10+00:00",
+   "last": "2024-11-29T15:37:11+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T15:35:10+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Haradinaj në përvjetorin e pafajësisë së tij, beson në lirimin e bashkëluftëtarëve që po gjykohen në Hagë",
+     "id": "sig_01JDW8ZJXGW7M1WCRHZW31F5KA"
+    },
+    {
+     "t": "2024-11-29T15:37:11+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Haradinaj në përvjetorin e pafajësisë së tij, beson në lirimin e bashkëluftëtarëve që po gjykohen në Hagë",
+     "id": "sig_01JDW9392RYNBSRWFZ7C7SV0NB"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T15:35:10+00:00"
+   }
+  },
+  {
+   "id": "st048",
+   "event_id": null,
+   "title": "Raspisna potraga za vozačem iz Sremske Mitrovice: Automobilom ubio čoveka pa pobegao",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sr-Latn": 2
+   },
+   "first": "2024-11-29T15:51:50+00:00",
+   "last": "2024-11-29T17:08:20+00:00",
+   "accounts": [
+    "Blic",
+    "Kurir"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T15:51:50+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "Blic",
+     "title": "Raspisna potraga za vozačem iz Sremske Mitrovice: Automobilom ubio čoveka pa pobegao",
+     "id": "sig_01JDW9Y3FGC6HTRYA9EJE73Z3M"
+    },
+    {
+     "t": "2024-11-29T17:08:20+00:00",
+     "lang": "sr-Latn",
+     "tier": 3,
+     "source": "Kurir",
+     "title": "AUTOMOBILOM UBIO ČOVEKA, PA POBEGAO! Putari našli telo muškarca (56), za vozačem raspisana potraga! Drama u Sremskoj Mit",
+     "id": "sig_01JDWEA5X0P7D4Q22973VKC8GP"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Blic",
+    "t": "2024-11-29T15:51:50+00:00"
+   }
+  },
+  {
+   "id": "st054",
+   "event_id": null,
+   "title": "UNDP jep donacion pajisje për Policinë Kufitare",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T16:44:44+00:00",
+   "last": "2024-11-29T20:32:53+00:00",
+   "accounts": [
+    "Reporteri",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T16:44:44+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "UNDP jep donacion pajisje për Policinë Kufitare",
+     "id": "sig_01JDWCYZ309MG5PQHTRYWEN49P"
+    },
+    {
+     "t": "2024-11-29T20:32:53+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Policia e Kosovës pranon donacion nga UNDP-ja",
+     "id": "sig_01JDWT0Q88M4SQ966X4FD3W1V7"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T20:32:53+00:00"
+   }
+  },
+  {
+   "id": "st055",
+   "event_id": null,
+   "title": "Dy shpërthime me granatë dore brenda një jave në Zveçan, kryetari i komunës e zyrtarë të Qeverisë dënojnë aktin",
+   "posts": 2,
+   "sources": 1,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T16:45:49+00:00",
+   "last": "2024-11-29T17:41:52+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T16:45:49+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Dy shpërthime me granatë dore brenda një jave në Zveçan, kryetari i komunës e zyrtarë të Qeverisë dënojnë aktin",
+     "id": "sig_01JDWD0YJ8QM1FRYHWCQBJ3YDJ"
+    },
+    {
+     "t": "2024-11-29T17:41:52+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Pas shpërthimeve me granata dore në Zveçan, Policia shton masat e sigurisë në vend",
+     "id": "sig_01JDWG7JR08XSS7E6N947RRQQZ"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T16:45:49+00:00"
+   }
+  },
+  {
+   "id": "st062",
+   "event_id": null,
+   "title": "Në fund të mandatit, Kurti njofton se është hapur tenderi për ndërtimin e objekteve të banimit të përballueshëm",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T17:45:08+00:00",
+   "last": "2024-11-29T18:11:43+00:00",
+   "accounts": [
+    "Reporteri",
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T17:45:08+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Në fund të mandatit, Kurti njofton se është hapur tenderi për ndërtimin e objekteve të banimit të përballueshëm",
+     "id": "sig_01JDWGDJ50JBBQW5V6E5XSSENQ"
+    },
+    {
+     "t": "2024-11-29T18:11:43+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Kurti njofton për hapjen e tenderit për ndërtimin e objekteve për banim të përballueshëm në katër komuna",
+     "id": "sig_01JDWHY7RRZ9G5D93K45QZT4HA"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T18:11:43+00:00"
+   }
+  },
+  {
+   "id": "st069",
+   "event_id": null,
+   "title": "Abdixhiku të dielën takohet me mërgatën në Zvicër",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T18:43:18+00:00",
+   "last": "2024-11-29T18:55:44+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T18:43:18+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Abdixhiku të dielën takohet me mërgatën në Zvicër",
+     "id": "sig_01JDWKR2BGBPE89S3GVPWVNPCP"
+    },
+    {
+     "t": "2024-11-29T18:55:44+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Abdixhiku të dielën takohet me mërgatën në Zvicër, shpalos programin politik “Rruga e re”",
+     "id": "sig_01JDWMETW0QH6MQYY0AF943NEG"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T18:43:18+00:00"
+   }
+  },
+  {
+   "id": "st072",
+   "event_id": null,
+   "title": "Haradinaj: Rinia, shtylla e ndryshimit për Kosovën fituese",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T18:54:07+00:00",
+   "last": "2024-11-29T19:32:38+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T18:54:07+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Haradinaj: Rinia, shtylla e ndryshimit për Kosovën fituese",
+     "id": "sig_01JDWMBW4RXFF5JZAFT7FY9VT4"
+    },
+    {
+     "t": "2024-11-29T19:32:38+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Haradinaj: Rinia e AAK-së është e përgatitur të jetë shtylla e ndryshimit",
+     "id": "sig_01JDWPJCZGQMKX76VCCFH8XTBF"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T18:54:07+00:00"
+   }
+  },
+  {
+   "id": "st074",
+   "event_id": null,
+   "title": "“Dashuri e vështirë” mes Qeverisë së Kosovës dhe SHBA-së",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T19:06:20+00:00",
+   "last": "2024-11-29T19:37:34+00:00",
+   "accounts": [
+    "Insajderi",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T19:06:20+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "“Dashuri e vështirë” mes Qeverisë së Kosovës dhe SHBA-së",
+     "id": "sig_01JDWN27Z0PNF2JXQ74QAHPV65"
+    },
+    {
+     "t": "2024-11-29T19:37:34+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "“Dashuri e vështirë” mes Qeverisë së Kosovës dhe SHBA-së",
+     "id": "sig_01JDWPVE1GAQS2MGH886EV51SJ"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T19:06:20+00:00"
+   }
+  },
+  {
+   "id": "st086",
+   "event_id": null,
+   "title": "Lajm në Zhvillim: Shpërthim në Zubin Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T20:03:56+00:00",
+   "last": "2024-11-29T20:29:31+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T20:03:56+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Lajm në Zhvillim: Shpërthim në Zubin Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+     "id": "sig_01JDWRBPZ0F3PYABJ7WNQNW8T2"
+    },
+    {
+     "t": "2024-11-29T20:29:31+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Shperthimi në kanalin e “Iber Lepencit”, e dënon edhe politikani serb nga Veriu",
+     "id": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T20:03:56+00:00"
+   }
+  },
+  {
+   "id": "st090",
+   "event_id": null,
+   "title": "Pas shpërthimit në Zubin Potok, KRU “Mitrovica” kërkon nga qytetarët të sigurojnë rezerva të ujit të pijes",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T20:17:49+00:00",
+   "last": "2024-11-29T20:42:51+00:00",
+   "accounts": [
+    "Reporteri",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T20:17:49+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Pas shpërthimit në Zubin Potok, KRU “Mitrovica” kërkon nga qytetarët të sigurojnë rezerva të ujit të pijes",
+     "id": "sig_01JDWS54E80J95TP6D2T4STBTW"
+    },
+    {
+     "t": "2024-11-29T20:42:51+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Shpërthimi në Zubin Potok, KRU “Mitrovica” del me një njoftim të rëndësishëm",
+     "id": "sig_01JDWTJZ7R745S7604SETEY521"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T20:42:51+00:00"
+   }
+  },
+  {
+   "id": "st093",
+   "event_id": null,
+   "title": "Mujka: Shpërthimi në kanalin e \"Ibër Lepencit\" është akt terrorist, dëmton edhe KEK-un",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T20:38:23+00:00",
+   "last": "2024-11-29T20:49:00+00:00",
+   "accounts": [
+    "Klan Kosova",
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T20:38:23+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Mujka: Shpërthimi në kanalin e \"Ibër Lepencit\" është akt terrorist, dëmton edhe KEK-un",
+     "id": "sig_01JDWTASGRHHWRY9ANCGWY6VVY"
+    },
+    {
+     "t": "2024-11-29T20:49:00+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Mujka: Shpërthimi në kanalin e “Ibër Lepencit” është akt terrorist, dëmton edhe KEK-un",
+     "id": "sig_01JDWTY7K0BCR3K9PJCQNF90VA"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Klan Kosova",
+    "t": "2024-11-29T20:38:23+00:00"
+   }
+  },
+  {
+   "id": "st095",
+   "event_id": null,
+   "title": "“Mjaft më me filma”, Haradinaj e quan naive qasjen e Qeverisë ndaj veriut",
+   "posts": 2,
+   "sources": 2,
+   "langs": {
+    "sq": 2
+   },
+   "first": "2024-11-29T20:56:45+00:00",
+   "last": "2024-11-29T20:58:21+00:00",
+   "accounts": [
+    "Reporteri",
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T20:56:45+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "“Mjaft më me filma”, Haradinaj e quan naive qasjen e Qeverisë ndaj veriut",
+     "id": "sig_01JDWVCDP8VEBBZDA3V9D9X3B3"
+    },
+    {
+     "t": "2024-11-29T20:58:21+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Shpërthimet në veri, Haradinaj: Institucionet e sigurisë të punojnë ngushtë me KFOR dhe prezencën amerikane",
+     "id": "sig_01JDWVFBE81T1RBB4CJ4MSR51A"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T20:58:21+00:00"
+   }
+  },
+  {
+   "id": "st002",
+   "event_id": null,
+   "title": "Gracanica Municipality Calls for KFOR Intervention After Provocative Flag Day Parade",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "en": 1
+   },
+   "first": "2024-11-29T12:03:25+00:00",
+   "last": "2024-11-29T12:03:25+00:00",
+   "accounts": [
+    "KoSSev"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:03:25+00:00",
+     "lang": "en",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Gracanica Municipality Calls for KFOR Intervention After Provocative Flag Day Parade",
+     "id": "sig_01JDVWVVP8AT03K78344SJ4FAZ"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T12:03:25+00:00"
+   }
+  },
+  {
+   "id": "st003",
+   "event_id": null,
+   "title": "Specijalizovana veća u Hagu naložila isplatu reparacije žrtvama u slučaju Pjetra Šalje u iznosu od 208.000 evra",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sr-Latn": 1
+   },
+   "first": "2024-11-29T12:05:50+00:00",
+   "last": "2024-11-29T12:05:50+00:00",
+   "accounts": [
+    "KoSSev"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:05:50+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "KoSSev",
+     "title": "Specijalizovana veća u Hagu naložila isplatu reparacije žrtvama u slučaju Pjetra Šalje u iznosu od 208.000 evra",
+     "id": "sig_01JDVX099GH65R99571CPR9W3D"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "KoSSev",
+    "t": "2024-11-29T12:05:50+00:00"
+   }
+  },
+  {
+   "id": "st004",
+   "event_id": null,
+   "title": "Mantelbardhët paralajmërojnë protestë",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:10:56+00:00",
+   "last": "2024-11-29T12:10:56+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:10:56+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Mantelbardhët paralajmërojnë protestë",
+     "id": "sig_01JDVX9M40MP2AWDDDAPC8VVPG"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T12:10:56+00:00"
+   }
+  },
+  {
+   "id": "st006",
+   "event_id": null,
+   "title": "Pjetër Shala urdhërohet t’i paguajë 208 mijë euro si kompensim për viktimat",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:16:09+00:00",
+   "last": "2024-11-29T12:16:09+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:16:09+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Pjetër Shala urdhërohet t’i paguajë 208 mijë euro si kompensim për viktimat",
+     "id": "sig_01JDVXK5S82R82GAEDMGMFW1SN"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T12:16:09+00:00"
+   }
+  },
+  {
+   "id": "st007",
+   "event_id": null,
+   "title": "Reshjet e shiut dhe borës, Policia bën thirrje për kujdes të shtuar në trafik",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:23:57+00:00",
+   "last": "2024-11-29T12:23:57+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:23:57+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Reshjet e shiut dhe borës, Policia bën thirrje për kujdes të shtuar në trafik",
+     "id": "sig_01JDVY1ET8FCWFB1TYJAWN58KY"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T12:23:57+00:00"
+   }
+  },
+  {
+   "id": "st009",
+   "event_id": null,
+   "title": "MPB miraton vendimin për regjistrimin e fakteve të gjendjes civile",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:34:14+00:00",
+   "last": "2024-11-29T12:34:14+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:34:14+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "MPB miraton vendimin për regjistrimin e fakteve të gjendjes civile",
+     "id": "sig_01JDVYM9BGXDD04J2804AFMZSX"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T12:34:14+00:00"
+   }
+  },
+  {
+   "id": "st010",
+   "event_id": null,
+   "title": "SMS mashtrues në WhatsApp me pretendimin se ofrohet mundësi për mbushje falas nga IPKO dhe VALA",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:39:25+00:00",
+   "last": "2024-11-29T12:39:25+00:00",
+   "accounts": [
+    "Hibrid.info"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:39:25+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Hibrid.info",
+     "title": "SMS mashtrues në WhatsApp me pretendimin se ofrohet mundësi për mbushje falas nga IPKO dhe VALA",
+     "id": "sig_01JDVYXS282AS0AWGPA4R03JXD"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Hibrid.info",
+    "t": "2024-11-29T12:39:25+00:00"
+   }
+  },
+  {
+   "id": "st011",
+   "event_id": null,
+   "title": "Kurti dënon sulmin në Zveçan: Nuk ka individ e as struktura që janë më të fuqishme se Kosova",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:49:42+00:00",
+   "last": "2024-11-29T12:49:42+00:00",
+   "accounts": [
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:49:42+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Kurti dënon sulmin në Zveçan: Nuk ka individ e as struktura që janë më të fuqishme se Kosova",
+     "id": "sig_01JDVZGKKGBB4B9GAAKK511MG2"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": null
+  },
+  {
+   "id": "st012",
+   "event_id": null,
+   "title": "IAPK-ja shpreh shqetësim ndaj rastit të dhunimit të një të dënuari në burgun e Dubravës",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:52:50+00:00",
+   "last": "2024-11-29T12:52:50+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:52:50+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "IAPK-ja shpreh shqetësim ndaj rastit të dhunimit të një të dënuari në burgun e Dubravës",
+     "id": "sig_01JDVZPB6GHS8S8NRWP6678ZYD"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T12:52:50+00:00"
+   }
+  },
+  {
+   "id": "st013",
+   "event_id": null,
+   "title": "Numër rekord i vizitorëve në ‘Reporting House’ më 28 nëntor",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T12:56:44+00:00",
+   "last": "2024-11-29T12:56:44+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T12:56:44+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Numër rekord i vizitorëve në ‘Reporting House’ më 28 nëntor",
+     "id": "sig_01JDVZXFQ0P0ZPMMKN5HJ9RMR6"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T12:56:44+00:00"
+   }
+  },
+  {
+   "id": "st015",
+   "event_id": null,
+   "title": "Нови притисак Приштине: Приморавају Србе да постану грађани лажне државе!",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sr-Cyrl": 1
+   },
+   "first": "2024-11-29T13:07:14+00:00",
+   "last": "2024-11-29T13:07:14+00:00",
+   "accounts": [
+    "In4s"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:07:14+00:00",
+     "lang": "sr-Cyrl",
+     "tier": 3,
+     "source": "In4s",
+     "title": "Нови притисак Приштине: Приморавају Србе да постану грађани лажне државе!",
+     "id": "sig_01JDW0GPYGPBF1J2KGMHBNR2G7"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": null
+  },
+  {
+   "id": "st017",
+   "event_id": null,
+   "title": "Goditet nga vetura një grua në Prizren, dërgohet në gjendje të rëndë në QKUK",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T13:15:58+00:00",
+   "last": "2024-11-29T13:15:58+00:00",
+   "accounts": [
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:15:58+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Goditet nga vetura një grua në Prizren, dërgohet në gjendje të rëndë në QKUK",
+     "id": "sig_01JDW10PNGC0T9WJAXAEPJEJDE"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": null
+  },
+  {
+   "id": "st019",
+   "event_id": null,
+   "title": "Nga Vetëvendosje i përgjigjen Hykmete Bajramit: E kishte mundësinë për përballje, nuk erdhe",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T13:23:27+00:00",
+   "last": "2024-11-29T13:23:27+00:00",
+   "accounts": [
+    "Reporteri"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:23:27+00:00",
+     "lang": "sq",
+     "tier": 3,
+     "source": "Reporteri",
+     "title": "Nga Vetëvendosje i përgjigjen Hykmete Bajramit: E kishte mundësinë për përballje, nuk erdhe",
+     "id": "sig_01JDW1ED4RFZVJQF83377DHPV5"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": null
+  },
+  {
+   "id": "st022",
+   "event_id": null,
+   "title": "Klubi i karatesë së Policisë së Kosovës fiton katër medalje",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T13:39:42+00:00",
+   "last": "2024-11-29T13:39:42+00:00",
+   "accounts": [
+    "Klan Kosova"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:39:42+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Klubi i karatesë së Policisë së Kosovës fiton katër medalje",
+     "id": "sig_01JDW2C59GKF9D8XQF7Y2QVQZ1"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Klan Kosova",
+    "t": "2024-11-29T13:39:42+00:00"
+   }
+  },
+  {
+   "id": "st023",
+   "event_id": null,
+   "title": "Dvostruki standardi Tužilaštva: Jedni oslobođeni optužbi, od drugih iznuđena priznanja",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sr-Latn": 1
+   },
+   "first": "2024-11-29T13:45:21+00:00",
+   "last": "2024-11-29T13:45:21+00:00",
+   "accounts": [
+    "Vreme"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:45:21+00:00",
+     "lang": "sr-Latn",
+     "tier": 1,
+     "source": "Vreme",
+     "title": "Dvostruki standardi Tužilaštva: Jedni oslobođeni optužbi, od drugih iznuđena priznanja",
+     "id": "sig_01JDW2PGB86RY32Z6B40GDRE65"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Vreme",
+    "t": "2024-11-29T13:45:21+00:00"
+   }
+  },
+  {
+   "id": "st026",
+   "event_id": null,
+   "title": "Shtyllat e Drejtësisë Tranzicionale – Konteksti i Kosovës / E ardhmja e Kosovës përmes Ballafaqimit me të Kaluarën",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T13:57:26+00:00",
+   "last": "2024-11-29T13:57:26+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T13:57:26+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Shtyllat e Drejtësisë Tranzicionale – Konteksti i Kosovës / E ardhmja e Kosovës përmes Ballafaqimit me të Kaluarën",
+     "id": "sig_01JDW3CMBGW8S4RD37P5APHKM7"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T13:57:26+00:00"
+   }
+  },
+  {
+   "id": "st027",
+   "event_id": null,
+   "title": "Bast-Trade vjen me zbritje të Black Friday deri në -50% në produktet hidro-sanitare",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:02:30+00:00",
+   "last": "2024-11-29T14:02:30+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:02:30+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Bast-Trade vjen me zbritje të Black Friday deri në -50% në produktet hidro-sanitare",
+     "id": "sig_01JDW3NX7GDB1H52N482PSCKCC"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:02:30+00:00"
+   }
+  },
+  {
+   "id": "st029",
+   "event_id": null,
+   "title": "‘Qysh kemi ardhë deri tek liria?’ – Kujtesa e cenuar tek gjeneratat e reja",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:07:56+00:00",
+   "last": "2024-11-29T14:07:56+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:07:56+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "‘Qysh kemi ardhë deri tek liria?’ – Kujtesa e cenuar tek gjeneratat e reja",
+     "id": "sig_01JDW3ZVK07YYC1AWR1HDPAYQA"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T14:07:56+00:00"
+   }
+  },
+  {
+   "id": "st030",
+   "event_id": null,
+   "title": "Shefi i ri i KE-së thotë se zgjerimi i BE-së me Kosovën e Ballkanin Perëndimor është mjet i fuqishëm për paqe",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:11:09+00:00",
+   "last": "2024-11-29T14:11:09+00:00",
+   "accounts": [
+    "Klan Kosova"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:11:09+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Klan Kosova",
+     "title": "Shefi i ri i KE-së thotë se zgjerimi i BE-së me Kosovën e Ballkanin Perëndimor është mjet i fuqishëm për paqe",
+     "id": "sig_01JDW45R285E224P49MNZHZARW"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Klan Kosova",
+    "t": "2024-11-29T14:11:09+00:00"
+   }
+  },
+  {
+   "id": "st031",
+   "event_id": null,
+   "title": "Rimendim i Muzeut Kombëtar të Kosovës në vrullin institucional të memorializimit",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:18:07+00:00",
+   "last": "2024-11-29T14:18:07+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:18:07+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Rimendim i Muzeut Kombëtar të Kosovës në vrullin institucional të memorializimit",
+     "id": "sig_01JDW4JG8RKJ6P5EBHER63CN0D"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T14:18:07+00:00"
+   }
+  },
+  {
+   "id": "st033",
+   "event_id": null,
+   "title": "Jonida Vokshi në fushatën e re të Sempre!",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:23:48+00:00",
+   "last": "2024-11-29T14:23:48+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:23:48+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Jonida Vokshi në fushatën e re të Sempre!",
+     "id": "sig_01JDW4WX90ZGAKNPTY2SYQRHP2"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:23:48+00:00"
+   }
+  },
+  {
+   "id": "st035",
+   "event_id": null,
+   "title": "Rritje e përmbajtjeve keqinformuese në TikTok për zgjedhjet",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:24:59+00:00",
+   "last": "2024-11-29T14:24:59+00:00",
+   "accounts": [
+    "Hibrid.info"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:24:59+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Hibrid.info",
+     "title": "Rritje e përmbajtjeve keqinformuese në TikTok për zgjedhjet",
+     "id": "sig_01JDW4Z2KRYAQTME084EMVW0WS"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Hibrid.info",
+    "t": "2024-11-29T14:24:59+00:00"
+   }
+  },
+  {
+   "id": "st037",
+   "event_id": null,
+   "title": "Policia kërkon bashkëpunim nga qytetarët për identifikimin e këtij personi",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:36:31+00:00",
+   "last": "2024-11-29T14:36:31+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:36:31+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Policia kërkon bashkëpunim nga qytetarët për identifikimin e këtij personi",
+     "id": "sig_01JDW5M6CRAMFAT7Y7ZTFEFH1G"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:36:31+00:00"
+   }
+  },
+  {
+   "id": "st038",
+   "event_id": null,
+   "title": "Shoqëria, që kaloi ‘traumën e krimeve’, pa trajtim të shëndetit mendor",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:43:03+00:00",
+   "last": "2024-11-29T14:43:03+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:43:03+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Shoqëria, që kaloi ‘traumën e krimeve’, pa trajtim të shëndetit mendor",
+     "id": "sig_01JDW6056RH9R76N5JBZB4MBFJ"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T14:43:03+00:00"
+   }
+  },
+  {
+   "id": "st040",
+   "event_id": null,
+   "title": "Lavrov përsërit pretendimin dezinformues se masakrat në Bucha dhe Reçak janë të inskenuara",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:47:11+00:00",
+   "last": "2024-11-29T14:47:11+00:00",
+   "accounts": [
+    "Hibrid.info"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:47:11+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Hibrid.info",
+     "title": "Lavrov përsërit pretendimin dezinformues se masakrat në Bucha dhe Reçak janë të inskenuara",
+     "id": "sig_01JDW67QCRDRJMDZPTGKZ4BZG3"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Hibrid.info",
+    "t": "2024-11-29T14:47:11+00:00"
+   }
+  },
+  {
+   "id": "st041",
+   "event_id": null,
+   "title": "Mediumi rumun për ndeshjen me Kosovën: Vendimi i UEFA-s ka dy arsye të veçanta",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:48:49+00:00",
+   "last": "2024-11-29T14:48:49+00:00",
+   "accounts": [
+    "Insajderi"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:48:49+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Insajderi",
+     "title": "Mediumi rumun për ndeshjen me Kosovën: Vendimi i UEFA-s ka dy arsye të veçanta",
+     "id": "sig_01JDW6AQ38JWM341RANHZ3TQG0"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Insajderi",
+    "t": "2024-11-29T14:48:49+00:00"
+   }
+  },
+  {
+   "id": "st042",
+   "event_id": null,
+   "title": "Dosja për inspektimin e naftës nga baxhanaku, Endrit Shala dhe Vesel Krasniqi deklarohen rreth fajësisë",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sq": 1
+   },
+   "first": "2024-11-29T14:51:23+00:00",
+   "last": "2024-11-29T14:51:23+00:00",
+   "accounts": [
+    "Kallxo (BIRN Kosovo)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T14:51:23+00:00",
+     "lang": "sq",
+     "tier": 1,
+     "source": "Kallxo (BIRN Kosovo)",
+     "title": "Dosja për inspektimin e naftës nga baxhanaku, Endrit Shala dhe Vesel Krasniqi deklarohen rreth fajësisë",
+     "id": "sig_01JDW6FDFRB3YBFPNAWT83Z3HC"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Kallxo (BIRN Kosovo)",
+    "t": "2024-11-29T14:51:23+00:00"
+   }
+  },
+  {
+   "id": "st043",
+   "event_id": null,
+   "title": "Председник Комитета Савета Русије за међународне послове: Нећемо мењати своју позицију по питању КиМ",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "sr-Cyrl": 1
+   },
+   "first": "2024-11-29T15:10:13+00:00",
+   "last": "2024-11-29T15:10:13+00:00",
+   "accounts": [
+    "RT Balkan"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T15:10:13+00:00",
+     "lang": "sr-Cyrl",
+     "tier": 3,
+     "source": "RT Balkan",
+     "title": "Председник Комитета Савета Русије за међународне послове: Нећемо мењати своју позицију по питању КиМ",
+     "id": "sig_01JDW7HX088QDQT22T0P8E9E03"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": null
+  },
+  {
+   "id": "st044",
+   "event_id": null,
+   "title": "‘Forgotten Recordings’: Criminal Investigations in Kosovo Often Use Unlawful Wiretapping of Suspects",
+   "posts": 1,
+   "sources": 1,
+   "langs": {
+    "en": 1
+   },
+   "first": "2024-11-29T15:16:10+00:00",
+   "last": "2024-11-29T15:16:10+00:00",
+   "accounts": [
+    "Prishtina Insight (BIRN)"
+   ],
+   "timeline": [
+    {
+     "t": "2024-11-29T15:16:10+00:00",
+     "lang": "en",
+     "tier": 1,
+     "source": "Prishtina Insight (BIRN)",
+     "title": "‘Forgotten Recordings’: Criminal Investigations in Kosovo Often Use Unlawful Wiretapping of Suspects",
+     "id": "sig_01JDW7WSMG9V5J1MEK3K5JK484"
+    }
+   ],
+   "traced": false,
+   "traces": 0,
+   "traced_posts": 0,
+   "priority": null,
+   "tps": null,
+   "verdict": null,
+   "verdict_checked": null,
+   "origin": null,
+   "amplifiers": [],
+   "graph_posts": 0,
+   "edges": 0,
+   "headline": null,
+   "narrative": null,
+   "acceptance": null,
+   "steps": [],
+   "alert": null,
+   "first_mainstream": {
+    "source": "Prishtina Insight (BIRN)",
+    "t": "2024-11-29T15:16:10+00:00"
+   }
+  }
+ ],
+ "feed": [
+  {
+   "id": "sig_01JDWVFBE81T1RBB4CJ4MSR51A",
+   "t": "2024-11-29T20:58:21+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shpërthimet në veri, Haradinaj: Institucionet e sigurisë të punojnë ngushtë me KFOR dhe prezencën amerikane",
+   "story": "st095",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWVDAZR9A6RA0Y2KGF892Q1",
+   "t": "2024-11-29T20:57:15+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shpërthimi në Zubin Potok: Pamje nga vendi i ngjarjes, policia prezente",
+   "story": "st084",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWVCNG81HKTZBXXA1QQ9HVW",
+   "t": "2024-11-29T20:56:53+00:00",
+   "source": "KoSSev",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Prekinuto vodosnabdevanje nakon oštećenja kanala Ibar-Lepenac, Mujka: Postavljen dinamit",
+   "story": "st082",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWVCDP8VEBBZDA3V9D9X3B3",
+   "t": "2024-11-29T20:56:45+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "“Mjaft më me filma”, Haradinaj e quan naive qasjen e Qeverisë ndaj veriut",
+   "story": "st095",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWV8VE0KZ7XW82CVTEV2Q6J",
+   "t": "2024-11-29T20:54:48+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Lista Serbe dënon shpërthimin në Ibër Lepenc",
+   "story": "st094",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWTY7K0BCR3K9PJCQNF90VA",
+   "t": "2024-11-29T20:49:00+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Mujka: Shpërthimi në kanalin e “Ibër Lepencit” është akt terrorist, dëmton edhe KEK-un",
+   "story": "st093",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWTVBSGTTV9DA1G0N1NJ7PW",
+   "t": "2024-11-29T20:47:26+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "“Një shtëpi ka dëme …” shpërthim i fuqishëm në Zubin Potok, Zeqiri jep detaje",
+   "story": "st084",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWTP7QGPEWZH51WKG9PZYF4",
+   "t": "2024-11-29T20:44:38+00:00",
+   "source": "Kurir",
+   "tier": 3,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "EKSPLOZIJA U ZUBINOM POTOKU: Oštećen kanal Ibar-Lepenac (VIDEO)",
+   "story": "st082",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWTJZ7R745S7604SETEY521",
+   "t": "2024-11-29T20:42:51+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shpërthimi në Zubin Potok, KRU “Mitrovica” del me një njoftim të rëndësishëm",
+   "story": "st090",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWTASGRHHWRY9ANCGWY6VVY",
+   "t": "2024-11-29T20:38:23+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Mujka: Shpërthimi në kanalin e \"Ibër Lepencit\" është akt terrorist, dëmton edhe KEK-un",
+   "story": "st093",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWT0Q88M4SQ966X4FD3W1V7",
+   "t": "2024-11-29T20:32:53+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Policia e Kosovës pranon donacion nga UNDP-ja",
+   "story": "st054",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWSTHZRT1NKX5CWQSDJMHBF",
+   "t": "2024-11-29T20:29:31+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shperthimi në kanalin e “Iber Lepencit”, e dënon edhe politikani serb nga Veriu",
+   "story": "st086",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWSCSJ0X2CABZDSKZGE79QX",
+   "t": "2024-11-29T20:22:00+00:00",
+   "source": "Sputnik Srbija",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Страх међу Србима у Грачаници после албанског дивљања – да се не понови погром",
+   "story": "st092",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWS7PF844F1VBGZPVA3FZ7T",
+   "t": "2024-11-29T20:19:13+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Rektorati i UP-së ndriçohet ‘me portokalli’ – i bashkohet fushatës vetëdijësuese kundër dhunës",
+   "story": "st091",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWS54E80J95TP6D2T4STBTW",
+   "t": "2024-11-29T20:17:49+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Pas shpërthimit në Zubin Potok, KRU “Mitrovica” kërkon nga qytetarët të sigurojnë rezerva të ujit të pijes",
+   "story": "st090",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWS0G08S9119VMWVADMHP11",
+   "t": "2024-11-29T20:15:17+00:00",
+   "source": "Radio KiM",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "KFOR nakon sinoćnjeg incidenta u Gračanici: Pažljivo pratimo bezbednosnu situaciju",
+   "story": "st089",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWRGH8GCT47T51Y9ZP4E2MW",
+   "t": "2024-11-29T20:06:34+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Kanalet e ujësjellësit dyshohet se u gjuajtën me dinamit – Flet kryeshefi i ”Ibër Lepenc”",
+   "story": "st088",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWRCCEG7Q0TAR3P88TZT4JV",
+   "t": "2024-11-29T20:04:18+00:00",
+   "source": "Telegraf",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Magija Teodosića i Mitrović kao u najboljim danima! Pogledajte potez večeri iz Arene",
+   "story": "st087",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWRBPZ0F3PYABJ7WNQNW8T2",
+   "t": "2024-11-29T20:03:56+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Lajm në Zhvillim: Shpërthim në Zubin Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+   "story": "st086",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWRAEXRSQ90Z5C007MKYBBZ",
+   "t": "2024-11-29T20:03:15+00:00",
+   "source": "N1 Srbija",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Srbija dostavila članicama EU listu koraka koje će preduzeti, među njima i revizija biračkog spiska",
+   "story": "st085",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWQTJ4GGCBB4479VQ5C377D",
+   "t": "2024-11-29T19:54:34+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shpërthim në Zubin-Potok, dëmtohet kanali i ujit të Ibër-Lepencit",
+   "story": "st084",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWQT5E8HFRN6YHYRXMT2QQS",
+   "t": "2024-11-29T19:54:21+00:00",
+   "source": "Vreme",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Britanski poslanici glasali za zakon o asistenciji pri umiranju",
+   "story": "st083",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWQMGS08YQRE5Y3EDZM4KDE",
+   "t": "2024-11-29T19:51:16+00:00",
+   "source": "In4s",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Експлозија у Зубином Потоку, оштећен канал Ибар-Лепенац",
+   "story": "st082",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWQCPS02M7H1MS45EQJ3GFY",
+   "t": "2024-11-29T19:47:00+00:00",
+   "source": "Sputnik Srbija",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће, Грачаница без струје",
+   "story": "st082",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWQ4KZRRST0RPYW6N6V2XE9",
+   "t": "2024-11-29T19:42:35+00:00",
+   "source": "In4s",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Министар Дукај: Албанци нигдје у Црној Гори нијесу изашли и казали да је ово Албанија",
+   "story": "st081",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWPZZHRP2PNJ1N0W1JS7TB5",
+   "t": "2024-11-29T19:40:03+00:00",
+   "source": "In4s",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Краповић Марковићу: Црна Гора више није под Вашом контролом, нити контролом Ваших кланова",
+   "story": "st080",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWPVE1GAQS2MGH886EV51SJ",
+   "t": "2024-11-29T19:37:34+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "“Dashuri e vështirë” mes Qeverisë së Kosovës dhe SHBA-së",
+   "story": "st074",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWPRDBRXCC9MRX3WX4N6BXD",
+   "t": "2024-11-29T19:35:55+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Mobilizimi ndërkombëtar: Kapen kryepiratët e botës, në radhë Kosova",
+   "story": "st079",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWPQC58RB9V8ZNXST5TACN4",
+   "t": "2024-11-29T19:35:21+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Konsumatorët ankohen për ngitje çmimesh, kërkohet kontroll në treg",
+   "story": "st078",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWPJCZGQMKX76VCCFH8XTBF",
+   "t": "2024-11-29T19:32:38+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Haradinaj: Rinia e AAK-së është e përgatitur të jetë shtylla e ndryshimit",
+   "story": "st072",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWP8HHRNKWT6Q7HCQ28QVGT",
+   "t": "2024-11-29T19:27:15+00:00",
+   "source": "Radio KiM",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Kosovska policija pojačala mere bezbednosti",
+   "story": "st067",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWNXZN8X4ZJEVDKSM19EBGE",
+   "t": "2024-11-29T19:21:29+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shpërthim i fuqishëm në Zubin Potok",
+   "story": "st077",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWNX3B0CS619RGCJ4X45NQB",
+   "t": "2024-11-29T19:21:00+00:00",
+   "source": "Alo",
+   "tier": 3,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "SNEŽNA OLUJA SA ZAPADA IDE KA SRBIJI: Očekuje se i do 30 centimetara snega, evo koji su predeli prvi na udaru",
+   "story": "st076",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWNMA30CKQZ1T6QB71EQFQC",
+   "t": "2024-11-29T19:16:12+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Disa prindër në Mitrovicë ankohen për çmimin e uniformave shkollore për nxënësit",
+   "story": "st075",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWN27Z0PNF2JXQ74QAHPV65",
+   "t": "2024-11-29T19:06:20+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "“Dashuri e vështirë” mes Qeverisë së Kosovës dhe SHBA-së",
+   "story": "st074",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWN11W834TY9CY4SFJQ85KA",
+   "t": "2024-11-29T19:05:41+00:00",
+   "source": "KoSSev",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Detonacija u Donjim Varagama, curi voda iz kanala Ibar-Lepenac",
+   "story": "st073",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWMETW0QH6MQYY0AF943NEG",
+   "t": "2024-11-29T18:55:44+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Abdixhiku të dielën takohet me mërgatën në Zvicër, shpalos programin politik “Rruga e re”",
+   "story": "st069",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWMBW4RXFF5JZAFT7FY9VT4",
+   "t": "2024-11-29T18:54:07+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Haradinaj: Rinia, shtylla e ndryshimit për Kosovën fituese",
+   "story": "st072",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWM89WGDFBHQ1SV2R23FSJD",
+   "t": "2024-11-29T18:52:10+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Aksioni kundër mashtrimeve me call center që përfundoi me 20 të arrestuar, Rohde përgëzon Policinë e Kosovës dhe atë gjermane",
+   "story": "st071",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWKR68GAK8VYMA2SB4SFNBQ",
+   "t": "2024-11-29T18:43:22+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Shoqërohet në polici një person për gjuajtje me armë në Shtime",
+   "story": "st070",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWKR2BGBPE89S3GVPWVNPCP",
+   "t": "2024-11-29T18:43:18+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Abdixhiku të dielën takohet me mërgatën në Zvicër",
+   "story": "st069",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWKADTRR0H80B58HW5WXWJQ",
+   "t": "2024-11-29T18:35:51+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Çka po ndodh me DITËLINDJEN e Viva Fresh Store?!",
+   "story": "st068",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWK19V0BG6DMDAJTCCP06JN",
+   "t": "2024-11-29T18:30:52+00:00",
+   "source": "KoSSev",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "KP pojačala mere: Više policije na terenu i punktova u kritičnim zonama, uključujući Sever",
+   "story": "st067",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWK0MBGZPG7Q0BZEQAJZDP9",
+   "t": "2024-11-29T18:30:30+00:00",
+   "source": "RFE/RL Serbian",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Kosovska policija povećala mjere sigurnosti širom zemlje",
+   "story": "st067",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWJZ6ERP63R8VH2NWE1ES09",
+   "t": "2024-11-29T18:29:43+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Maqedonci falënderon ushtarët amerikanë për punën e tyre për mbrojtjen dhe sigurinë në Kosovë",
+   "story": "st036",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWJDMY0NGXP4Y2TGWXM166X",
+   "t": "2024-11-29T18:20:08+00:00",
+   "source": "In4s",
+   "tier": 3,
+   "lang": "sr-Cyrl",
+   "platform": "news",
+   "title": "Да ли су „приучени бољшевички картографи“ добро процијенили капацитете будућих генерација?",
+   "story": "st066",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWHY7RRZ9G5D93K45QZT4HA",
+   "t": "2024-11-29T18:11:43+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Kurti njofton për hapjen e tenderit për ndërtimin e objekteve për banim të përballueshëm në katër komuna",
+   "story": "st062",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWHMDA8FB092M9JFYTBXDWR",
+   "t": "2024-11-29T18:06:21+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Gruda: Nuk kemi pasur forcë më herët për ta rrëzuar këtë qeveri (VIDEO)",
+   "story": "st065",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWHJ9Y08WWJEG91B21EW20H",
+   "t": "2024-11-29T18:05:12+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Policia rrit masat e sigurisë në tërë Kosovën, kjo është arsyeja",
+   "story": "st059",
+   "seen": "2024-11-29T21:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWGWZA8TB4C67YBFHPPKJHY",
+   "t": "2024-11-29T17:53:33+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Kuvendi Komunal i Mitrovicës së Veriut formoi Komisionin për Siguri",
+   "story": "st064",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWGS580BCPD9C97HNGHQZ4S",
+   "t": "2024-11-29T17:51:28+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Policia shton masat e sigurisë në nivel vendi, përmend “sulmet/incidentet serioze kriminale” ditëve të fundit në veri",
+   "story": "st059",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWGEGDRN4KHYSJMEPGA7PX1",
+   "t": "2024-11-29T17:45:39+00:00",
+   "source": "KoSSev",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Sa kosovskim pasošem na Tajvan bez vize od 1. decembra",
+   "story": "st063",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWGDJ50JBBQW5V6E5XSSENQ",
+   "t": "2024-11-29T17:45:08+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Në fund të mandatit, Kurti njofton se është hapur tenderi për ndërtimin e objekteve të banimit të përballueshëm",
+   "story": "st062",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWG7JR08XSS7E6N947RRQQZ",
+   "t": "2024-11-29T17:41:52+00:00",
+   "source": "Kallxo (BIRN Kosovo)",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Pas shpërthimeve me granata dore në Zveçan, Policia shton masat e sigurisë në vend",
+   "story": "st055",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWFHYBREVWZ42WVANF1YTY1",
+   "t": "2024-11-29T17:30:03+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Nipi i famshëm i Besnik Bislimit ia mësynë një pozite tjetër shtetërore",
+   "story": "st061",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWFFDA0X5ABC3RFD7JYC3MZ",
+   "t": "2024-11-29T17:28:40+00:00",
+   "source": "Reporteri",
+   "tier": 3,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Vëllai i Lirdona Ademajt: Ngritja e një aktakuze sa më shpejtë dhe dënimi maksimal ështe një lehtësim për ne si familje",
+   "story": "st060",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWFBR40CVF1C284835QZAJ6",
+   "t": "2024-11-29T17:26:40+00:00",
+   "source": "Klan Kosova",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë publike në shkallë vendi",
+   "story": "st059",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWF509RAV72KPJZMKS6H95A",
+   "t": "2024-11-29T17:22:59+00:00",
+   "source": "Radio KiM",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Ko, kome i u koje doba dodeljuje stanove u Zubinom Potoku?",
+   "story": "st039",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWEQ6WRW649FBWHVWHWRVQ1",
+   "t": "2024-11-29T17:15:27+00:00",
+   "source": "Insajderi",
+   "tier": 1,
+   "lang": "sq",
+   "platform": "news",
+   "title": "“Gruaja e qëlloi burrin disa herë”, policia amerikane jep detaje për çiftin kosovar që u gjetën të vdekur",
+   "story": "st016",
+   "seen": "2024-11-29T18:00:00+00:00"
+  },
+  {
+   "id": "sig_01JDWEGYPGV9WGPGSG4SSPKE4B",
+   "t": "2024-11-29T17:12:02+00:00",
+   "source": "KoSSev",
+   "tier": 1,
+   "lang": "sr-Latn",
+   "platform": "news",
+   "title": "Medojević: Vlada Crne Gore mora uputiti protestnu notu Vladi Kosova zbog hapšenja crnogorskih državljana",
+   "story": "st058",
+   "seen": "2024-11-29T18:00:00+00:00"
+  }
+ ],
+ "log": [
+  {
+   "at": "2026-11-22T01:59:23.739805+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "bad",
+   "text": "ALERT P1 on st082: “Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће” · 73 min after the first post"
+  },
+  {
+   "at": "2026-11-22T01:59:23.737104+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "ok",
+   "text": "Trace st059: “Policia rrit masat e sigurisë për të garantuar rendin dhe sigurinë pub” · earliest observed Klan Kosova (2024-11-29 17:26), 4 edges, P3 · CORROBORATED · 16.4s"
+  },
+  {
+   "at": "2026-11-22T01:59:07.365363+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "ok",
+   "text": "Trace st036: “Presidentja Osmani kremton Festën e Falënderimeve me ushtarët në Bonds” · earliest observed Reporteri (2024-11-29 11:35), 0 edges, P4 · UNVERIFIED · 0.4s"
+  },
+  {
+   "at": "2026-11-22T01:59:06.935327+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "ok",
+   "text": "Trace st082: “Снажна експлозија у Зубином Потоку: Прекинуто снабдевање водом за пиће” · earliest observed Sputnik Srbija (2024-11-29 19:47), 5 edges, P1 · CORROBORATED · 15.7s"
+  },
+  {
+   "at": "2026-11-22T01:58:51.234693+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "info",
+   "text": "Group: 49 Kosovo posts → 31 new stories, 18 joined open stories."
+  },
+  {
+   "at": "2026-11-22T01:58:50.943852+00:00",
+   "clock": "2024-11-29T21:00:00+00:00",
+   "cycle": 3,
+   "kind": "info",
+   "text": "Collect: released 49 archived posts from 29 Nov 18:00 to 29 Nov 21:00 UTC"
+  },
+  {
+   "at": "2026-11-22T01:56:24.225613+00:00",
+   "clock": "2024-11-29T18:00:00+00:00",
+   "cycle": 2,
+   "kind": "ok",
+   "text": "Trace st014: “Kosovski MUP odlučio da prizna srpska dokumenta radi registracije u ko” · earliest observed Insajderi (2024-11-29 11:27), 4 edges, P3 · UNVERIFIED · 0.5s"
+  },
+  {
+   "at": "2026-11-22T01:56:23.697435+00:00",
+   "clock": "2024-11-29T18:00:00+00:00",
+   "cycle": 2,
+   "kind": "ok",
+   "text": "Trace st028: “Qeveria Kurti i hakmerret Prokurorisë, nuk ia jep paratë për ta shtuar” · earliest observed Insajderi (2024-11-29 14:06), 1 edges, P4 · CORROBORATED · 15.4s"
+  },
+  {
+   "at": "2026-11-22T01:56:08.257948+00:00",
+   "clock": "2024-11-29T18:00:00+00:00",
+   "cycle": 2,
+   "kind": "ok",
+   "text": "Trace st032: “Tajvani heq regjimin e vizave për kosovarët – detajet” · earliest observed Insajderi (2024-11-29 14:18), 6 edges, P4 · DISPUTED · 37.1s"
+  },
+  {
+   "at": "2026-11-22T01:55:31.120668+00:00",
+   "clock": "2024-11-29T18:00:00+00:00",
+   "cycle": 2,
+   "kind": "info",
+   "text": "Group: 36 Kosovo posts → 22 new stories, 14 joined open stories."
+  },
+  {
+   "at": "2026-11-22T01:55:30.942245+00:00",
+   "clock": "2024-11-29T18:00:00+00:00",
+   "cycle": 2,
+   "kind": "info",
+   "text": "Collect: released 36 archived posts from 29 Nov 15:00 to 29 Nov 18:00 UTC"
+  },
+  {
+   "at": "2026-11-22T01:52:27.296348+00:00",
+   "clock": "2024-11-29T15:00:00+00:00",
+   "cycle": 1,
+   "kind": "ok",
+   "text": "Trace st005: “Vetura ra poshtë rrugës 32 metra, mësohen detajet e vdekjes së 22 vjeç” · earliest observed Reporteri (2024-11-29 08:28), 1 edges, P4 · UNVERIFIED · 0.3s"
+  },
+  {
+   "at": "2026-11-22T01:52:27.031140+00:00",
+   "clock": "2024-11-29T15:00:00+00:00",
+   "cycle": 1,
+   "kind": "ok",
+   "text": "Trace st001: “Suspendohen gjashtë policë të Kosovës, s’reaguan kur persona të panjoh” · earliest observed Reporteri (2024-11-29 12:01), 8 edges, P3 · UNVERIFIED · 0.5s"
+  },
+  {
+   "at": "2026-11-22T01:52:26.555615+00:00",
+   "clock": "2024-11-29T15:00:00+00:00",
+   "cycle": 1,
+   "kind": "ok",
+   "text": "Trace st020: “PDK paralajmëron padi ndaj deputetes së VV-së, Çitaku: Masat ndëshkues” · earliest observed Insajderi (2024-11-29 13:24), 2 edges, P4 · DISPUTED · 15.5s"
+  },
+  {
+   "at": "2026-11-22T01:52:11.051585+00:00",
+   "clock": "2024-11-29T15:00:00+00:00",
+   "cycle": 1,
+   "kind": "info",
+   "text": "Group: 53 Kosovo posts → 42 new stories, 11 joined open stories."
+  },
+  {
+   "at": "2026-11-22T01:52:10.932684+00:00",
+   "clock": "2024-11-29T15:00:00+00:00",
+   "cycle": 1,
+   "kind": "info",
+   "text": "Collect: released 55 archived posts from 29 Nov 12:00 to 29 Nov 15:00 UTC"
+  },
+  {
+   "at": "2026-11-22T01:52:10.909797+00:00",
+   "clock": "2024-11-29T12:00:00+00:00",
+   "cycle": 0,
+   "kind": "info",
+   "text": "Watch started · replay of canal_2024_11 · claims checked with Qwen"
+  }
+ ],
+ "per_source": {
+  "src_web_reporteri": 28,
+  "src_web_kossev": 11,
+  "src_web_insajderi": 31,
+  "src_web_kallxo": 28,
+  "src_web_klankosova": 11,
+  "src_web_hibrid": 4,
+  "src_web_in4s": 5,
+  "src_web_vreme": 2,
+  "src_web_standard": 2,
+  "src_web_kurir": 3,
+  "src_web_rtbalkan": 1,
+  "src_web_prishtinainsight": 1,
+  "src_web_radiokim": 4,
+  "src_web_blic": 1,
+  "src_web_sputnik": 3,
+  "src_web_telegraf": 2,
+  "src_web_slobodnaevropa": 1,
+  "src_web_alo": 1,
+  "src_web_n1": 1
+ },
+ "per_source_kos": {
+  "src_web_reporteri": 28,
+  "src_web_kossev": 11,
+  "src_web_insajderi": 31,
+  "src_web_kallxo": 28,
+  "src_web_klankosova": 11,
+  "src_web_hibrid": 4,
+  "src_web_in4s": 5,
+  "src_web_vreme": 2,
+  "src_web_kurir": 3,
+  "src_web_rtbalkan": 1,
+  "src_web_prishtinainsight": 1,
+  "src_web_radiokim": 4,
+  "src_web_blic": 1,
+  "src_web_sputnik": 3,
+  "src_web_telegraf": 2,
+  "src_web_slobodnaevropa": 1,
+  "src_web_alo": 1,
+  "src_web_n1": 1
+ },
+ "error": null
+}

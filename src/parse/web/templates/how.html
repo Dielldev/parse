@@ -23,9 +23,12 @@
 </ol>
 
 <h2 class="sec" id="models"><span>Models</span><i>Which model runs at which stage</i></h2>
-<p class="muted" style="margin-top:0">Five models run on Featherless and are billed per token; one runs free on this computer.
+{% if demo %}<p class="muted" style="margin-top:0">Five open models run on Featherless, billed per token to <b>your</b> account: paste your key (top right) and try
+any of them from a signal's page with the <b>Run a model</b> buttons, or let the Tracer check a claim and write its brief. No model is hosted
+on this site, nothing you run is saved, and the sixth (similarity) is part of the full pipeline.</p>
+{% else %}<p class="muted" style="margin-top:0">Five models run on Featherless and are billed per token; one runs free on this computer.
 Every call checks the ${{ "%.2f"|format(model_spend().cap) }} cap first and is logged to <span class="mono">data/spend_ledger.csv</span>
-(spent so far: ${{ "%.4f"|format(model_spend().spent) }}). Try any of them from a signal's page with the <b>Run a model</b> buttons.</p>
+(spent so far: ${{ "%.4f"|format(model_spend().spent) }}). Try any of them from a signal's page with the <b>Run a model</b> buttons.</p>{% endif %}
 {% set stage = {'ocr_fallback': 'Normalise', 'translation': 'Normalise', 'embedding': 'Cluster', 'detector': 'Detect',
                 'teacher': 'Detect · Brief', 'nli': 'Verify'} %}
 {% set order = ['ocr_fallback', 'translation', 'teacher', 'detector', 'embedding', 'nli'] %}
@@ -33,7 +36,7 @@ Every call checks the ${{ "%.2f"|format(model_spend().cap) }} cap first and is l
   <tr><th>Stage</th><th>Model</th><th>What it does</th><th>Where you can run it</th><th></th></tr>
   {% for role in order %}{% set m = model_list()|selectattr('role', 'equalto', role)|first %}{% if m %}
   <tr><td>{{ stage[role] }}</td><td><b>{{ m.name }}</b><div class="mono muted">{{ m.id }}</div></td><td>{{ m.does }}</td>
-    <td>{{ m.where }}</td><td class="mono">{{ 'local · free' if m.local else ('connected' if m.ready else 'no key') }}</td></tr>
+    <td>{{ m.where }}</td><td class="mono">{{ ('full pipeline only' if m.local else 'your key') if demo else ('local · free' if m.local else ('connected' if m.ready else 'no key')) }}</td></tr>
   {% endif %}{% endfor %}
 </table></div>
 <p class="muted">The classifier model (detector, claim checker) is sometimes unavailable on Featherless while it loads. When that
@@ -85,7 +88,7 @@ happens the same question goes to Qwen3-8B and the result says so.</p>
 </div>
 </div>
 
-<script>
+<script nonce="{{ request.state.csp_nonce | default("") }}">
 const $ = (s) => document.querySelector(s);
 async function post(url, body) {
   const r = await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});

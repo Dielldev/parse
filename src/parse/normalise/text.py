@@ -5,8 +5,6 @@ import re
 import unicodedata
 from functools import lru_cache
 
-from lingua import Language, LanguageDetectorBuilder
-
 from parse.settings import keywords
 
 _SR_CYR2LAT = {
@@ -40,8 +38,26 @@ def fold(text: str) -> str:
     return "".join(ch for ch in t if not unicodedata.combining(ch)).lower()
 
 
+def _heuristic_lang(sample: str) -> str | None:
+    """Fallback when lingua is not installed (the slim web demo): script and a few telltale words, good enough to
+    tell Albanian, Serbian (either script), Russian and English apart on a pasted headline."""
+    low = sample.lower()
+    cyr = cyrillic_share(sample) > 0.5
+    if cyr:
+        return "ru" if re.search(r"[ыэёъщ]|\b(что|это|как|для|его|были)\b", low) else "sr-Cyrl"
+    words = set(re.findall(r"[^\W\d_]+", low))
+    sq = len(words & {"dhe", "në", "ne", "të", "te", "për", "per", "nga", "një", "nje", "është", "eshte", "që", "qe",
+                      "është", "me", "se", "kanë", "kane", "ishte", "janë", "jane", "sot"}) + 2 * bool(re.search(r"[ëç]", low))
+    en = len(words & {"the", "and", "of", "to", "in", "is", "was", "for", "on", "at", "with", "by", "after", "from"})
+    sr = len(words & {"je", "su", "da", "se", "u", "na", "za", "od", "koji", "kao", "sa", "iz", "ali", "nije"}) \
+        + bool(re.search(r"[šđčćž]", low))
+    best = max((sq, "sq"), (en, "en"), (sr, "sr-Latn"))
+    return best[1] if best[0] else None
+
+
 @lru_cache
 def _detector():
+    from lingua import Language, LanguageDetectorBuilder
     langs = [Language.ALBANIAN, Language.SERBIAN, Language.CROATIAN, Language.BOSNIAN, Language.RUSSIAN,
              Language.ENGLISH, Language.MACEDONIAN, Language.BULGARIAN]
     return LanguageDetectorBuilder.from_languages(*langs).build()
@@ -52,6 +68,10 @@ def detect_lang(text: str) -> str | None:
     sample = text[:2000]
     if len(sample.strip()) < 20:
         return None
+    try:
+        from lingua import Language
+    except ImportError:
+        return _heuristic_lang(sample)
     lang = _detector().detect_language_of(sample)
     if lang is None:
         return None

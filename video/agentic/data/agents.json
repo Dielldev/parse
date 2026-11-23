@@ -1,0 +1,1784 @@
+{
+ "run_id": "run_01M80HG7NRDNRHYQ0BRJ1HS09E",
+ "status": "done",
+ "events": [
+  {
+   "t": "start",
+   "kind": "web",
+   "topic": "ibar lepenac canal",
+   "terms": [
+    "ibar",
+    "lepenac",
+    "canal"
+   ],
+   "sources": [
+    {
+     "id": "src_off_al_mod",
+     "name": "Albania Ministry of Defence",
+     "tier": 0,
+     "platform": "official",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_off_eulex",
+     "name": "EULEX",
+     "tier": 0,
+     "platform": "official",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_off_kosovopolice",
+     "name": "Kosovo Police",
+     "tier": 0,
+     "platform": "official",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_off_ks_pm",
+     "name": "Office of the Prime Minister (KS)",
+     "tier": 0,
+     "platform": "official",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_balkanweb",
+     "name": "BalkanWeb (AL)",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_intellinews",
+     "name": "bne IntelliNews",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_botasot",
+     "name": "Bota Sot",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_danas",
+     "name": "Danas",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_fakenews",
+     "name": "FakeNews Tragač",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_gazetaexpress",
+     "name": "Gazeta Express",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_hibrid",
+     "name": "Hibrid.info",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_insajder",
+     "name": "Insajder",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_insajderi",
+     "name": "Insajderi",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_istinomer",
+     "name": "Istinomer",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_kallxo",
+     "name": "Kallxo (BIRN Kosovo)",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_koha",
+     "name": "Koha (Koha Ditore)",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_kossev",
+     "name": "KoSSev",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_n1",
+     "name": "N1 Srbija",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_nova",
+     "name": "Nova",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_periskopi",
+     "name": "Periskopi",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_prishtinainsight",
+     "name": "Prishtina Insight (BIRN)",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_radiokim",
+     "name": "Radio KiM",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_raskrikavanje",
+     "name": "Raskrikavanje (KRIK)",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_slobodnaevropa",
+     "name": "RFE/RL Serbian",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_rts",
+     "name": "RTS",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_telegraf",
+     "name": "Telegraf",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_telegrafi",
+     "name": "Telegrafi",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_thegeopost",
+     "name": "The Geopost",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_vreme",
+     "name": "Vreme",
+     "tier": 1,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_zeri",
+     "name": "Zëri",
+     "tier": 1,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_adriadefense",
+     "name": "AdriaDefense",
+     "tier": 2,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_balkansec",
+     "name": "Balkan Security Network",
+     "tier": 2,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_tangosix",
+     "name": "Tango Six",
+     "tier": 2,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_alo",
+     "name": "Alo",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_b92",
+     "name": "B92",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_in4s",
+     "name": "In4s",
+     "tier": 3,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_kosovo_online",
+     "name": "Kosovo Online",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_kurir",
+     "name": "Kurir",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_lajmi",
+     "name": "Lajmi.net",
+     "tier": 3,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_nacionale",
+     "name": "Nacionale",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_mir_pravda_sq",
+     "name": "Pravda network (Albanian)",
+     "tier": 3,
+     "platform": "mirror",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_mir_pravda_other",
+     "name": "Pravda network (Serbian/other)",
+     "tier": 3,
+     "platform": "mirror",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_reporteri",
+     "name": "Reporteri",
+     "tier": 3,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_sputnik",
+     "name": "Sputnik Srbija",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    },
+    {
+     "id": "src_web_standard",
+     "name": "Standard (Novi Standard)",
+     "tier": 3,
+     "platform": "news",
+     "method": "wp-search",
+     "ready": true
+    },
+    {
+     "id": "src_web_pink",
+     "name": "TV Pink",
+     "tier": 3,
+     "platform": "news",
+     "method": "rss",
+     "ready": true
+    }
+   ],
+   "i": 0,
+   "at": 0.0
+  },
+  {
+   "t": "source",
+   "source": "src_off_al_mod",
+   "state": "visiting",
+   "method": "rss",
+   "i": 1,
+   "at": 0.0
+  },
+  {
+   "t": "note",
+   "source": "src_off_al_mod",
+   "text": "GET https://www.mod.gov.al/eng/newsroom?format=feed&type=atom",
+   "i": 2,
+   "at": 0.0
+  },
+  {
+   "t": "source",
+   "source": "src_off_eulex",
+   "state": "visiting",
+   "method": "rss",
+   "i": 3,
+   "at": 0.0
+  },
+  {
+   "t": "note",
+   "source": "src_off_eulex",
+   "text": "GET https://www.eulex-kosovo.eu/rss.php",
+   "i": 4,
+   "at": 0.0
+  },
+  {
+   "t": "source",
+   "source": "src_off_kosovopolice",
+   "state": "visiting",
+   "method": "rss",
+   "i": 5,
+   "at": 0.0
+  },
+  {
+   "t": "note",
+   "source": "src_off_kosovopolice",
+   "text": "GET https://www.kosovopolice.com/feed/",
+   "i": 6,
+   "at": 0.0
+  },
+  {
+   "t": "source",
+   "source": "src_off_ks_pm",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 7,
+   "at": 0.0
+  },
+  {
+   "t": "note",
+   "source": "src_off_ks_pm",
+   "text": "GET https://kryeministri.rks-gov.net/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 8,
+   "at": 0.0
+  },
+  {
+   "t": "source",
+   "source": "src_web_balkanweb",
+   "state": "visiting",
+   "method": "rss",
+   "i": 9,
+   "at": 0.01
+  },
+  {
+   "t": "note",
+   "source": "src_web_balkanweb",
+   "text": "GET https://www.balkanweb.com/feed/",
+   "i": 10,
+   "at": 0.01
+  },
+  {
+   "t": "source",
+   "source": "src_web_intellinews",
+   "state": "visiting",
+   "method": "rss",
+   "i": 11,
+   "at": 0.01
+  },
+  {
+   "t": "note",
+   "source": "src_web_intellinews",
+   "text": "GET https://www.intellinews.com/feed/",
+   "i": 12,
+   "at": 0.01
+  },
+  {
+   "t": "source",
+   "source": "src_web_botasot",
+   "state": "visiting",
+   "method": "rss",
+   "i": 13,
+   "at": 0.01
+  },
+  {
+   "t": "note",
+   "source": "src_web_botasot",
+   "text": "GET https://www.botasot.info/rss",
+   "i": 14,
+   "at": 0.01
+  },
+  {
+   "t": "source",
+   "source": "src_web_danas",
+   "state": "visiting",
+   "method": "rss",
+   "i": 15,
+   "at": 0.01
+  },
+  {
+   "t": "note",
+   "source": "src_web_danas",
+   "text": "GET https://www.danas.rs/feed/",
+   "i": 16,
+   "at": 0.01
+  },
+  {
+   "t": "source",
+   "source": "src_web_botasot",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 17,
+   "at": 0.28
+  },
+  {
+   "t": "source",
+   "source": "src_web_fakenews",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 18,
+   "at": 0.28
+  },
+  {
+   "t": "note",
+   "source": "src_web_fakenews",
+   "text": "GET https://fakenews.rs/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 19,
+   "at": 0.28
+  },
+  {
+   "t": "source",
+   "source": "src_off_kosovopolice",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 20,
+   "at": 0.28
+  },
+  {
+   "t": "source",
+   "source": "src_web_gazetaexpress",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 21,
+   "at": 0.28
+  },
+  {
+   "t": "note",
+   "source": "src_web_gazetaexpress",
+   "text": "GET https://www.gazetaexpress.com/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 22,
+   "at": 0.28
+  },
+  {
+   "t": "source",
+   "source": "src_web_balkanweb",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 23,
+   "at": 0.29
+  },
+  {
+   "t": "source",
+   "source": "src_web_hibrid",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 24,
+   "at": 0.29
+  },
+  {
+   "t": "note",
+   "source": "src_web_hibrid",
+   "text": "GET https://hibrid.info/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 25,
+   "at": 0.29
+  },
+  {
+   "t": "source",
+   "source": "src_web_danas",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 26,
+   "at": 0.29
+  },
+  {
+   "t": "source",
+   "source": "src_web_insajder",
+   "state": "visiting",
+   "method": "rss",
+   "i": 27,
+   "at": 0.29
+  },
+  {
+   "t": "note",
+   "source": "src_web_insajder",
+   "text": "GET https://insajder.net/feed.xml",
+   "i": 28,
+   "at": 0.29
+  },
+  {
+   "t": "source",
+   "source": "src_web_intellinews",
+   "method": "rss",
+   "seen": 7,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 7 read",
+   "i": 29,
+   "at": 0.33
+  },
+  {
+   "t": "source",
+   "source": "src_web_insajderi",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 30,
+   "at": 0.33
+  },
+  {
+   "t": "note",
+   "source": "src_web_insajderi",
+   "text": "GET https://insajderi.org/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 31,
+   "at": 0.33
+  },
+  {
+   "t": "source",
+   "source": "src_off_eulex",
+   "method": "rss",
+   "seen": 15,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 15 read",
+   "i": 32,
+   "at": 0.38
+  },
+  {
+   "t": "source",
+   "source": "src_web_istinomer",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 33,
+   "at": 0.38
+  },
+  {
+   "t": "note",
+   "source": "src_web_istinomer",
+   "text": "GET https://www.istinomer.rs/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 34,
+   "at": 0.38
+  },
+  {
+   "t": "source",
+   "source": "src_off_al_mod",
+   "method": "rss",
+   "seen": 5,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 5 read",
+   "i": 35,
+   "at": 0.4
+  },
+  {
+   "t": "source",
+   "source": "src_web_kallxo",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 36,
+   "at": 0.4
+  },
+  {
+   "t": "note",
+   "source": "src_web_kallxo",
+   "text": "GET https://kallxo.com/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 37,
+   "at": 0.4
+  },
+  {
+   "t": "source",
+   "source": "src_web_insajder",
+   "method": "rss",
+   "seen": 100,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 100 read",
+   "i": 38,
+   "at": 0.63
+  },
+  {
+   "t": "source",
+   "source": "src_web_koha",
+   "state": "visiting",
+   "method": "rss",
+   "i": 39,
+   "at": 0.63
+  },
+  {
+   "t": "note",
+   "source": "src_web_koha",
+   "text": "GET https://www.koha.net/rss",
+   "i": 40,
+   "at": 0.63
+  },
+  {
+   "t": "source",
+   "source": "src_web_koha",
+   "method": "rss",
+   "seen": 20,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 20 read",
+   "i": 41,
+   "at": 0.87
+  },
+  {
+   "t": "source",
+   "source": "src_web_kossev",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 42,
+   "at": 0.87
+  },
+  {
+   "t": "note",
+   "source": "src_web_kossev",
+   "text": "GET https://kossev.info/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 43,
+   "at": 0.87
+  },
+  {
+   "t": "source",
+   "source": "src_web_fakenews",
+   "method": "wp-search",
+   "seen": 15,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 15 read",
+   "i": 44,
+   "at": 0.94
+  },
+  {
+   "t": "source",
+   "source": "src_web_n1",
+   "state": "visiting",
+   "method": "rss",
+   "i": 45,
+   "at": 0.94
+  },
+  {
+   "t": "note",
+   "source": "src_web_n1",
+   "text": "GET https://n1info.rs/feed/",
+   "i": 46,
+   "at": 0.94
+  },
+  {
+   "t": "note",
+   "source": "src_web_hibrid",
+   "text": "GET https://hibrid.info/wp-json/wp/v2/posts?search=lepenac",
+   "i": 47,
+   "at": 1.04
+  },
+  {
+   "t": "source",
+   "source": "src_web_kallxo",
+   "method": "wp-search",
+   "seen": 1,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 1 read",
+   "i": 48,
+   "at": 1.09
+  },
+  {
+   "t": "source",
+   "source": "src_web_nova",
+   "state": "visiting",
+   "method": "rss",
+   "i": 49,
+   "at": 1.09
+  },
+  {
+   "t": "note",
+   "source": "src_web_nova",
+   "text": "GET https://nova.rs/feed/",
+   "i": 50,
+   "at": 1.09
+  },
+  {
+   "t": "source",
+   "source": "src_web_n1",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 51,
+   "at": 1.16
+  },
+  {
+   "t": "source",
+   "source": "src_web_periskopi",
+   "state": "visiting",
+   "method": "rss",
+   "i": 52,
+   "at": 1.16
+  },
+  {
+   "t": "note",
+   "source": "src_web_periskopi",
+   "text": "GET https://periskopi.com/sq/rss.xml",
+   "i": 53,
+   "at": 1.16
+  },
+  {
+   "t": "source",
+   "source": "src_off_ks_pm",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site refused the request (HTTP 403)",
+   "i": 54,
+   "at": 1.17
+  },
+  {
+   "t": "source",
+   "source": "src_web_prishtinainsight",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 55,
+   "at": 1.17
+  },
+  {
+   "t": "note",
+   "source": "src_web_prishtinainsight",
+   "text": "GET https://prishtinainsight.com/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 56,
+   "at": 1.17
+  },
+  {
+   "t": "source",
+   "source": "src_web_nova",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 57,
+   "at": 2.53
+  },
+  {
+   "t": "source",
+   "source": "src_web_radiokim",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 58,
+   "at": 2.53
+  },
+  {
+   "t": "note",
+   "source": "src_web_radiokim",
+   "text": "GET https://www.radiokim.net/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 59,
+   "at": 2.53
+  },
+  {
+   "t": "source",
+   "source": "src_web_periskopi",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 60,
+   "at": 2.58
+  },
+  {
+   "t": "source",
+   "source": "src_web_raskrikavanje",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 61,
+   "at": 2.58
+  },
+  {
+   "t": "note",
+   "source": "src_web_raskrikavanje",
+   "text": "GET https://www.raskrikavanje.rs/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 62,
+   "at": 2.58
+  },
+  {
+   "t": "item",
+   "source": "src_web_hibrid",
+   "id": "sig_01JSKPQXQR5M8X5XGJ8YJ2CX0Y",
+   "url": "https://hibrid.info/konspiracion-se-sulmi-ne-kanalin-iber-lepenc-ishte-planifikuar-nga-kurti-per-te-nxitur-dhune-ndaj-serbeve/",
+   "title": "Konspiracion se sulmi në kanalin Ibër–Lepenc ishte planifikuar nga Kurti për të nxitur dhunë ndaj serbëve",
+   "lang": "sq",
+   "date": "24 Apr 2025 10:50",
+   "i": 63,
+   "at": 2.99
+  },
+  {
+   "t": "source",
+   "source": "src_web_hibrid",
+   "method": "wp-search",
+   "seen": 2,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 2 read",
+   "i": 64,
+   "at": 2.99
+  },
+  {
+   "t": "source",
+   "source": "src_web_slobodnaevropa",
+   "state": "visiting",
+   "method": "rss",
+   "i": 65,
+   "at": 2.99
+  },
+  {
+   "t": "note",
+   "source": "src_web_slobodnaevropa",
+   "text": "GET https://www.slobodnaevropa.org/api/",
+   "i": 66,
+   "at": 2.99
+  },
+  {
+   "t": "note",
+   "source": "src_web_istinomer",
+   "text": "GET https://www.istinomer.rs/wp-json/wp/v2/posts?search=lepenac",
+   "i": 67,
+   "at": 3.14
+  },
+  {
+   "t": "item",
+   "source": "src_web_prishtinainsight",
+   "id": "sig_01KZP2KXQ8NBPWYGMMHZQWY1RF",
+   "url": "https://prishtinainsight.com/kosovo-protests-as-serbia-mulls-changing-rivers-course/",
+   "title": "Kosovo Protests as Serbia Mulls Changing River’s Course",
+   "lang": "en",
+   "date": "10 Aug 2026 14:53",
+   "i": 68,
+   "at": 3.19
+  },
+  {
+   "t": "source",
+   "source": "src_web_prishtinainsight",
+   "method": "wp-search",
+   "seen": 2,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 2 read",
+   "i": 69,
+   "at": 3.19
+  },
+  {
+   "t": "source",
+   "source": "src_web_rts",
+   "state": "visiting",
+   "method": "rss",
+   "i": 70,
+   "at": 3.19
+  },
+  {
+   "t": "note",
+   "source": "src_web_rts",
+   "text": "GET https://rss.html",
+   "i": 71,
+   "at": 3.19
+  },
+  {
+   "t": "source",
+   "source": "src_web_rts",
+   "method": "rss",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site unreachable (its address did not resolve or it refused the connection)",
+   "i": 72,
+   "at": 4.41
+  },
+  {
+   "t": "source",
+   "source": "src_web_telegraf",
+   "state": "visiting",
+   "method": "rss",
+   "i": 73,
+   "at": 4.41
+  },
+  {
+   "t": "note",
+   "source": "src_web_telegraf",
+   "text": "GET https://www.telegraf.rs/rss",
+   "i": 74,
+   "at": 4.41
+  },
+  {
+   "t": "source",
+   "source": "src_web_telegraf",
+   "method": "rss",
+   "seen": 20,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 20 read",
+   "i": 75,
+   "at": 4.68
+  },
+  {
+   "t": "source",
+   "source": "src_web_telegrafi",
+   "state": "visiting",
+   "method": "rss",
+   "i": 76,
+   "at": 4.68
+  },
+  {
+   "t": "note",
+   "source": "src_web_telegrafi",
+   "text": "GET https://telegrafi.com/feeds/feed.rss",
+   "i": 77,
+   "at": 4.68
+  },
+  {
+   "t": "source",
+   "source": "src_web_slobodnaevropa",
+   "method": "rss",
+   "seen": 20,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 20 read",
+   "i": 78,
+   "at": 4.69
+  },
+  {
+   "t": "source",
+   "source": "src_web_thegeopost",
+   "state": "visiting",
+   "method": "rss",
+   "i": 79,
+   "at": 4.69
+  },
+  {
+   "t": "note",
+   "source": "src_web_thegeopost",
+   "text": "GET https://thegeopost.com/feed/",
+   "i": 80,
+   "at": 4.69
+  },
+  {
+   "t": "note",
+   "source": "src_web_raskrikavanje",
+   "text": "GET https://www.raskrikavanje.rs/wp-json/wp/v2/posts?search=lepenac",
+   "i": 81,
+   "at": 4.72
+  },
+  {
+   "t": "note",
+   "source": "src_web_insajderi",
+   "text": "GET https://insajderi.org/wp-json/wp/v2/posts?search=lepenac",
+   "i": 82,
+   "at": 4.92
+  },
+  {
+   "t": "source",
+   "source": "src_web_telegrafi",
+   "method": "rss",
+   "seen": 30,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 30 read",
+   "i": 83,
+   "at": 6.52
+  },
+  {
+   "t": "source",
+   "source": "src_web_vreme",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 84,
+   "at": 6.52
+  },
+  {
+   "t": "note",
+   "source": "src_web_vreme",
+   "text": "GET https://www.vreme.com/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 85,
+   "at": 6.52
+  },
+  {
+   "t": "source",
+   "source": "src_web_thegeopost",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 86,
+   "at": 6.6
+  },
+  {
+   "t": "source",
+   "source": "src_web_zeri",
+   "state": "visiting",
+   "method": "rss",
+   "i": 87,
+   "at": 6.6
+  },
+  {
+   "t": "note",
+   "source": "src_web_zeri",
+   "text": "GET https://zeri.info/rss",
+   "i": 88,
+   "at": 6.6
+  },
+  {
+   "t": "source",
+   "source": "src_web_raskrikavanje",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 0 read",
+   "i": 89,
+   "at": 6.69
+  },
+  {
+   "t": "source",
+   "source": "src_web_adriadefense",
+   "state": "visiting",
+   "method": "rss",
+   "i": 90,
+   "at": 6.69
+  },
+  {
+   "t": "note",
+   "source": "src_web_adriadefense",
+   "text": "GET https://www.adriadefense.com/rss/",
+   "i": 91,
+   "at": 6.69
+  },
+  {
+   "t": "source",
+   "source": "src_web_adriadefense",
+   "method": "rss",
+   "seen": 15,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 15 read",
+   "i": 92,
+   "at": 6.85
+  },
+  {
+   "t": "source",
+   "source": "src_web_balkansec",
+   "state": "visiting",
+   "method": "rss",
+   "i": 93,
+   "at": 6.85
+  },
+  {
+   "t": "note",
+   "source": "src_web_balkansec",
+   "text": "GET https://www.balkansec.net/blog-feed.xml",
+   "i": 94,
+   "at": 6.85
+  },
+  {
+   "t": "source",
+   "source": "src_web_zeri",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 95,
+   "at": 6.87
+  },
+  {
+   "t": "source",
+   "source": "src_web_tangosix",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 96,
+   "at": 6.87
+  },
+  {
+   "t": "note",
+   "source": "src_web_tangosix",
+   "text": "GET https://www.tangosix.rs/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 97,
+   "at": 6.87
+  },
+  {
+   "t": "item",
+   "source": "src_web_istinomer",
+   "id": "sig_01KZV4XVS092EAPEG2JEFCX82K",
+   "url": "https://www.istinomer.rs/analize/sta-sve-do-sada-znamo-o-najavi-promene-toka-ibra-i-situaciji-na-gazivodama/",
+   "title": "Šta sve do sada znamo o – najavi promene toka Ibra i situaciji na Gazivodama?",
+   "lang": "sr-Latn",
+   "date": "12 Aug 2026 14:09",
+   "i": 98,
+   "at": 6.91
+  },
+  {
+   "t": "item",
+   "source": "src_web_istinomer",
+   "id": "sig_01JGEPWTHRVVSV7FAPVW10ABG3",
+   "url": "https://www.istinomer.rs/analize/godina-koja-je-pocela-i-zavrsila-u-protestima-a-sta-je-bilo-izmedju/",
+   "title": "Godina koja je počela i završila u protestima, a šta je bilo između?",
+   "lang": "sr-Latn",
+   "date": "31 Dec 2024 15:56",
+   "i": 99,
+   "at": 6.94
+  },
+  {
+   "t": "source",
+   "source": "src_web_istinomer",
+   "method": "wp-search",
+   "seen": 3,
+   "kept": 2,
+   "state": "done",
+   "note": "2 new of 3 read",
+   "i": 100,
+   "at": 6.95
+  },
+  {
+   "t": "source",
+   "source": "src_web_alo",
+   "state": "visiting",
+   "method": "rss",
+   "i": 101,
+   "at": 6.95
+  },
+  {
+   "t": "note",
+   "source": "src_web_alo",
+   "text": "GET https://rss.html",
+   "i": 102,
+   "at": 6.95
+  },
+  {
+   "t": "source",
+   "source": "src_web_alo",
+   "method": "rss",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site unreachable (its address did not resolve or it refused the connection)",
+   "i": 103,
+   "at": 6.96
+  },
+  {
+   "t": "source",
+   "source": "src_web_b92",
+   "state": "visiting",
+   "method": "rss",
+   "i": 104,
+   "at": 6.96
+  },
+  {
+   "t": "note",
+   "source": "src_web_b92",
+   "text": "GET https://www.b92.net/rss/latest",
+   "i": 105,
+   "at": 6.96
+  },
+  {
+   "t": "source",
+   "source": "src_web_balkansec",
+   "method": "rss",
+   "seen": 20,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 20 read",
+   "i": 106,
+   "at": 7.04
+  },
+  {
+   "t": "source",
+   "source": "src_web_in4s",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 107,
+   "at": 7.04
+  },
+  {
+   "t": "note",
+   "source": "src_web_in4s",
+   "text": "GET https://www.in4s.net/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 108,
+   "at": 7.04
+  },
+  {
+   "t": "source",
+   "source": "src_web_b92",
+   "method": "rss",
+   "seen": 20,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 20 read",
+   "i": 109,
+   "at": 7.22
+  },
+  {
+   "t": "source",
+   "source": "src_web_kosovo_online",
+   "state": "visiting",
+   "method": "rss",
+   "i": 110,
+   "at": 7.22
+  },
+  {
+   "t": "note",
+   "source": "src_web_kosovo_online",
+   "text": "GET https://www.kosovo-online.com/rss.xml",
+   "i": 111,
+   "at": 7.22
+  },
+  {
+   "t": "note",
+   "source": "src_web_vreme",
+   "text": "GET https://www.vreme.com/wp-json/wp/v2/posts?search=lepenac",
+   "i": 112,
+   "at": 7.3
+  },
+  {
+   "t": "item",
+   "source": "src_web_kossev",
+   "id": "sig_01KZPZJA880VN7ZGS3DBJAYRXK",
+   "url": "https://kossev.info/a-day-of-security-shifts-in-kosovo-from-kfor-changes-in-mitrovica-and-decani-to-the-ibar-and-gazivode/",
+   "title": "A Day of Security Shifts in Kosovo: From KFOR Changes in Mitrovica and Decani to the Ibar and Gazivode",
+   "lang": "en",
+   "date": "10 Aug 2026 23:19",
+   "i": 113,
+   "at": 7.65
+  },
+  {
+   "t": "item",
+   "source": "src_web_kossev",
+   "id": "sig_01KZKHVJG8571FET4T4T98RJ7D",
+   "url": "https://kossev.info/vucic-says-serbia-is-considering-diverting-the-ibar-river-raising-questions-over-gazivode-ujman/",
+   "title": "Vučić Says Serbia Is Considering Diverting the Ibar River, Raising Questions Over Gazivode/Ujman",
+   "lang": "en",
+   "date": "09 Aug 2026 15:21",
+   "i": 114,
+   "at": 7.67
+  },
+  {
+   "t": "item",
+   "source": "src_web_kossev",
+   "id": "sig_01KDQB7JDREAJCK2FAA4ME23TX",
+   "url": "https://kossev.info/kosovo-latest-news-three-years-since-the-removal-of-the-northern-barricades-how-the-serbs-withdrawal-paved-the-way-for-kurti-s-control/",
+   "title": "Three Years Since the Removal of the Northern Barricades: How the Serbs’ Withdrawal Paved the Way for Kurti’s Control",
+   "lang": "en",
+   "date": "30 Dec 2025 10:00",
+   "i": 115,
+   "at": 7.7
+  },
+  {
+   "t": "item",
+   "source": "src_web_kossev",
+   "id": "sig_01K5CFAJ5G5TKDSDNNGXCSEFBV",
+   "url": "https://kossev.info/guess-which-milan-slogan-sparks-pre-election-dispute-in-northern-kosovo/",
+   "title": "“Guess Which Milan” Slogan Sparks Pre-Election Dispute in Northern Kosovo",
+   "lang": "en",
+   "date": "17 Sep 2025 18:34",
+   "i": 116,
+   "at": 7.72
+  },
+  {
+   "t": "item",
+   "source": "src_web_kossev",
+   "id": "sig_01K1BTTBE0BE47YY6XV0106D4F",
+   "url": "https://kossev.info/kosovo-latest-news-german-and-french-embassies-condemn-politicisation-of-ksf-search-operation-in-the-north-a-moment-of-collective-sorrow-not-political-point-scoring/",
+   "title": "German and French Embassies Condemn Politicisation of KSF Search Operation in the North: “A moment of collective sorrow, not political point-scoring”",
+   "lang": "en",
+   "date": "29 Jul 2025 19:33",
+   "i": 117,
+   "at": 7.75
+  },
+  {
+   "t": "source",
+   "source": "src_web_kossev",
+   "method": "wp-search",
+   "seen": 6,
+   "kept": 5,
+   "state": "done",
+   "note": "5 new of 6 read",
+   "i": 118,
+   "at": 7.75
+  },
+  {
+   "t": "source",
+   "source": "src_web_kurir",
+   "state": "visiting",
+   "method": "rss",
+   "i": 119,
+   "at": 7.75
+  },
+  {
+   "t": "note",
+   "source": "src_web_kurir",
+   "text": "GET https://www.kurir.rs/rss",
+   "i": 120,
+   "at": 7.75
+  },
+  {
+   "t": "note",
+   "source": "src_web_tangosix",
+   "text": "GET https://www.tangosix.rs/wp-json/wp/v2/posts?search=lepenac",
+   "i": 121,
+   "at": 7.82
+  },
+  {
+   "t": "source",
+   "source": "src_web_gazetaexpress",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site too slow to answer; try again later",
+   "i": 122,
+   "at": 8.38
+  },
+  {
+   "t": "source",
+   "source": "src_web_lajmi",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 123,
+   "at": 8.38
+  },
+  {
+   "t": "note",
+   "source": "src_web_lajmi",
+   "text": "GET https://lajmi.net/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 124,
+   "at": 8.38
+  },
+  {
+   "t": "source",
+   "source": "src_web_kosovo_online",
+   "method": "rss",
+   "seen": 30,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 30 read",
+   "i": 125,
+   "at": 9.07
+  },
+  {
+   "t": "source",
+   "source": "src_web_nacionale",
+   "state": "visiting",
+   "method": "rss",
+   "i": 126,
+   "at": 9.07
+  },
+  {
+   "t": "note",
+   "source": "src_web_nacionale",
+   "text": "GET https://www.nacionale.com/sq/xk/rss.xml",
+   "i": 127,
+   "at": 9.07
+  },
+  {
+   "t": "item",
+   "source": "src_web_radiokim",
+   "id": "sig_01KY4WD3JRENY09PMJM2WZY27R",
+   "url": "https://radiokim.net/vesti/drustvo/265523-pismo-svetskoj-banci-nvo-tvrde-da-su-ugrozena-prava-stanovnika-oko-gazivoda/",
+   "title": "Pismo Svetskoj banci: NVO tvrde da su ugrožena prava stanovnika oko Gazivoda",
+   "lang": "sr-Latn",
+   "date": "22 Jul 2026 12:21",
+   "i": 128,
+   "at": 9.27
+  },
+  {
+   "t": "source",
+   "source": "src_web_radiokim",
+   "method": "wp-search",
+   "seen": 1,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 1 read",
+   "i": 129,
+   "at": 9.28
+  },
+  {
+   "t": "source",
+   "source": "src_mir_pravda_sq",
+   "state": "visiting",
+   "method": "rss",
+   "i": 130,
+   "at": 9.28
+  },
+  {
+   "t": "note",
+   "source": "src_mir_pravda_sq",
+   "text": "GET https://albania.news-pravda.com/rss.xml",
+   "i": 131,
+   "at": 9.28
+  },
+  {
+   "t": "source",
+   "source": "src_web_kurir",
+   "method": "rss",
+   "seen": 100,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 100 read",
+   "i": 132,
+   "at": 9.32
+  },
+  {
+   "t": "source",
+   "source": "src_mir_pravda_other",
+   "state": "visiting",
+   "method": "rss",
+   "i": 133,
+   "at": 9.32
+  },
+  {
+   "t": "note",
+   "source": "src_mir_pravda_other",
+   "text": "GET https://news-pravda.com/rss.xml",
+   "i": 134,
+   "at": 9.32
+  },
+  {
+   "t": "source",
+   "source": "src_web_vreme",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 0 read",
+   "i": 135,
+   "at": 9.39
+  },
+  {
+   "t": "source",
+   "source": "src_web_reporteri",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 136,
+   "at": 9.39
+  },
+  {
+   "t": "note",
+   "source": "src_web_reporteri",
+   "text": "GET https://reporteri.net/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 137,
+   "at": 9.39
+  },
+  {
+   "t": "source",
+   "source": "src_web_nacionale",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 138,
+   "at": 9.58
+  },
+  {
+   "t": "source",
+   "source": "src_web_sputnik",
+   "state": "visiting",
+   "method": "rss",
+   "i": 139,
+   "at": 9.58
+  },
+  {
+   "t": "note",
+   "source": "src_web_sputnik",
+   "text": "GET https://sputnikportal.rs/export/rss2/archive/index.xml",
+   "i": 140,
+   "at": 9.58
+  },
+  {
+   "t": "source",
+   "source": "src_mir_pravda_sq",
+   "method": "rss",
+   "seen": 10,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 10 read",
+   "i": 141,
+   "at": 9.62
+  },
+  {
+   "t": "source",
+   "source": "src_web_standard",
+   "state": "visiting",
+   "method": "wp-search",
+   "i": 142,
+   "at": 9.62
+  },
+  {
+   "t": "note",
+   "source": "src_web_standard",
+   "text": "GET https://standard.rs/wp-json/wp/v2/posts?search=ibar lepenac canal",
+   "i": 143,
+   "at": 9.62
+  },
+  {
+   "t": "source",
+   "source": "src_mir_pravda_other",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 144,
+   "at": 9.74
+  },
+  {
+   "t": "source",
+   "source": "src_web_pink",
+   "state": "visiting",
+   "method": "rss",
+   "i": 145,
+   "at": 9.74
+  },
+  {
+   "t": "note",
+   "source": "src_web_pink",
+   "text": "GET https://pink.rs/rss-feed",
+   "i": 146,
+   "at": 9.74
+  },
+  {
+   "t": "source",
+   "source": "src_web_tangosix",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 0 read",
+   "i": 147,
+   "at": 9.74
+  },
+  {
+   "t": "source",
+   "source": "src_web_pink",
+   "method": "rss",
+   "seen": 50,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 50 read",
+   "i": 148,
+   "at": 10.15
+  },
+  {
+   "t": "source",
+   "source": "src_web_sputnik",
+   "method": "rss",
+   "seen": 100,
+   "kept": 0,
+   "state": "done",
+   "note": "0 new of 100 read",
+   "i": 149,
+   "at": 10.19
+  },
+  {
+   "t": "item",
+   "source": "src_web_insajderi",
+   "id": "sig_01JQ9KXH483X8M2HZP8QPX2G3W",
+   "url": "https://insajderi.org/tallja-e-komedianeve-ruse-me-kurtin-insajderi-ua-sjell-ne-gjuhen-shqipe/",
+   "title": "Tallja e komedianëve rusë me Kurtin, Insajderi ua sjell në gjuhën shqipe",
+   "lang": "sq",
+   "date": "26 Mar 2025 16:17",
+   "i": 150,
+   "at": 10.2
+  },
+  {
+   "t": "source",
+   "source": "src_web_insajderi",
+   "method": "wp-search",
+   "seen": 2,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 2 read",
+   "i": 151,
+   "at": 10.21
+  },
+  {
+   "t": "note",
+   "source": "src_web_standard",
+   "text": "GET https://standard.rs/wp-json/wp/v2/posts?search=lepenac",
+   "i": 152,
+   "at": 12.5
+  },
+  {
+   "t": "item",
+   "source": "src_web_reporteri",
+   "id": "sig_01JDYP9EZGE6F9EQDG3JXWGY3T",
+   "url": "https://reporteri.net/lajme/shefi-i-eulex-it-institucionet-e-kosoves-kane-autoritet-te-plote-per-te-hetuar-sulmin-ne-zubin-potok/",
+   "title": "Shefi i EULEX-it:  Institucionet e Kosovës kanë autoritet të plotë për të hetuar sulmin në Zubin Potok",
+   "lang": "sq",
+   "date": "30 Nov 2024 14:06",
+   "i": 153,
+   "at": 14.97
+  },
+  {
+   "t": "source",
+   "source": "src_web_reporteri",
+   "method": "wp-search",
+   "seen": 1,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 1 read",
+   "i": 154,
+   "at": 14.97
+  },
+  {
+   "t": "item",
+   "source": "src_web_standard",
+   "id": "sig_01KZE9PG5GZEF38C7VZQKX42BT",
+   "url": "https://standard.rs/2026/08/07/izmedju-dva-rusenja/",
+   "title": "Између два рушења",
+   "lang": "sr-Cyrl",
+   "date": "07 Aug 2026 14:23",
+   "i": 155,
+   "at": 15.04
+  },
+  {
+   "t": "source",
+   "source": "src_web_standard",
+   "method": "wp-search",
+   "seen": 1,
+   "kept": 1,
+   "state": "done",
+   "note": "1 new of 1 read",
+   "i": 156,
+   "at": 15.05
+  },
+  {
+   "t": "source",
+   "source": "src_web_in4s",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site too slow to answer; try again later",
+   "i": 157,
+   "at": 15.3
+  },
+  {
+   "t": "source",
+   "source": "src_web_lajmi",
+   "method": "wp-search",
+   "seen": 0,
+   "kept": 0,
+   "state": "error",
+   "note": "site too slow to answer; try again later",
+   "i": 158,
+   "at": 17.24
+  },
+  {
+   "t": "end",
+   "status": "done",
+   "kept": 13,
+   "i": 159,
+   "at": 17.25
+  }
+ ],
+ "next": 160
+}

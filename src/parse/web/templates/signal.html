@@ -32,25 +32,25 @@
   {% if ev %}
   <dl class="meta">
     <dt>SHA-256</dt><dd class="mono">{{ ev.sha256 }}</dd>
-    <dt>Integrity</dt><dd>{% if hash_ok %}<span class="pill ok">file matches hash</span>{% else %}<span class="pill bad">mismatch or missing</span>{% endif %}</dd>
+    <dt>Integrity</dt><dd>{% if demo %}<span class="pill ok">hash on record</span> <span class="muted">page copies are not shipped in the web demo</span>{% elif hash_ok %}<span class="pill ok">file matches hash</span>{% else %}<span class="pill bad">mismatch or missing</span>{% endif %}</dd>
     <dt>Archived</dt><dd>{{ ev.fetched_at.strftime('%Y-%m-%d %H:%M UTC') }} · {{ ev.content_type }} · {{ "{:,}".format(ev.size_bytes) }} bytes</dd>
-    <dt>Files</dt><dd><a href="/evidence/{{ ev.sha256 }}/raw" target="_blank">raw page</a>{% if ev.text_uri %} · <a href="/evidence/{{ ev.sha256 }}/text" target="_blank">extracted text</a>{% endif %}
-      <div class="muted">Shown as plain text, so archived pages never run.</div></dd>
+    {% if not demo %}<dt>Files</dt><dd><a href="/evidence/{{ ev.sha256 }}/raw" target="_blank">raw page</a>{% if ev.text_uri %} · <a href="/evidence/{{ ev.sha256 }}/text" target="_blank">extracted text</a>{% endif %}
+      <div class="muted">Shown as plain text, so archived pages never run.</div></dd>{% endif %}
   </dl>
   {% else %}<p class="muted">No evidence archived.</p>{% endif %}
   <h2 class="sec"><span>Run a model</span><i>/C — Featherless</i></h2>
   <div class="mrun" id="mrun" data-id="{{ sig.signal_id }}">
-    <p class="muted mrun-note">Each button calls one Qwen model on this post. Billed per token; the result is saved below.</p>
+    <p class="muted mrun-note">{% if demo %}Each button calls one open Qwen model on this post using <b>your</b> Featherless key (top right). It is billed to your account; the result is shown here and not saved.{% else %}Each button calls one Qwen model on this post. Billed per token; the result is saved below.{% endif %}</p>
     {% set acts = [
       ('label', 'Label', 'teacher', 'Tags threat types T1–T10, narratives N1–N11, places and organisations.'),
       ('detect', 'Detect', 'detector', 'Gives a probability for every threat type and narrative.'),
       ('translate', 'Translate', 'translation', 'Adds an English version of the post below.' if sig.lang != 'en' else 'Already in English.'),
-      ('ocr', 'Read image', 'ocr_fallback', 'Reads the text inside the post\'s image.' if sig.media else 'This post has no image.'),
+      ('ocr', 'Read image', 'ocr_fallback', ('Runs in the full pipeline, not in the web demo.' if demo else 'Reads the text inside the post\'s image.') if sig.media else 'This post has no image.'),
     ] %}
     {% for key, label, role, what in acts %}
     <div class="mrun-row">
       <button type="button" class="mrun-btn" data-act="{{ key }}"
-        {{ 'disabled data-off' if (key == 'translate' and sig.lang == 'en') or (key == 'ocr' and not sig.media) }}>{{ label }}</button>
+        {{ 'disabled data-off' if (key == 'translate' and sig.lang == 'en') or (key == 'ocr' and (not sig.media or demo)) }}>{{ label }}</button>
       <div><b>{{ what }}</b><span class="mono">{{ (model_list()|selectattr('role', 'equalto', role)|first).id }}</span></div>
       <output class="mrun-out" data-for="{{ key }}"></output>
     </div>
@@ -83,13 +83,30 @@
   .mrun-out:empty { display: none; }
   .mrun-out.ok { color: var(--ok); }
   .mrun-out.err { color: var(--bad, #c0392b); }
+  .mrun-detail { margin: 6px 0; color: var(--text); font-size: 13px; display: grid; gap: 3px; }
+  .mrun-bar { display: grid; grid-template-columns: 52px 1fr 40px; gap: 8px; align-items: center; }
+  .mrun-bar i { display: block; height: 6px; background: var(--text); opacity: .75; }
+  .mrun-bar b { font-weight: 500; text-align: right; }
   .mrun-out small { display: block; color: var(--muted); font-family: var(--mono); font-size: 11px; }
   @media (max-width: 560px) { .mrun-row { grid-template-columns: 1fr; } .mrun-out { grid-column: 1; } }
 </style>
-<script>
+<script nonce="{{ request.state.csp_nonce | default("") }}">
 (() => {
   const box = document.getElementById('mrun'), id = box.dataset.id;
   const esc = (t) => String(t ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  const pills = (a) => (a || []).map(x => `<span class="pill bad">${esc(x)}</span>`).join(' ') || '<span class="muted">none</span>';
+  const detailHtml = (x) => {
+    if (x.label) { const L = x.label;
+      return `<div class="mrun-detail"><div>Threat labels: ${pills(L.labels)}</div><div>Narratives: ${pills(L.narratives)}</div>`
+        + `<div>Places: ${esc((L.places || []).join(', ') || 'none')}</div><div>Organisations: ${esc((L.orgs || []).join(', ') || 'none')}</div>`
+        + `<div>Call to physical action: ${L.offline_intent && L.offline_intent.present ? 'yes · ' + esc(L.offline_intent.span) : 'no'}</div></div>`; }
+    if (x.probabilities && !x.stance) {
+      return '<div class="mrun-detail">' + Object.entries(x.probabilities).slice(0, 8).map(([k, v]) =>
+        `<div class="mrun-bar"><span class="mono">${esc(k)}</span><i style="width:${Math.round(v * 100)}%"></i><b>${Number(v).toFixed(2)}</b></div>`).join('') + '</div>'; }
+    if (x.english) return `<div class="mrun-detail"><div class="text">${esc(x.english)}</div></div>`;
+    if (x.stance) return `<div class="mrun-detail"><div>Claim: ${esc(x.claim)}</div><div>Stance: <b>${esc(x.stance)}</b></div></div>`;
+    return '';
+  };
   box.querySelectorAll('.mrun-btn').forEach(btn => btn.addEventListener('click', async () => {
     const act = btn.dataset.act, out = box.querySelector(`.mrun-out[data-for="${act}"]`);
     const claim = act === 'claim' ? document.getElementById('claim').value : '';
@@ -105,8 +122,14 @@
       if (!r.ok) throw new Error(d.detail || `Server answered ${r.status}`);
       const u = d.usage || {};
       out.className = 'mrun-out ok';
-      out.innerHTML = `${esc(d.summary)}<small>${esc(d.model)} · ${u.in ?? 0} in / ${u.out ?? 0} out tokens · $${(u.usd ?? 0).toFixed(5)} · ${(d.ms / 1000).toFixed(1)}s${d.note ? ' · ' + esc(d.note) : ''}</small><small>Reloading to show the saved output…</small>`;
-      setTimeout(() => location.reload(), 1800);
+      const meta = `<small>${esc(d.model)} · ${u.in ?? 0} in / ${u.out ?? 0} out tokens · $${(u.usd ?? 0).toFixed(5)} · ${(d.ms / 1000).toFixed(1)}s${d.note ? ' · ' + esc(d.note) : ''}</small>`;
+      if (d.detail) {   // web demo: nothing is saved, so show the output here
+        out.innerHTML = `${esc(d.summary)}${detailHtml(d.detail)}${meta}`;
+        box.querySelectorAll('.mrun-btn').forEach(b => b.disabled = b.hasAttribute('data-off'));
+      } else {
+        out.innerHTML = `${esc(d.summary)}${meta}<small>Reloading to show the saved output…</small>`;
+        setTimeout(() => location.reload(), 1800);
+      }
     } catch (e) {
       out.className = 'mrun-out err'; out.textContent = e.message;
       box.querySelectorAll('.mrun-btn').forEach(b => b.disabled = b.hasAttribute('data-off'));
